@@ -65,38 +65,19 @@ These guidelines are working if: fewer unnecessary changes in diffs, fewer rewri
 
 ---
 
-## 架構同步機制（Arch-Sync Hooks）
+## CLAUDE.md 同步規則
 
-本專案設有自動提醒機制，確保架構變更時 CLAUDE.md 能同步更新。
+修改以下檔案後，**必須在同一次對話中更新對應的 CLAUDE.md 章節**：
 
-### 觸發條件
+| 修改的檔案 | 需同步的章節 |
+|-----------|------------|
+| `src/types/report.ts` | 資料結構 |
+| `src/App.vue` | App.vue 核心邏輯、目前頁面區塊、Design System |
+| `src/components/*.vue` | 元件 Props、目前頁面區塊 |
 
-以下檔案被 Edit / Write 修改時，hook 會自動提醒應更新的 CLAUDE.md 章節：
+> `src/data/report.json` 是內容資料，不需同步（schema 不變就不算架構變更）。
 
-| 檔案 | 需更新的 CLAUDE.md 章節 |
-|------|------------------------|
-| `src/types/report.ts` | 資料結構、元件 Props 表格 |
-| `src/App.vue` | App.vue 核心邏輯、五個章節對照表、Design System |
-| `src/components/*.vue` | 元件 Props 表格、五個章節對照表 |
-
-> `src/data/report.json` 是內容資料，**不觸發**架構同步（只有 schema 改變才算架構變更）。
-
-### Hook 檔案位置
-
-```
-.claude/
-├── settings.json                    # Hook 設定（PostToolUse + Stop）
-└── hooks/
-    ├── check-arch-sync.js           # PostToolUse：偵測架構檔修改，即時提醒
-    └── stop-arch-sync.js            # Stop：對話結束前確認同步狀態
-```
-
-### 執行規則
-
-當你收到 `[arch-sync]` 提醒時：
-1. **完成當前所有程式碼變更**後再更新 CLAUDE.md（避免來回修改）
-2. 只更新被標示的章節，不動其他部分
-3. 更新完成後，`.arch-dirty` flag 會在下次 Stop 時自動清除
+完成所有程式碼變更後再一次性更新 CLAUDE.md，避免來回修改。
 
 ---
 
@@ -185,24 +166,9 @@ ReportData
 
 | 變數 | 值 | 用途 |
 |------|----|------|
-| `--bg` | `#ffffff` | 頁面背景 |
 | `--bg-card` | `#ffffff` | 卡片背景 |
-| `--bg-card-hover` | `#fafafa` | 卡片 hover 背景 |
 | `--bg-section` | `#f5f5f7` | 頁面底色 |
 | `--border` | `#e5e5ea` | 邊框 |
-| `--border-bright` | `#d1d1d6` | 較亮邊框（箭頭等細節） |
-| `--accent` | `#0071e3` | 蘋果藍（UI 互動元素專用） |
-| `--accent-dim` | `rgba(0,113,227,0.08)` | accent 淡底色 |
-| `--accent-glow` | `rgba(0,113,227,0.2)` | accent 光暈 |
-| `--green` | `#34c759` | 達標 / Done |
-| `--green-dim` | `rgba(52,199,89,0.08)` | green 淡底色 |
-| `--yellow` | `#ff9f0a` | 接近達標 / 進行中警示 |
-| `--yellow-dim` | `rgba(255,159,10,0.08)` | yellow 淡底色 |
-| `--red` | `#ff3b30` | 未達標 |
-| `--red-dim` | `rgba(255,59,48,0.08)` | red 淡底色 |
-| `--blue` | `#0071e3` | In-Progress 狀態 |
-| `--blue-dim` | `rgba(0,113,227,0.08)` | blue 淡底色 |
-| `--gray-dim` | `rgba(0,0,0,0.04)` | 灰色淡底色 |
 | `--text-primary` | `#1d1d1f` | 主要文字 |
 | `--text-secondary` | `#6e6e73` | 次要文字 |
 | `--text-muted` | `#86868b` | 輔助文字 |

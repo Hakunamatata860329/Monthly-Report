@@ -106,38 +106,23 @@ onUnmounted(() => {
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --bg: #ffffff;
   --bg-card: #ffffff;
-  --bg-card-hover: #fafafa;
   --bg-section: #f5f5f7;
   --border: #e5e5ea;
-  --border-bright: #d1d1d6;
-  --accent: #0071e3;
-  --accent-dim: rgba(0, 113, 227, 0.08);
-  --accent-glow: rgba(0, 113, 227, 0.2);
-  --green: #34c759;
-  --green-dim: rgba(52, 199, 89, 0.08);
-  --yellow: #ff9f0a;
-  --yellow-dim: rgba(255, 159, 10, 0.08);
-  --red: #ff3b30;
-  --red-dim: rgba(255, 59, 48, 0.08);
-  --blue: #0071e3;
-  --blue-dim: rgba(0, 113, 227, 0.08);
-  --gray-dim: rgba(0, 0, 0, 0.04);
   --text-primary: #1d1d1f;
   --text-secondary: #6e6e73;
   --text-muted: #86868b;
-  --font-mono: ui-monospace, 'SF Mono', SFMono-Regular, Menlo, monospace;
   --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, 'SF Mono', SFMono-Regular, Menlo, monospace;
   --shadow-card: 0 2px 12px rgba(0,0,0,0.07), 0 1px 4px rgba(0,0,0,0.04);
   --shadow-hover: 0 8px 28px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.06);
   --radius-card: 16px;
+  --ease-spring: cubic-bezier(0.25, 1, 0.5, 1);
   --topbar-bg: rgba(17, 17, 17, 0.92);
   --topbar-text: rgba(255, 255, 255, 0.85);
   --topbar-text-muted: rgba(255, 255, 255, 0.42);
   --topbar-active-bg: rgba(255, 255, 255, 0.10);
   --topbar-border: rgba(255, 255, 255, 0.08);
-  --ease-spring: cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 html { scroll-behavior: smooth; }
