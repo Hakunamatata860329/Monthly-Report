@@ -1,0 +1,288 @@
+{
+  "meta": {
+    "year": 2026,
+    "month": 5,
+    "author": "Jason",
+    "department": "工程部"
+  },
+  "projects": [
+    {
+      "id": "proj-1",
+      "name": "CI/CD 流水線重構",
+      "description": "將原有的 Jenkins 流程遷移至 GitHub Actions，重新設計快取策略與並行測試機制，實現增量建構",
+      "impact": "部署頻率從每週 2 次提升至每日可部署，平均前置時間縮短 74%，開發者滿意度提升顯著",
+      "executiveSummary": {
+        "progress": [
+          "CI/CD 流水線成功遷移至 GitHub Actions，部署時間從 42 分鐘縮短至 11 分鐘，降幅 74%",
+          "快取策略優化後建構時間降低 38%，並行測試機制導入後測試階段耗時減少 52%",
+          "建構失敗率從 18% 降至 4%，達成目標 5% 的 125%",
+          "Production 正式切換完成，監控告警已設定完畢，無重大事故"
+        ],
+        "problems": [
+          "初期遷移期間出現 3 次環境差異導致部署失敗，額外耗費半天排查",
+          "部分舊有 Jenkins 腳本需手動重寫，超出原估時間約 2 天",
+          "Production 切換前回滾方案尚未完整演練，需在下個 release cycle 補強"
+        ]
+      },
+      "kpis": [
+        {
+          "name": "部署前置時間",
+          "category": "timeEfficiency",
+          "unit": "分鐘",
+          "target": 15,
+          "before": 42,
+          "after": 11,
+          "achievementRate": 127
+        },
+        {
+          "name": "建構失敗率",
+          "category": "softwareQuality",
+          "unit": "%",
+          "target": 5,
+          "before": 18,
+          "after": 4,
+          "achievementRate": 125
+        }
+      ],
+      "tasks": [
+        {
+          "id": "t1-1",
+          "name": "現有 Jenkins 流程分析與文件化",
+          "status": "done",
+          "startDate": "2026-05-01",
+          "endDate": "2026-05-03"
+        },
+        {
+          "id": "t1-2",
+          "name": "GitHub Actions workflow 設計",
+          "status": "done",
+          "startDate": "2026-05-04",
+          "endDate": "2026-05-07"
+        },
+        {
+          "id": "t1-3",
+          "name": "快取策略與並行測試實作",
+          "status": "done",
+          "startDate": "2026-05-08",
+          "endDate": "2026-05-14"
+        },
+        {
+          "id": "t1-4",
+          "name": "UAT 環境驗證與切換",
+          "status": "done",
+          "startDate": "2026-05-15",
+          "endDate": "2026-05-20"
+        },
+        {
+          "id": "t1-5",
+          "name": "Production 切換與監控設定",
+          "status": "done",
+          "startDate": "2026-05-21",
+          "endDate": "2026-05-24"
+        }
+      ],
+      "actionPlan": [
+        {
+          "goal": "完整演練 CI/CD 回滾流程，確保故障時可在 15 分鐘內復原",
+          "specific": "撰寫回滾 Runbook，並在 Staging 環境執行至少 2 次完整演練",
+          "measurable": "回滾演練成功率 100%，復原時間 ≤ 15 分鐘",
+          "achievable": "目前 GitHub Actions 環境已穩定，僅需補齊文件與演練",
+          "realistic": "每週可排 4 小時進行演練，1 個月內可完成",
+          "timeBound": "2026-06-30",
+          "owner": "Jason",
+          "priority": "high"
+        },
+        {
+          "goal": "將建構快取命中率提升至 85% 以上，進一步縮短建構時間",
+          "specific": "分析目前快取 miss 原因，調整 key 策略與 restore-keys 規則",
+          "measurable": "Cache hit rate ≥ 85%（由 Actions 報告統計）",
+          "achievable": "現況約 70%，差距可透過調整 key 策略縮短",
+          "realistic": "無需額外工具，純設定調整",
+          "timeBound": "2026-06-15",
+          "owner": "Jason",
+          "priority": "medium"
+        }
+      ]
+    },
+    {
+      "id": "proj-2",
+      "name": "自動化測試覆蓋率提升",
+      "description": "針對核心業務邏輯補充單元測試與整合測試，導入 mutation testing 驗證測試有效性",
+      "impact": "覆蓋率提升至 88%，有效攔截 3 個潛在 P1 缺陷進入 production",
+      "executiveSummary": {
+        "progress": [
+          "核心業務邏輯單元測試補充完成，程式覆蓋率從 61% 提升至 88%，超越季度目標",
+          "本月成功攔截 3 個潛在 P1 缺陷，未進入 production 環境",
+          "Mutation Testing 工具完成選型（Stryker），初步配置已驗證可行"
+        ],
+        "problems": [
+          "整合測試套件建立進度落後，預計需延至下月底完成",
+          "Mutation Testing 學習曲線較高，團隊需要額外時間熟悉工具",
+          "P1 Bug 數量目標為 2 個，目前仍有 3 個，距目標差 1 個"
+        ]
+      },
+      "kpis": [
+        {
+          "name": "測試覆蓋率",
+          "category": "softwareQuality",
+          "unit": "%",
+          "target": 80,
+          "before": 61,
+          "after": 88,
+          "achievementRate": 110
+        },
+        {
+          "name": "P1 Bug 數量",
+          "category": "softwareQuality",
+          "unit": "個",
+          "target": 2,
+          "before": 5,
+          "after": 3,
+          "achievementRate": 80
+        }
+      ],
+      "tasks": [
+        {
+          "id": "t2-1",
+          "name": "覆蓋率缺口分析報告",
+          "status": "done",
+          "startDate": "2026-05-01",
+          "endDate": "2026-05-05"
+        },
+        {
+          "id": "t2-2",
+          "name": "核心業務邏輯單元測試補充",
+          "status": "done",
+          "startDate": "2026-05-06",
+          "endDate": "2026-05-16"
+        },
+        {
+          "id": "t2-3",
+          "name": "整合測試套件建立",
+          "status": "in-progress",
+          "startDate": "2026-05-17",
+          "endDate": "2026-05-28"
+        },
+        {
+          "id": "t2-4",
+          "name": "Mutation Testing 導入與調校",
+          "status": "plan",
+          "startDate": "2026-05-26",
+          "endDate": "2026-05-31"
+        }
+      ],
+      "actionPlan": [
+        {
+          "goal": "完成整合測試套件，讓整體測試涵蓋度達到可信賴水準",
+          "specific": "補充 API 層級整合測試，涵蓋所有對外 endpoint 的主路徑與異常情境",
+          "measurable": "整合測試案例數 ≥ 40 個，CI 綠燈率 ≥ 95%",
+          "achievable": "單元測試已穩定，基礎框架已建立，聚焦整合層即可",
+          "realistic": "每週投入 2 個 Sprint 點數，一個月可完成",
+          "timeBound": "2026-06-30",
+          "owner": "Jason",
+          "priority": "high"
+        },
+        {
+          "goal": "將 P1 Bug 數量降至月均 2 個以下",
+          "specific": "導入靜態分析（ESLint 嚴格模式 + SonarQube），並建立 Bug 根因回顧機制",
+          "measurable": "每月 P1 Bug ≤ 2 個",
+          "achievable": "目前 3 個，已有分析工具基礎，補強規則即可",
+          "realistic": "配合測試覆蓋率提升，缺陷攔截能力會同步增強",
+          "timeBound": "2026-06-30",
+          "owner": "Jason",
+          "priority": "medium"
+        }
+      ]
+    },
+    {
+      "id": "proj-3",
+      "name": "Code Review 流程優化",
+      "description": "標準化 PR template、導入 reviewdog 自動化審查工具、建立 review SLA 追蹤機制",
+      "impact": "Review 週期平均縮短 1.8 天，PR merge 等待時間降低 45%",
+      "executiveSummary": {
+        "progress": [
+          "PR Template 標準化完成，已推廣至全團隊使用，PR 描述品質明顯提升",
+          "reviewdog 成功整合至 CI 流水線，每次 PR 自動提供程式品質即時反饋",
+          "Code Review 週期從 3.2 天縮短至 1.4 天，達成目標的 107%"
+        ],
+        "problems": [
+          "PR merge 等待時間目前 9.9 小時，距目標 8 小時仍有差距，達成率 75%",
+          "Review SLA Dashboard 建置進度落後，預計下月完成",
+          "跨團隊推廣遇到部分阻力，需要管理層協助推動遵循規範"
+        ]
+      },
+      "kpis": [
+        {
+          "name": "Code Review 週期",
+          "category": "timeEfficiency",
+          "unit": "天",
+          "target": 1.5,
+          "before": 3.2,
+          "after": 1.4,
+          "achievementRate": 107
+        },
+        {
+          "name": "PR merge 等待時間",
+          "category": "timeEfficiency",
+          "unit": "小時",
+          "target": 8,
+          "before": 18,
+          "after": 9.9,
+          "achievementRate": 75
+        }
+      ],
+      "tasks": [
+        {
+          "id": "t3-1",
+          "name": "PR Template 標準化",
+          "status": "done",
+          "startDate": "2026-05-01",
+          "endDate": "2026-05-04"
+        },
+        {
+          "id": "t3-2",
+          "name": "reviewdog 整合至 CI",
+          "status": "done",
+          "startDate": "2026-05-05",
+          "endDate": "2026-05-10"
+        },
+        {
+          "id": "t3-3",
+          "name": "Review SLA 追蹤 Dashboard",
+          "status": "in-progress",
+          "startDate": "2026-05-11",
+          "endDate": "2026-05-25"
+        },
+        {
+          "id": "t3-4",
+          "name": "跨團隊 Review 規範推廣",
+          "status": "plan",
+          "startDate": "2026-05-24",
+          "endDate": "2026-05-31"
+        }
+      ],
+      "actionPlan": [
+        {
+          "goal": "PR merge 等待時間降至 8 小時以下",
+          "specific": "完成 Review SLA Dashboard，並推行強制 24 小時 review 回應 SLA",
+          "measurable": "平均 PR merge 等待時間 ≤ 8 小時",
+          "achievable": "已有追蹤工具基礎，主要需推廣團隊遵循",
+          "realistic": "目前 9.9 小時，距目標差距小，透過 SLA 制度可達成",
+          "timeBound": "2026-06-30",
+          "owner": "Jason",
+          "priority": "high"
+        },
+        {
+          "goal": "完成跨團隊 Review 規範推廣，所有 PR 均符合新流程",
+          "specific": "舉辦 2 場 Workshop，制定違規 PR 提醒機制",
+          "measurable": "PR Template 使用率 ≥ 95%，reviewdog 通過率 ≥ 90%",
+          "achievable": "已有 Template 與工具，聚焦文化推廣",
+          "realistic": "管理層已表態支持，執行阻力可克服",
+          "timeBound": "2026-06-15",
+          "owner": "Jason",
+          "priority": "medium"
+        }
+      ]
+    }
+  ]
+}
