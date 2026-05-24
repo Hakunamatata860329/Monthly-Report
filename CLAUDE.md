@@ -109,7 +109,6 @@ These guidelines are working if: fewer unnecessary changes in diffs, fewer rewri
 - **框架**：Vue 3 (Composition API `<script setup>`)
 - **建構**：Vite
 - **語言**：TypeScript
-- **圖表**：Apache ECharts via `vue-echarts`
 - **字型**：`-apple-system` SF Pro 系統字型（無外部字型依賴）
 - **Dev server port**：5174（`npm run dev -- --port 5174`）
 
@@ -118,21 +117,16 @@ These guidelines are working if: fewer unnecessary changes in diffs, fewer rewri
 ```
 monthly-report/
 ├── src/
-│   ├── App.vue              # 根元件：側邊欄 + 主內容 + 專案切換邏輯
+│   ├── App.vue              # 根元件：topbar + flyout + 主內容
 │   ├── data/
 │   │   └── report.json      # 唯一資料來源，所有內容皆在此編輯
 │   ├── types/
 │   │   └── report.ts        # TypeScript 型別定義
 │   └── components/
-│       ├── SvgIcon.vue       # Lucide icon 包裝元件
-│       ├── ExecutiveSummary.vue
-│       ├── KPIOverview.vue
-│       ├── TrendAnalysis.vue
-│       ├── KeyInitiatives.vue
-│       ├── GanttChart.vue
-│       └── ActionPlan.vue
+│       ├── HeroSection.vue   # 全寬 Hero 區塊（專案標題 + meta）
+│       └── ExecutiveSummary.vue
 └── public/
-    └── icons.svg            # SVG sprite（Lucide icons）
+    └── favicon.svg
 ```
 
 ### 資料結構（report.json）
@@ -143,46 +137,47 @@ ReportData
 └── projects: Project[]
     └── Project
         ├── id, name, description, impact
-        ├── executiveSummary: { progress: string[], problems: string[] }
-        ├── kpis: Kpi[]                  # KPI 指標（含 before/after/target/achievementRate）
-        ├── tasks: Task[]                # 甘特圖任務（含 startDate/endDate/status）
-        └── actionPlan: ActionItem[]     # SMART 格式行動計畫
+        └── executiveSummary: {
+              headline1: string           # 大標第一行（純白）
+              headline2: string           # 大標第二行（漸層）
+              headline3: string           # 摘要段落（支援數字 highlight）
+              chips: { value, desc }[]    # 統計卡片
+              progress: string[]          # 詳細要點清單
+            }
 ```
 
-- **所有欄位都是 per-project**：executiveSummary 和 actionPlan 已從全域移入每個 project
-- `Kpi.category`：`'timeEfficiency' | 'softwareQuality'`
-- `Task.status`：`'plan' | 'in-progress' | 'done'`
-- `ActionItem.priority`：`'high' | 'medium' | 'low'`
 
 ### 元件 Props
 
 | 元件 | Props |
 |------|-------|
-| `ExecutiveSummary` | `data: { progress: string[], problems: string[] }` |
-| `KPIOverview` | `project: Project` |
-| `TrendAnalysis` | `project: Project` |
-| `KeyInitiatives` | `project: Project` |
-| `ActionPlan` | `items: ActionItem[]` |
-| `GanttChart` | `tasks: Task[]` |
+| `HeroSection` | `meta: ReportData['meta']`, `project: Project`, `projectIndex: number`, `totalProjects: number` |
+| `ExecutiveSummary` | `data: { headline1: string, headline2: string, headline3: string, chips: { value: string; desc: string }[], progress: string[] }` |
 
 ### App.vue 核心邏輯
 
 - `activeProjectId`：ref，追蹤目前選取的專案（預設第一個）
 - `currentProject`：computed，從 projects 陣列找出對應 project
+- `flyoutOpen`：ref，控制月份 flyout 開關
+- `monthName`：computed，將 `meta.month` 轉為英文縮寫（`Jan`～`Dec`）
 - `switchProject(id)`：切換專案時重設 scroll 位置、重播 reveal 動畫
-- `activeSection`：IntersectionObserver 自動追蹤目前可見章節
-- 側邊欄上半：**專案切換器**（3 個 `.proj-item` 按鈕）
-- 側邊欄下半：**章節導覽**（5 個 `.nav-item` 連結，scrollIntoView）
+- `selectProject(id)`：關閉 flyout 後呼叫 `switchProject`
+- **頂部導覽列（`.topbar`）**：sticky，高度 52px，深色背景；左側 `MONTHLY REPORT`，右側為月份按鈕（`.month-btn`）
+- **月份 flyout**：點擊月份按鈕後向下展開（`<Transition name="flyout">`），全寬深色面板列出所有專案；點擊專案切換並收合；點擊面板外或按 `Escape` 亦收合
+- 版面：`.app` 為 `flex-direction: column`
 
-### 五個章節（每個專案共用）
+### 目前頁面區塊
 
-| # | id | 元件 | 說明 |
-|---|-----|------|------|
-| 01 | `summary` | ExecutiveSummary | 本月進度 / 問題清單 |
-| 02 | `kpi` | KPIOverview | KPI 卡片（含達成率進度條） |
-| 03 | `trend` | TrendAnalysis | 改善前後長條圖 + 達成率圓餅圖 |
-| 04 | `initiatives` | KeyInitiatives | Impact 卡片 + 甘特圖 + 任務狀態圓餅 |
-| 05 | `plan` | ActionPlan | SMART 格式行動計畫卡片 |
+| # | 元件 | 說明 |
+|---|------|------|
+| 01 | `ExecutiveSummary`（`#summary`） | 大標 + 統計卡片 + 要點清單 |
+
+### Section 版面規則
+
+- 每個 `<section>` 是 `.main-content` 的**直接子元素**，各自獨立（無共用包裝層）
+- 預設 `padding: 72px 56px`，最後一個 section `padding-bottom: 128px`
+- 各 section 可獨立設背景色，目前：`#summary { background: #1d1d1f }`（深黑）
+- section 背景延伸至 main 全寬
 
 ### Design System（CSS Variables）
 
@@ -190,58 +185,48 @@ ReportData
 
 | 變數 | 值 | 用途 |
 |------|----|------|
-| `--bg` | `#ffffff` | 卡片背景 |
+| `--bg` | `#ffffff` | 頁面背景 |
+| `--bg-card` | `#ffffff` | 卡片背景 |
+| `--bg-card-hover` | `#fafafa` | 卡片 hover 背景 |
 | `--bg-section` | `#f5f5f7` | 頁面底色 |
+| `--border` | `#e5e5ea` | 邊框 |
+| `--border-bright` | `#d1d1d6` | 較亮邊框（箭頭等細節） |
+| `--accent` | `#0071e3` | 蘋果藍（UI 互動元素專用） |
+| `--accent-dim` | `rgba(0,113,227,0.08)` | accent 淡底色 |
+| `--accent-glow` | `rgba(0,113,227,0.2)` | accent 光暈 |
+| `--green` | `#34c759` | 達標 / Done |
+| `--green-dim` | `rgba(52,199,89,0.08)` | green 淡底色 |
+| `--yellow` | `#ff9f0a` | 接近達標 / 進行中警示 |
+| `--yellow-dim` | `rgba(255,159,10,0.08)` | yellow 淡底色 |
+| `--red` | `#ff3b30` | 未達標 |
+| `--red-dim` | `rgba(255,59,48,0.08)` | red 淡底色 |
+| `--blue` | `#0071e3` | In-Progress 狀態 |
+| `--blue-dim` | `rgba(0,113,227,0.08)` | blue 淡底色 |
+| `--gray-dim` | `rgba(0,0,0,0.04)` | 灰色淡底色 |
 | `--text-primary` | `#1d1d1f` | 主要文字 |
 | `--text-secondary` | `#6e6e73` | 次要文字 |
 | `--text-muted` | `#86868b` | 輔助文字 |
-| `--accent` | `#0071e3` | 蘋果藍（UI 互動元素專用） |
-| `--green` | `#34c759` | 達標 / Done |
-| `--yellow` | `#ff9f0a` | 接近達標 / 進行中警示 |
-| `--red` | `#ff3b30` | 未達標 |
-| `--blue` | `#0071e3` | In-Progress 狀態 |
-| `--border` | `#e5e5ea` | 邊框 |
-| `--shadow-card` | `0 2px 12px rgba(0,0,0,0.07)...` | 卡片陰影 |
-| `--radius-card` | `16px` | 標準圓角 |
 | `--font-sans` | `-apple-system, BlinkMacSystemFont...` | 主字型 |
 | `--font-mono` | `ui-monospace, SF Mono...` | 等寬字型 |
+| `--shadow-card` | `0 2px 12px rgba(0,0,0,0.07)...` | 卡片陰影 |
+| `--shadow-hover` | `0 8px 28px rgba(0,0,0,0.12)...` | 卡片 hover 陰影 |
+| `--radius-card` | `16px` | 標準圓角 |
+| `--ease-spring` | `cubic-bezier(0.25, 1, 0.5, 1)` | 彈性緩動函式 |
+| `--topbar-bg` | `rgba(17,17,17,0.92)` | 頂部導覽列背景 |
+| `--topbar-text` | `rgba(255,255,255,0.85)` | 頂部導覽列文字 |
+| `--topbar-text-muted` | `rgba(255,255,255,0.42)` | 頂部導覽列輔助文字 |
+| `--topbar-active-bg` | `rgba(255,255,255,0.10)` | 專案按鈕 active 背景 |
+| `--topbar-border` | `rgba(255,255,255,0.08)` | 頂部導覽列底線 |
 
 ### 顏色規則定義
 
-> **這是唯一的顏色規則來源。** 所有元件的 `rateClass()` 函式與 STATUS_COLORS 均以此為準。
+> **這是唯一的顏色規則來源。** 新增元件時，狀態顏色請依此對照表選用 CSS variable。
 
-#### KPI 達成率（`achievementRate`）
+| 語意 | 變數 | 色碼 |
+|------|------|------|
+| 達標 / Done | `--green` | `#34c759` |
+| 接近達標 / 警示 | `--yellow` | `#ff9f0a` |
+| 未達標 / 錯誤 | `--red` | `#ff3b30` |
+| 進行中 | `--blue` | `#0071e3` |
 
-| 條件 | 顏色變數 | 色碼 | 說明 |
-|------|----------|------|------|
-| `≥ 100%` | `--green` | `#34c759` | 達標 |
-| `51% ~ 99%` | `--yellow` | `#ff9f0a` | 接近達標 |
-| `0% ~ 50%` | `--red` | `#ff3b30` | 未達標 |
-
-```ts
-// rateClass 標準實作
-function rateClass(rate: number) {
-  if (rate >= 100) return 'rate-good'   // --green
-  if (rate >= 51)  return 'rate-warn'   // --yellow
-  return 'rate-bad'                      // --red
-}
-```
-
-#### 任務狀態（`Task.status`）
-
-| 狀態 | 顏色變數 | 色碼 | 說明 |
-|------|----------|------|------|
-| `done` | `--green` | `#34c759` | 完成 |
-| `in-progress` | `--blue` | `#0071e3` | 進行中 |
-| `plan` | `--gray`（`#d1d1d6`） | `#d1d1d6` | 計畫中 |
-
-```ts
-// STATUS_COLORS 標準實作
-const STATUS_COLORS = {
-  done:          '#34c759',  // --green
-  'in-progress': '#0071e3',  // --blue
-  plan:          '#d1d1d6',  // gray
-}
-```
-
-> `--accent`（`#0071e3`）**僅用於 UI 元素**（側邊欄 active、badge、eyebrow 文字），不用於資料狀態顏色。
+> `--accent`（`#0071e3`）**僅用於 UI 元素**（topbar active、badge、eyebrow 文字），不用於資料狀態顏色。

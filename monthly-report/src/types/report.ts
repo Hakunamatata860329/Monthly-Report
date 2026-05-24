@@ -1,47 +1,21 @@
-export type KpiCategory = 'timeEfficiency' | 'softwareQuality'
-export type TaskStatus = 'plan' | 'in-progress' | 'done'
-
-export interface Kpi {
-  name: string
-  category: KpiCategory
-  unit: string
-  target: number
-  before: number
-  after: number
-  achievementRate: number
-}
-
-export interface Task {
-  id: string
-  name: string
-  status: TaskStatus
-  startDate: string
-  endDate: string
-}
-
-export interface ActionItem {
-  goal: string
-  specific: string
-  measurable: string
-  achievable: string
-  realistic: string
-  timeBound: string
-  owner: string
-  priority: 'high' | 'medium' | 'low'
-}
-
 export interface Project {
   id: string
   name: string
   description: string
   impact: string
-  executiveSummary: {
-    progress: string[]
-    problems: string[]
+  hero: {
+    sub: string         // 漸層副標題
+    videoSrc?: string   // 影片路徑（選填，預設 /hero-video.mp4）
+    cta?: string        // CTA 按鈕文字（選填，不填則隱藏）
+    ctaPrice?: string   // CTA 下方說明文字（選填）
   }
-  kpis: Kpi[]
-  tasks: Task[]
-  actionPlan: ActionItem[]
+  executiveSummary: {
+    headline1: string
+    headline2: string
+    headline3: string
+    chips: { value: string; desc: string }[]
+    progress: string[]
+  }
 }
 
 export interface ReportData {

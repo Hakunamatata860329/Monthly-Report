@@ -1,96 +1,41 @@
 <template>
   <div class="app">
-    <aside class="sidebar" :class="{ collapsed: sidebarCollapsed }">
-      <div class="sidebar-header">
-        <span class="sidebar-logo">MONTHLY REPORT · {{ report.meta.year }}/{{ String(report.meta.month).padStart(2, '0') }}</span>
-        <button
-          class="collapse-btn"
-          @click="sidebarCollapsed = !sidebarCollapsed"
-          :aria-label="sidebarCollapsed ? '展開側邊欄' : '收合側邊欄'"
-        >
-          <SvgIcon :name="sidebarCollapsed ? 'chevron-right' : 'chevron-left'" :size="14" />
-        </button>
-      </div>
-
-      <div class="sidebar-section-title">PROJECTS</div>
-      <nav class="project-nav">
-        <button
-          v-for="(proj, i) in report.projects"
-          :key="proj.id"
-          class="proj-item"
-          :class="{ active: activeProjectId === proj.id }"
-          @click="switchProject(proj.id)"
-        >
-          <span class="proj-num">{{ String(i + 1).padStart(2, '0') }}</span>
-          <span class="proj-name">{{ proj.name }}</span>
+    <header class="topbar">
+      <span class="topbar-logo">MONTHLY REPORT</span>
+      <nav class="topbar-nav">
+        <button class="month-btn" :class="{ open: flyoutOpen }" @click.stop="flyoutOpen = !flyoutOpen">
+          {{ monthName }}
+          <span class="month-chevron"></span>
         </button>
       </nav>
+    </header>
 
-      <div class="sidebar-divider"></div>
-
-      <div class="sidebar-section-title">SECTIONS</div>
-      <nav class="sidebar-nav">
-        <a
-          v-for="item in navItems"
-          :key="item.id"
-          :href="`#${item.id}`"
-          class="nav-item"
-          :class="{ active: activeSection === item.id }"
-          @click.prevent="scrollTo(item.id)"
-        >
-          <SvgIcon :name="item.icon" :size="15" class="nav-icon" />
-          <span class="nav-label">{{ item.label }}</span>
-        </a>
-      </nav>
-
-      <div class="sidebar-footer">
-        <img src="/logo.png" class="footer-logo" alt="Delta Electronics" />
-        <span class="meta-author">JASON.JY.LIN</span>
+    <Transition name="flyout">
+      <div v-if="flyoutOpen" class="flyout-backdrop" @click="flyoutOpen = false">
+        <div class="flyout-panel" @click.stop>
+          <div class="flyout-inner">
+            <p class="flyout-year">{{ report.meta.year }}</p>
+            <button
+              v-for="(proj, i) in report.projects"
+              :key="proj.id"
+              class="flyout-item"
+              :class="{ active: activeProjectId === proj.id }"
+              @click="selectProject(proj.id)"
+            >
+              <span class="flyout-num">{{ String(i + 1).padStart(2, '0') }}</span>
+              <span class="flyout-name">{{ proj.name }}</span>
+            </button>
+          </div>
+        </div>
       </div>
-    </aside>
+    </Transition>
 
     <main class="main-content">
-      <header class="page-header">
-        <div class="header-eyebrow">
-          MONTHLY REPORT · {{ report.meta.year }}/{{ String(report.meta.month).padStart(2, '0') }}
-        </div>
-        <h1 class="header-title">{{ currentProject.name }}</h1>
-        <p class="header-desc">{{ currentProject.description }}</p>
-        <div class="header-meta">
-          <span class="badge">{{ report.meta.department }}</span>
-          <span class="badge badge-author">{{ report.meta.author }}</span>
-          <span class="badge badge-proj-index">
-            {{ report.projects.findIndex(p => p.id === activeProjectId) + 1 }} / {{ report.projects.length }}
-          </span>
-        </div>
-      </header>
+      <section id="summary" class="section reveal">
+        <div class="section-label">EXECUTIVE SUMMARY</div>
+        <ExecutiveSummary :data="currentProject.executiveSummary" />
+      </section>
 
-      <div class="sections">
-        <section id="summary" class="section reveal">
-          <div class="section-label">01 / EXECUTIVE SUMMARY</div>
-          <ExecutiveSummary :data="currentProject.executiveSummary" />
-        </section>
-
-        <section id="kpi" class="section reveal">
-          <div class="section-label">02 / KPI OVERVIEW</div>
-          <KPIOverview :project="currentProject" />
-        </section>
-
-        <section id="trend" class="section reveal">
-          <div class="section-label">03 / TREND ANALYSIS</div>
-          <TrendAnalysis :project="currentProject" />
-        </section>
-
-        <section id="initiatives" class="section reveal">
-          <div class="section-label">04 / KEY INITIATIVES</div>
-          <KeyInitiatives :project="currentProject" />
-        </section>
-
-        <section id="plan" class="section reveal">
-          <div class="section-label">05 / ACTION PLAN</div>
-          <ActionPlan :items="currentProject.actionPlan" />
-        </section>
-      </div>
     </main>
   </div>
 </template>
@@ -99,37 +44,23 @@
 import { ref, computed, onMounted, onUnmounted, nextTick } from 'vue'
 import type { ReportData } from './types/report'
 import reportData from './data/report.json'
-import SvgIcon from './components/SvgIcon.vue'
 import ExecutiveSummary from './components/ExecutiveSummary.vue'
-import KPIOverview from './components/KPIOverview.vue'
-import TrendAnalysis from './components/TrendAnalysis.vue'
-import KeyInitiatives from './components/KeyInitiatives.vue'
-import ActionPlan from './components/ActionPlan.vue'
 
 const report = reportData as ReportData
-const sidebarCollapsed = ref(false)
-const activeSection = ref('summary')
 const activeProjectId = ref(report.projects[0].id)
+const flyoutOpen = ref(false)
 
 const currentProject = computed(
   () => report.projects.find(p => p.id === activeProjectId.value) ?? report.projects[0]
 )
 
-const navItems = [
-  { id: 'summary', label: '執行摘要', icon: 'file-text' },
-  { id: 'kpi', label: 'KPI 總覽', icon: 'bar-chart-2' },
-  { id: 'trend', label: '趨勢分析', icon: 'trending-up' },
-  { id: 'initiatives', label: '專案成果', icon: 'layers' },
-  { id: 'plan', label: '下月計畫', icon: 'calendar' },
-]
+const MONTH_NAMES = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
+const monthName = computed(() => MONTH_NAMES[report.meta.month - 1])
 
-function scrollTo(id: string) {
-  document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
-}
+let revealObserver: IntersectionObserver
 
 async function switchProject(id: string) {
   activeProjectId.value = id
-  activeSection.value = 'summary'
   await nextTick()
   window.scrollTo({ top: 0, behavior: 'smooth' })
   document.querySelectorAll('.reveal').forEach(el => el.classList.remove('visible'))
@@ -140,21 +71,16 @@ async function switchProject(id: string) {
   }, 50)
 }
 
-let observer: IntersectionObserver
-let revealObserver: IntersectionObserver
+function selectProject(id: string) {
+  flyoutOpen.value = false
+  switchProject(id)
+}
+
+function onKeydown(e: KeyboardEvent) {
+  if (e.key === 'Escape') flyoutOpen.value = false
+}
 
 onMounted(() => {
-  const sections = document.querySelectorAll('.section')
-  observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) activeSection.value = entry.target.id
-      })
-    },
-    { threshold: 0.25 }
-  )
-  sections.forEach((s) => observer.observe(s))
-
   revealObserver = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
@@ -167,11 +93,12 @@ onMounted(() => {
     { threshold: 0.06 }
   )
   document.querySelectorAll('.reveal').forEach((el) => revealObserver.observe(el))
+  window.addEventListener('keydown', onKeydown)
 })
 
 onUnmounted(() => {
-  observer?.disconnect()
   revealObserver?.disconnect()
+  window.removeEventListener('keydown', onKeydown)
 })
 </script>
 
@@ -202,11 +129,15 @@ onUnmounted(() => {
   --text-muted: #86868b;
   --font-mono: ui-monospace, 'SF Mono', SFMono-Regular, Menlo, monospace;
   --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
-  --sidebar-w: 270px;
-  --sidebar-collapsed-w: 48px;
   --shadow-card: 0 2px 12px rgba(0,0,0,0.07), 0 1px 4px rgba(0,0,0,0.04);
   --shadow-hover: 0 8px 28px rgba(0,0,0,0.12), 0 2px 8px rgba(0,0,0,0.06);
   --radius-card: 16px;
+  --topbar-bg: rgba(17, 17, 17, 0.92);
+  --topbar-text: rgba(255, 255, 255, 0.85);
+  --topbar-text-muted: rgba(255, 255, 255, 0.42);
+  --topbar-active-bg: rgba(255, 255, 255, 0.10);
+  --topbar-border: rgba(255, 255, 255, 0.08);
+  --ease-spring: cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 html { scroll-behavior: smooth; }
@@ -220,254 +151,161 @@ body {
 
 .app {
   display: flex;
+  flex-direction: column;
   min-height: 100vh;
 }
 
-/* ─── Sidebar section title ─── */
-.sidebar-section-title {
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  color: var(--text-muted);
-  padding: 10px 18px 6px;
-  text-transform: uppercase;
-}
-
-.sidebar-divider {
-  height: 1px;
-  background: var(--border);
-  margin: 10px 0;
-}
-
-/* ─── Project nav ─── */
-.project-nav {
-  padding: 0 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.proj-item {
+/* ─── Topbar ─── */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  height: 52px;
+  flex-shrink: 0;
+  background: var(--topbar-bg);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid var(--topbar-border);
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 9px 12px;
-  border-radius: 10px;
+  gap: 32px;
+  padding: 0 40px;
+}
+
+.topbar-logo {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--topbar-text-muted);
+  text-transform: uppercase;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* ─── Topbar nav ─── */
+.topbar-nav { margin-left: auto; }
+
+.month-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
   border: none;
   background: none;
   cursor: pointer;
-  text-align: left;
-  width: 100%;
-  transition: all 0.15s;
-  white-space: nowrap;
-  overflow: hidden;
-}
-.proj-item:hover { background: rgba(0,0,0,0.05); }
-.proj-item.active { background: var(--accent-dim); }
-
-.proj-num {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  color: var(--text-muted);
-  flex-shrink: 0;
-  line-height: 1;
-}
-.proj-item.active .proj-num { color: var(--accent); }
-
-.proj-name {
+  color: var(--topbar-text);
+  font-family: var(--font-sans);
   font-size: 13px;
   font-weight: 500;
-  color: var(--text-secondary);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  line-height: 1.3;
+  border-radius: 8px;
+  transition: background 0.2s var(--ease-spring);
 }
-.proj-item.active .proj-name { color: var(--accent); }
+.month-btn:hover { background: rgba(255,255,255,0.07); }
+.month-btn.open { background: var(--topbar-active-bg); color: #32d2f2; }
 
-/* ─── Sidebar ─── */
-.sidebar {
-  width: var(--sidebar-w);
-  min-height: 100vh;
-  background: rgba(255, 255, 255, 0.88);
+.month-chevron {
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: rotate(45deg) translateY(-1px);
+  transition: transform 0.2s var(--ease-spring);
+}
+.month-btn.open .month-chevron { transform: rotate(-135deg) translateY(2px); }
+
+/* ─── Flyout ─── */
+.flyout-backdrop {
+  position: fixed;
+  top: 52px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 99;
+}
+
+.flyout-panel {
+  background: var(--topbar-bg);
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border-right: 1px solid var(--border);
-  display: flex;
-  flex-direction: column;
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  transition: width 0.3s ease;
-  overflow: hidden;
-  z-index: 100;
-  flex-shrink: 0;
-}
-.sidebar.collapsed { width: var(--sidebar-collapsed-w); }
-
-/* ─── Collapsed state ─── */
-.sidebar.collapsed .sidebar-header { justify-content: center; padding: 22px 0; }
-
-.sidebar.collapsed .sidebar-logo,
-.sidebar.collapsed .sidebar-section-title,
-.sidebar.collapsed .sidebar-divider,
-.sidebar.collapsed .project-nav,
-.sidebar.collapsed .sidebar-nav,
-.sidebar.collapsed .sidebar-footer {
-  display: none;
+  border-bottom: 1px solid var(--topbar-border);
+  padding: 28px 40px 36px;
 }
 
-.sidebar-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 22px 18px;
-  gap: 8px;
+.flyout-inner {
+  max-width: 1200px;
+  margin: 0 auto;
 }
-.sidebar-logo {
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--text-primary);
-  letter-spacing: -0.01em;
-  white-space: nowrap;
-  overflow: hidden;
-}
-.collapse-btn {
-  background: none;
-  border: 1px solid var(--border);
-  color: var(--text-muted);
-  cursor: pointer;
-  width: 28px;
-  height: 28px;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  font-size: 15px;
-  transition: background 0.2s, color 0.2s;
-  line-height: 1;
-}
-.collapse-btn:hover { background: var(--bg-section); color: var(--text-primary); }
 
-.sidebar-nav {
-  flex: 1;
-  padding: 10px 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-.nav-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 12px;
-  border-radius: 10px;
-  color: var(--text-secondary);
-  text-decoration: none;
-  font-size: 14px;
-  font-weight: 500;
-  transition: all 0.15s;
-  white-space: nowrap;
-}
-.nav-item:hover { background: rgba(0,0,0,0.05); color: var(--text-primary); }
-.nav-item.active { background: var(--accent-dim); color: var(--accent); }
-
-.nav-icon { flex-shrink: 0; opacity: 0.65; }
-.nav-item:hover .nav-icon, .nav-item.active .nav-icon { opacity: 1; }
-
-.sidebar-footer {
-  padding: 16px 18px;
-  border-top: 1px solid var(--border);
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: 10px;
-  overflow: hidden;
-  flex-shrink: 0;
-}
-.footer-logo {
-  width: 100px;
-  height: auto;
-  object-fit: contain;
-  opacity: 0.82;
-  flex-shrink: 0;
-}
-.meta-author {
-  font-size: 10px;
+.flyout-year {
+  font-size: 11px;
   font-weight: 700;
-  letter-spacing: 0.12em;
-  color: var(--text-muted);
-  white-space: nowrap;
-  transition: opacity 0.2s ease;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--topbar-text-muted);
+  margin-bottom: 16px;
+}
+
+.flyout-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  padding: 12px 14px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  border-radius: 10px;
+  text-align: left;
+  transition: background 0.15s var(--ease-spring);
+}
+.flyout-item:hover { background: rgba(255,255,255,0.07); }
+.flyout-item.active { background: var(--topbar-active-bg); }
+
+.flyout-num {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--topbar-text-muted);
+  flex-shrink: 0;
+}
+.flyout-item.active .flyout-num { color: #32d2f2; }
+
+.flyout-name {
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--topbar-text);
+}
+.flyout-item.active .flyout-name { color: #32d2f2; }
+
+/* ─── Flyout transition ─── */
+.flyout-enter-active,
+.flyout-leave-active {
+  transition: opacity 0.18s ease, transform 0.22s var(--ease-spring);
+}
+.flyout-enter-from,
+.flyout-leave-to {
+  opacity: 0;
+  transform: translateY(-6px);
 }
 
 /* ─── Main ─── */
 .main-content {
   flex: 1;
   min-width: 0;
-  padding: 48px 56px 128px;
+  background: var(--bg-section);
 }
-
-.page-header {
-  margin-bottom: 56px;
-  padding: 40px 48px;
-  background: var(--bg);
-  border-radius: 20px;
-  box-shadow: var(--shadow-card);
-}
-.header-eyebrow {
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.16em;
-  color: var(--accent);
-  margin-bottom: 16px;
-  text-transform: uppercase;
-}
-.header-title {
-  font-size: clamp(32px, 4.5vw, 56px);
-  font-weight: 700;
-  color: var(--text-primary);
-  line-height: 1.1;
-  letter-spacing: -0.03em;
-  margin-bottom: 12px;
-}
-.header-desc {
-  font-size: 16px;
-  color: var(--text-secondary);
-  line-height: 1.6;
-  margin-bottom: 22px;
-  max-width: 640px;
-}
-.header-meta { display: flex; gap: 8px; flex-wrap: wrap; }
-.badge {
-  font-size: 12px;
-  font-weight: 500;
-  padding: 5px 13px;
-  border: 1px solid var(--border);
-  border-radius: 20px;
-  color: var(--text-secondary);
-}
-.badge-author { color: var(--accent); border-color: rgba(0,113,227,0.25); background: var(--accent-dim); }
-.badge-proj-index { color: var(--text-secondary); }
 
 /* ─── Sections ─── */
-.sections { display: flex; flex-direction: column; gap: 72px; }
 .section {
+  padding: 72px 56px;
   opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.5s ease, transform 0.5s ease;
+  transform: translateY(40px);
+  transition: opacity 0.7s var(--ease-spring), transform 0.7s var(--ease-spring);
 }
+.section:last-child { padding-bottom: 128px; }
+#summary { background: #1d1d1f; }
 .section.visible { opacity: 1; transform: translateY(0); }
-.section-label {
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.16em;
-  color: var(--text-muted);
-  text-transform: uppercase;
-  margin-bottom: 28px;
-  padding-bottom: 14px;
-  border-bottom: 1px solid var(--border);
-}
 
 /* ─── Shared Card ─── */
 .card {
@@ -476,9 +314,21 @@ body {
   border-radius: var(--radius-card);
   padding: 24px;
   box-shadow: var(--shadow-card);
-  transition: box-shadow 0.25s, transform 0.25s;
+  transition: box-shadow 0.3s var(--ease-spring), transform 0.3s var(--ease-spring);
 }
-.card:hover { box-shadow: var(--shadow-hover); transform: translateY(-1px); }
+.card:hover { box-shadow: var(--shadow-hover); transform: translateY(-2px) scale(1.01); }
+
+.section-label {
+  font-size: clamp(3.5rem, 8vw, 6.25rem);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.08;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  margin-bottom: 28px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border);
+}
 
 /* ─── Section title ─── */
 .sec-title {
