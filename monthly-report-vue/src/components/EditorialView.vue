@@ -33,7 +33,7 @@
     </section>
 
     <!-- 02 Executive Summary -->
-    <section class="v2-sec" id="v2-s2">
+    <section class="v2-sec v2-sec--scroll-tabs" id="v2-s2">
       <div class="v2-inner">
         <div class="v2-sec-head">
           <div class="v2-sec-id">§ 02 · Executive Summary</div>
@@ -67,52 +67,51 @@
             </div>
           </div>
 
-          <!-- Comparison section -->
+          <!-- Before vs After heading — not sticky, scrolls away before card locks in -->
           <div class="comparison-section">
-            <!-- Header above card -->
             <div class="comparison-header">
               <h3 class="comparison-header-title">Before vs After</h3>
             </div>
+          </div>
 
-            <!-- Main card -->
+          <!-- Sticky: only the comparison card + tabs stick -->
+          <div class="v2-comparison-sticky-wrap">
+            <div class="theme-tabs">
+              <button
+                v-for="theme in themes"
+                :key="theme.id"
+                class="theme-tab"
+                :class="{ active: activeTheme === theme.id }"
+                @click="activeTheme = theme.id"
+              >{{ theme.label }}</button>
+            </div>
             <div class="comparison-card">
-              <div class="comparison-grid">
-                <!-- Left: Before (compact) -->
+              <!-- Merged full-width image (used when before/after share one image) -->
+              <div v-if="activeThemeData.mergedImage" class="comparison-merged">
+                <img :src="activeThemeData.mergedImage" class="comparison-img-merged" alt="">
+              </div>
+              <!-- Normal 2-col Before / After -->
+              <div v-else class="comparison-grid">
+                <!-- Left: Before -->
                 <div class="comparison-col">
                   <div class="comparison-img-area">
                     <img v-if="activeThemeData.before.image" :src="activeThemeData.before.image" class="comparison-img" alt="">
                     <div v-else class="comparison-img-ph"></div>
                   </div>
-                  <h3 class="comparison-col-title">{{ activeThemeData.before.title || '—' }}</h3>
-                  <div class="comparison-col-chip">Existing Methods</div>
-                  <p class="comparison-col-body">{{ activeThemeData.before.body || '—' }}</p>
                 </div>
 
-                <!-- Right: After (prominent) -->
+                <!-- Right: After -->
                 <div class="comparison-col">
                   <div class="comparison-img-area">
                     <img v-if="activeThemeData.after.image" :src="activeThemeData.after.image" class="comparison-img" alt="">
                     <div v-else class="comparison-img-ph"></div>
                   </div>
-                  <h3 class="comparison-col-title">{{ activeThemeData.after.title || '—' }}</h3>
-                  <div class="comparison-col-chip">Current Methods</div>
-                  <p class="comparison-col-body">{{ activeThemeData.after.body || '—' }}</p>
                 </div>
               </div>
-
             </div>
-
-          <!-- Theme tabs -->
-          <div class="theme-tabs">
-            <button
-              v-for="theme in themes"
-              :key="theme.id"
-              class="theme-tab"
-              :class="{ active: activeTheme === theme.id }"
-              @click="activeTheme = theme.id"
-            >{{ theme.label }}</button>
           </div>
-          </div>
+          <!-- Scroll space inside .v2-body (parent of sticky) so sticky stays active for 3 tabs -->
+          <div class="v2-tab-scroll-spacer"></div>
         </div>
       </div>
     </section>
@@ -130,9 +129,9 @@
           <table class="v2-table">
             <thead><tr><th>Project</th><th>Goal</th><th>Progress</th><th>Collaborator</th><th>Problem</th><th>ETA</th></tr></thead>
             <tbody>
-              <tr><td>Project A</td><td class="empty">—</td><td><div class="battery-wrap"><div class="battery-body"><div class="battery-fill green" style="width:70%"></div></div><div class="battery-nub"></div><span class="battery-label">70%</span></div></td><td class="empty">—</td><td>Low</td><td class="empty">—</td></tr>
-              <tr><td>Project B</td><td class="empty">—</td><td><div class="battery-wrap"><div class="battery-body"><div class="battery-fill yellow" style="width:45%"></div></div><div class="battery-nub"></div><span class="battery-label">45%</span></div></td><td class="empty">—</td><td>Medium</td><td class="empty">—</td></tr>
-              <tr><td>Project C</td><td class="empty">—</td><td><div class="battery-wrap"><div class="battery-body"><div class="battery-fill red" style="width:20%"></div></div><div class="battery-nub"></div><span class="battery-label">20%</span></div></td><td class="empty">—</td><td>High</td><td class="empty">—</td></tr>
+              <tr><td>W3A Issue/Requirement Management</td><td>跨團隊需求交集與市場價值分析</td><td><div class="battery-wrap"><div class="battery-body"><div class="battery-fill yellow" style="width:50%"></div></div><div class="battery-nub"></div><span class="battery-label">50%</span></div></td><td class="empty">—</td><td class="empty">—</td><td>2026-06-30</td></tr>
+              <tr><td>SITR Workflow Optimization</td><td class="empty">—</td><td><div class="battery-wrap"><div class="battery-body"><div class="battery-fill yellow" style="width:45%"></div></div><div class="battery-nub"></div><span class="battery-label">45%</span></div></td><td class="empty">—</td><td>Medium</td><td class="empty">—</td></tr>
+              <tr><td>Workflow Optimization with AI</td><td class="empty">—</td><td><div class="battery-wrap"><div class="battery-body"><div class="battery-fill red" style="width:20%"></div></div><div class="battery-nub"></div><span class="battery-label">20%</span></div></td><td class="empty">—</td><td>High</td><td class="empty">—</td></tr>
             </tbody>
           </table>
 
@@ -144,9 +143,9 @@
             <label class="kp-selector-label">選擇專案</label>
             <div class="kp-selector-dropdown-wrap">
               <select class="kp-selector-select" v-model="activeProject">
-                <option value="project-a">Project A</option>
-                <option value="project-b">Project B</option>
-                <option value="project-c">Project C</option>
+                <option value="project-a">W3A Issue/Requirement Management</option>
+                <option value="project-b">SITR Workflow Optimization</option>
+                <option value="project-c">Workflow Optimization with AI</option>
               </select>
             </div>
           </div>
@@ -320,8 +319,8 @@ const currentSectionLabel = ref('— Cover')
 const activeSectionIndex = ref(1)
 
 // Section 02: achievement cards (independent of theme tabs)
-const whatHappened = { image: '/what-happened.png', title: '', body: '' }
-const whyItMatters = { image: '/why-it-matters.png', title: '', body: '' }
+const whatHappened = { image: '/reference/what-happened.png', title: '', body: '' }
+const whyItMatters = { image: '/reference/why-it-matters.png', title: '', body: '' }
 
 // Section 02: theme switcher (controls Before/After only)
 const activeTheme = ref('data-analysis')
@@ -330,8 +329,8 @@ const themes = [
   {
     id: 'data-analysis',
     label: 'Data Analysis',
-    before: { image: '/Voc_Analysis_Before.png', title: '', body: 'Isolated Analysis\nFeature-Focused\nScattered Goals' },
-    after:  { image: '/Voc_Analysis_After.png',  title: '', body: 'Unified Demands\nMarket-Focused\nAligned Goals' }
+    before: { image: '/reference/Voc_Analysis_Before.png', title: '', body: 'Isolated Analysis\nFeature-Focused\nScattered Goals' },
+    after:  { image: '/reference/Voc_Analysis_After.png',  title: '', body: 'Unified Demands\nMarket-Focused\nAligned Goals' }
   },
   {
     id: 'ai',
@@ -342,6 +341,7 @@ const themes = [
   {
     id: 'automation',
     label: 'Automation',
+    mergedImage: '/reference/Query.png',
     before: { image: '', title: '', body: '' },
     after:  { image: '', title: '', body: '' }
   }
@@ -367,6 +367,21 @@ const scrollTo = (id: string) => {
   }
 }
 
+// Drive activeTheme by tracking the scroll spacer's real-time viewport position.
+// No caching needed — works regardless of image load timing.
+const handleS2Scroll = () => {
+  const spacer = document.querySelector('#v2-s2 .v2-tab-scroll-spacer') as HTMLElement | null
+  if (!spacer) return
+
+  // spacerScrolled: how many px of the spacer have entered the viewport from the bottom
+  const spacerScrolled = window.innerHeight - spacer.getBoundingClientRect().top
+  if (spacerScrolled < 0) return  // spacer not yet in view
+
+  const progress = spacerScrolled / spacer.offsetHeight  // 0 → 1 across 300vh
+  const idx = Math.min(themes.length - 1, Math.floor(progress * themes.length))
+  activeTheme.value = themes[idx].id
+}
+
 let observer: IntersectionObserver | null = null
 
 onMounted(() => {
@@ -388,9 +403,11 @@ onMounted(() => {
   }, { rootMargin: '-40% 0px -50% 0px', threshold: 0 })
 
   sections.forEach(s => observer?.observe(s))
+  window.addEventListener('scroll', handleS2Scroll, { passive: true })
 })
 
 onUnmounted(() => {
   observer?.disconnect()
+  window.removeEventListener('scroll', handleS2Scroll)
 })
 </script>

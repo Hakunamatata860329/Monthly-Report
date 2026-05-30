@@ -707,7 +707,22 @@ body {
 .comparison-card {
   background: #f5f5f7;
   border-radius: 28px;
-  padding: 52px 12px 44px;
+  padding: 20px 12px;
+}
+.comparison-merged {
+  width: 100%;
+  max-width: 1264px;
+  margin: 0 auto;
+  border-radius: 20px;
+  overflow: hidden;
+}
+.comparison-img-merged {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 20px;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
 }
 .comparison-grid {
   display: grid;
@@ -829,6 +844,34 @@ body {
   flex-shrink: 0;
 }
 
+/* ============ Scroll-driven tabs (§02) ============ */
+/*
+ * position: sticky is bounded by its PARENT element (.v2-body).
+ * The spacer must live INSIDE .v2-body so it extends the parent height,
+ * giving the sticky element room to stick for 3 tabs × ~100vh each.
+ */
+.v2-comparison-sticky-wrap {
+  position: sticky;
+  top: 112px; /* topbar (~55px) + progress bar (~57px) */
+  width: 125%;
+  margin-left: -12.5%;
+}
+/* Clip the 1.25x overflow so no horizontal scrollbar appears */
+.v2-sec--scroll-tabs {
+  overflow-x: clip;
+}
+/* Spacer lives inside .v2-body via the template — no ::after needed */
+.v2-tab-scroll-spacer {
+  height: 300vh;
+  pointer-events: none;
+}
+/* Exclude from reveal-on-scroll fade-in animation */
+.v2-sec .v2-body > .v2-tab-scroll-spacer {
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
+}
+
 /* Theme tab switcher — same segmented-control style as topbar .month-selector */
 .theme-tabs {
   display: inline-flex;
@@ -842,10 +885,10 @@ body {
 }
 .theme-tab {
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 15px;
   font-weight: 500;
   letter-spacing: 0.04em;
-  padding: 5px 18px;
+  padding: 8px 24px;
   border-radius: 999px;
   border: none;
   background: transparent;
