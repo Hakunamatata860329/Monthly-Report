@@ -11,7 +11,7 @@
           @click.prevent="scrollTo('#v2-s' + i)"
         ></a>
       </div>
-      <div class="v2-progress-meta">{{ String(activeSectionIndex).padStart(2, '0') }} / 11 · Section {{ sectionMeta }}</div>
+      <div class="v2-progress-meta">{{ String(activeSectionIndex).padStart(2, '0') }} / 11</div>
     </div>
 
     <!-- 01 Cover -->
@@ -19,11 +19,10 @@
       <div class="v2-inner">
         <div class="v2-sec-head">
           <div class="v2-sec-id">§ 01 · Cover</div>
-          <div class="v2-sec-audience">cover page</div>
         </div>
         <div class="v2-body">
           <h2 class="v2-headline">2026-05<br>Monthly <span class="gradient-blue">Report.</span></h2>
-          <p class="apple-tagline">One month. One document. The progress that actually moved engineering forward — told for managers and engineers alike.</p>
+          <p class="apple-tagline">Optimized Efficiency. Compromiseless Quality.<br><span style="font-size:0.6em;opacity:1;">優化效益。絕不妥協的品質。</span></p>
           <dl class="cover-meta">
             <dt>NAME</dt><dd>JASON.JY.LIN</dd>
             <dt>DEPARTMENT</dt><dd>軟體測試課</dd>
@@ -37,11 +36,12 @@
     <section class="v2-sec" id="v2-s2">
       <div class="v2-inner">
         <div class="v2-sec-head">
-          <div class="v2-sec-id">§ 02 · Section A · Delivery</div>
-          <div class="v2-sec-audience">Manager / PM / Director</div>
+          <div class="v2-sec-id">§ 02 · Executive Summary</div>
         </div>
         <div class="v2-body">
-          <h2 class="v2-headline">Executive summary.</h2>
+          <div class="comparison-header">
+            <h3 class="comparison-header-title">What happened and why it matters today.</h3>
+          </div>
 
           <!-- Achievement cards -->
           <div class="achievement-cards">
@@ -79,7 +79,7 @@
               <div class="comparison-grid">
                 <!-- Left: Before (compact) -->
                 <div class="comparison-col">
-                  <div class="comparison-img-area compact">
+                  <div class="comparison-img-area">
                     <img v-if="activeThemeData.before.image" :src="activeThemeData.before.image" class="comparison-img" alt="">
                     <div v-else class="comparison-img-ph"></div>
                   </div>
@@ -90,7 +90,7 @@
 
                 <!-- Right: After (prominent) -->
                 <div class="comparison-col">
-                  <div class="comparison-img-area prominent">
+                  <div class="comparison-img-area">
                     <img v-if="activeThemeData.after.image" :src="activeThemeData.after.image" class="comparison-img" alt="">
                     <div v-else class="comparison-img-ph"></div>
                   </div>
@@ -122,7 +122,6 @@
       <div class="v2-inner">
         <div class="v2-sec-head">
           <div class="v2-sec-id">§ 03 · Project Status</div>
-          <div class="v2-sec-audience">Stakeholders</div>
         </div>
         <div class="v2-body">
           <div class="comparison-header">
@@ -174,7 +173,6 @@
       <div class="v2-inner">
         <div class="v2-sec-head">
           <div class="v2-sec-id" style="color:var(--accent);">§ 04 · Risks &amp; Escalations</div>
-          <div class="v2-sec-audience">Leadership attention</div>
         </div>
         <div class="v2-body">
           <h2 class="v2-headline">What we'd like <em style="color:var(--accent);font-style:italic;">flagged</em>.</h2>
@@ -194,7 +192,6 @@
       <div class="v2-inner">
         <div class="v2-sec-head">
           <div class="v2-sec-id">§ 05 · Next Month Plan</div>
-          <div class="v2-sec-audience">Forward look</div>
         </div>
         <div class="v2-body">
           <h2 class="v2-headline">The next thirty days.</h2>
@@ -214,7 +211,6 @@
       <div class="v2-inner">
         <div class="v2-sec-head">
           <div class="v2-sec-id">§ 06 · Section B · Deep Dive</div>
-          <div class="v2-sec-audience">Engineers / Tech Leads</div>
         </div>
         <div class="v2-body">
           <h2 class="v2-headline">Key technical achievements.</h2>
@@ -238,7 +234,6 @@
       <div class="v2-inner">
         <div class="v2-sec-head">
           <div class="v2-sec-id">§ 07 · Architecture</div>
-          <div class="v2-sec-audience">Tech Leads / Architects</div>
         </div>
         <div class="v2-body">
           <h2 class="v2-headline">Decisions and trade-offs.</h2>
@@ -257,7 +252,6 @@
       <div class="v2-inner">
         <div class="v2-sec-head">
           <div class="v2-sec-id">§ 08 · Performance / Reliability</div>
-          <div class="v2-sec-audience">Engineers</div>
         </div>
         <div class="v2-body">
           <h2 class="v2-headline">Numbers that <span class="gradient-blue">moved.</span></h2>
@@ -272,7 +266,6 @@
       <div class="v2-inner">
         <div class="v2-sec-head">
           <div class="v2-sec-id">§ 09 · Collaboration</div>
-          <div class="v2-sec-audience">Team / Cross-team</div>
         </div>
         <div class="v2-body">
           <h2 class="v2-headline">How the team moved together.</h2>
@@ -291,7 +284,6 @@
       <div class="v2-inner">
         <div class="v2-sec-head">
           <div class="v2-sec-id">§ 10 · Lessons Learned</div>
-          <div class="v2-sec-audience">Closing reflection</div>
         </div>
         <div class="v2-body">
           <h2 class="v2-headline">Take with us.</h2>
@@ -308,7 +300,6 @@
       <div class="v2-inner">
         <div class="v2-sec-head">
           <div class="v2-sec-id">§ 11 · Appendix</div>
-          <div class="v2-sec-audience">Optional supporting</div>
         </div>
         <div class="v2-body">
           <h2 class="v2-headline">Supporting materials.</h2>
@@ -327,7 +318,6 @@ import { ref, computed, onMounted, onUnmounted } from 'vue'
 
 const currentSectionLabel = ref('— Cover')
 const activeSectionIndex = ref(1)
-const sectionMeta = ref('A')
 
 // Section 02: achievement cards (independent of theme tabs)
 const whatHappened = { image: '/what-happened.png', title: '', body: '' }
@@ -340,14 +330,14 @@ const themes = [
   {
     id: 'data-analysis',
     label: 'Data Analysis',
-    before: { image: '/Voc_Analysis_Before.png', title: '', body: '' },
-    after:  { image: '/Voc_Analysis_After.png',  title: '', body: '' }
+    before: { image: '/Voc_Analysis_Before.png', title: '', body: 'Isolated Analysis\nFeature-Focused\nScattered Goals' },
+    after:  { image: '/Voc_Analysis_After.png',  title: '', body: 'Unified Demands\nMarket-Focused\nAligned Goals' }
   },
   {
     id: 'ai',
     label: 'AI',
-    before: { image: '', title: '', body: '' },
-    after:  { image: '', title: '', body: '' }
+    before: { image: '/reference/Not Use Skill.png', title: '', body: 'Token wastage\nRedundant prompting\nUnreusable outputs' },
+    after:  { image: '/reference/Use Skill.png',     title: '', body: 'Token savings\nAccelerated task execution\nTeam leverage' }
   },
   {
     id: 'automation',
@@ -393,9 +383,6 @@ onMounted(() => {
           currentSectionLabel.value = '— ' + secId.textContent
         }
 
-        if (idx <= 5) sectionMeta.value = 'A'
-        else if (idx <= 10) sectionMeta.value = 'B'
-        else sectionMeta.value = 'C'
       }
     })
   }, { rootMargin: '-40% 0px -50% 0px', threshold: 0 })

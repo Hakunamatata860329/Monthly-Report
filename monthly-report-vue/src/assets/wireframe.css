@@ -707,13 +707,13 @@ body {
 .comparison-card {
   background: #f5f5f7;
   border-radius: 28px;
-  padding: 52px 0 44px;
+  padding: 52px 12px 44px;
 }
 .comparison-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 12px;
-  align-items: end;
+  align-items: start;
   text-align: center;
 }
 
@@ -729,18 +729,20 @@ body {
 /* Image — same width and aspect-ratio as achievement cards */
 .comparison-img-area {
   width: 100%;
+  aspect-ratio: 1391 / 1131;
+  overflow: hidden;
+  border-radius: 28px;
+  background: #f4ede3;
 }
 .comparison-img-ph {
   width: 100%;
-  aspect-ratio: 1448 / 1086;
+  height: 100%;
   background: #e0ddd8;
-  border-radius: 28px;
 }
 .comparison-img {
   width: 100%;
-  height: auto;
+  height: 100%;
   object-fit: contain;
-  border-radius: 28px;
   display: block;
 }
 
@@ -776,7 +778,7 @@ body {
 .comparison-col-chip {
   display: inline-block;
   font-family: var(--font-sans);
-  font-size: 13px;
+  font-size: 32px;
   font-weight: 600;
   color: #1d1d1f;
   margin-bottom: 10px;
@@ -784,12 +786,14 @@ body {
 }
 .comparison-col-body {
   font-family: var(--font-sans);
-  font-size: 14px;
+  font-size: 25px;
+  font-weight: 400;
   line-height: 1.6;
-  color: rgba(29,29,31,0.55);
-  max-width: 280px;
+  color: #6e6e73;
+  max-width: none;
   margin: 0;
   padding: 0 16px;
+  white-space: pre;
 }
 
 /* CTA */
@@ -955,6 +959,13 @@ body {
   flex: 1;
   display: flex;
   flex-direction: column;
+}
+.apple-hero .v2-sec-head {
+  position: absolute;
+  top: 64px;
+  left: 48px;
+  right: 48px;
+  margin-bottom: 0;
 }
 .apple-hero .v2-body {
   flex: 1;
