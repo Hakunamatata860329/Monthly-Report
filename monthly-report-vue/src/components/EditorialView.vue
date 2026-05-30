@@ -4,14 +4,14 @@
       <div class="v2-progress-current">{{ currentSectionLabel }}</div>
       <div class="v2-progress-dots">
         <a
-          v-for="i in 11"
+          v-for="i in 7"
           :key="i"
           :href="'#v2-s' + i"
           :class="{ 'is-active': activeSectionIndex === i }"
           @click.prevent="scrollTo('#v2-s' + i)"
         ></a>
       </div>
-      <div class="v2-progress-meta">{{ String(activeSectionIndex).padStart(2, '0') }} / 11</div>
+      <div class="v2-progress-meta">{{ String(activeSectionIndex).padStart(2, '0') }} / 07</div>
     </div>
 
     <!-- 01 Cover -->
@@ -129,9 +129,9 @@
           <table class="v2-table">
             <thead><tr><th>Project</th><th>Goal</th><th>Progress</th><th>Collaborator</th><th>Problem</th><th>ETA</th></tr></thead>
             <tbody>
-              <tr><td>W3A Issue/Requirement Management</td><td>跨團隊需求交集與市場價值分析</td><td><div class="battery-wrap"><div class="battery-body"><div class="battery-fill yellow" style="width:50%"></div></div><div class="battery-nub"></div><span class="battery-label">50%</span></div></td><td class="empty">—</td><td class="empty">—</td><td>2026-06-30</td></tr>
-              <tr><td>SITR Workflow Optimization</td><td class="empty">—</td><td><div class="battery-wrap"><div class="battery-body"><div class="battery-fill yellow" style="width:45%"></div></div><div class="battery-nub"></div><span class="battery-label">45%</span></div></td><td class="empty">—</td><td>Medium</td><td class="empty">—</td></tr>
-              <tr><td>Workflow Optimization with AI</td><td class="empty">—</td><td><div class="battery-wrap"><div class="battery-body"><div class="battery-fill red" style="width:20%"></div></div><div class="battery-nub"></div><span class="battery-label">20%</span></div></td><td class="empty">—</td><td>High</td><td class="empty">—</td></tr>
+              <tr><td>W3A Issue/Requirement Management</td><td>跨團隊需求交集與市場價值分析</td><td><div class="battery-wrap"><div class="battery-body"><div class="battery-fill green" style="width:100%"></div></div><div class="battery-nub"></div><span class="battery-label">100%</span></div></td><td>Triage Team</td><td class="empty">—</td><td>2026-06-30</td></tr>
+              <tr><td>SITR Workflow Optimization</td><td>減少人工填寫成本，落實資料數位化</td><td><div class="battery-wrap"><div class="battery-body"><div class="battery-fill yellow" style="width:50%"></div></div><div class="battery-nub"></div><span class="battery-label">50%</span></div></td><td>Daisy</td><td><span class="pill red"><span class="dot"></span>Blocked</span></td><td>2026-07-31</td></tr>
+              <tr><td>Workflow Optimization with AI</td><td>應用 AI 優化日常工作流程</td><td><div class="battery-wrap"><div class="battery-body"><div class="battery-fill green" style="width:100%"></div></div><div class="battery-nub"></div><span class="battery-label">100%</span></div></td><td class="empty">—</td><td class="empty">—</td><td>2026-09-30</td></tr>
             </tbody>
           </table>
 
@@ -139,28 +139,23 @@
           <div class="comparison-header" style="margin-top:48px;">
             <h3 class="comparison-header-title">Key Progress</h3>
           </div>
-          <div class="kp-selector-wrap">
-            <label class="kp-selector-label">選擇專案</label>
-            <div class="kp-selector-dropdown-wrap">
-              <select class="kp-selector-select" v-model="activeProject">
-                <option value="project-a">W3A Issue/Requirement Management</option>
-                <option value="project-b">SITR Workflow Optimization</option>
-                <option value="project-c">Workflow Optimization with AI</option>
-              </select>
+          <div class="kp-apple-wrap">
+            <!-- Project name headers -->
+            <div class="kp-apple-header-row">
+              <div v-for="p in projects" :key="p.id" class="kp-apple-header-cell">
+                {{ p.name }}
+              </div>
             </div>
-          </div>
-          <div class="kp-cards">
-            <div class="kp-feature-card">
-              <div class="kp-feature-label">Completed</div>
-              <div class="kp-feature-content">{{ activeProjectData.completed || '—' }}</div>
-            </div>
-            <div class="kp-feature-card">
-              <div class="kp-feature-label">In Progress</div>
-              <div class="kp-feature-content">{{ activeProjectData.inProgress || '—' }}</div>
-            </div>
-            <div class="kp-feature-card kp-feature-card--blocker">
-              <div class="kp-feature-label">Blockers</div>
-              <div class="kp-feature-content">{{ activeProjectData.blockers || '—' }}</div>
+            <!-- Feature rows -->
+            <div
+              v-for="(sec, si) in sections"
+              :key="si"
+              class="kp-apple-section-row"
+            >
+              <div v-for="p in projects" :key="p.id" class="kp-apple-section-col">
+                <div class="kp-apple-feat-label" :class="sec.cls">{{ sec.label }}</div>
+                <div class="kp-apple-feat-value">{{ keyProgress[p.id][sec.key] || '—' }}</div>
+              </div>
             </div>
           </div>
         </div>
@@ -171,118 +166,99 @@
     <section class="v2-sec" id="v2-s4">
       <div class="v2-inner">
         <div class="v2-sec-head">
-          <div class="v2-sec-id" style="color:var(--accent);">§ 04 · Risks &amp; Escalations</div>
+          <div class="v2-sec-id" style="color:var(--accent);">§ 04 · Risks &amp; Problems</div>
         </div>
         <div class="v2-body">
-          <h2 class="v2-headline">What we'd like <em style="color:var(--accent);font-style:italic;">flagged</em>.</h2>
-          <table class="v2-table">
-            <thead><tr><th>Risk</th><th>Impact</th><th>Mitigation</th><th>Owner</th><th>Status</th></tr></thead>
-            <tbody>
-              <tr><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td><td><span class="pill yellow"><span class="dot"></span>open</span></td></tr>
-              <tr><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td><td><span class="pill red"><span class="dot"></span>blocked</span></td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-
-    <!-- 05 Next Month -->
-    <section class="v2-sec" id="v2-s5">
-      <div class="v2-inner">
-        <div class="v2-sec-head">
-          <div class="v2-sec-id">§ 05 · Next Month Plan</div>
-        </div>
-        <div class="v2-body">
-          <h2 class="v2-headline">The next thirty days.</h2>
-          <h4 class="v2-sub-h">Planned milestones</h4>
-          <table class="v2-table">
-            <thead><tr><th>Milestone</th><th>Deliverable</th><th>Owner</th><th>ETA</th><th>Success criteria</th></tr></thead>
-            <tbody>
-              <tr><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-
-    <!-- 06 Tech Wins -->
-    <section class="v2-sec bg-dark" id="v2-s6">
-      <div class="v2-inner">
-        <div class="v2-sec-head">
-          <div class="v2-sec-id">§ 06 · Section B · Deep Dive</div>
-        </div>
-        <div class="v2-body">
-          <h2 class="v2-headline">Key technical achievements.</h2>
-          <p class="v2-lede">Each highlight: Problem → Root Cause → Solution → Result.</p>
-          <div class="v2-cols-2">
-            <div>
-              <div class="field"><span class="field-label">Problem</span><span class="field-input">—</span></div>
-              <div class="field"><span class="field-label">Why important</span><span class="field-input">—</span></div>
-            </div>
-            <div>
-              <div class="field"><span class="field-label">Design</span><span class="field-input">—</span></div>
-              <div class="field"><span class="field-label">Implementation</span><span class="field-input">—</span></div>
-            </div>
+          <h2 class="comparison-header-title" style="text-align:left;margin-bottom:32px;">Discussion of Problem</h2>
+          <div class="v2-callout" style="border-color:var(--accent);">
+            <span class="k">Decision needed</span>
+            <div class="field"><span class="field-label">Q1</span><span class="field-input">—</span></div>
+            <div class="field"><span class="field-label">Q2</span><span class="field-input">—</span></div>
+          </div>
+          <div class="v2-callout">
+            <span class="k">Resource needed</span>
+            <div class="field"><span class="field-label">Q1</span><span class="field-input">—</span></div>
+            <div class="field"><span class="field-label">Q2</span><span class="field-input">—</span></div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- 07 Architecture -->
+    <!-- 05 Technical Details -->
+    <section class="v2-sec bg-dark apple-hero" id="v2-s5">
+      <div class="v2-inner">
+        <div class="v2-sec-head">
+          <div class="v2-sec-id">§ 05 · Technical Details</div>
+        </div>
+        <div class="v2-body">
+          <h2 class="v2-headline">Key Technical <span class="gradient-blue">Achievements.</span></h2>
+          <p class="apple-tagline">What problem existed? Why was it important?<br>Design approach. Key implementation details.</p>
+          <dl class="cover-meta">
+            <dt>NAME</dt><dd>JASON.JY.LIN</dd>
+            <dt>DEPARTMENT</dt><dd>軟體測試課</dd>
+            <dt>DATE</dt><dd>06/03/2026</dd>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <!-- 06 Collaboration -->
+    <section class="v2-sec" id="v2-s6">
+      <div class="v2-inner">
+        <div class="v2-sec-head">
+          <div class="v2-sec-id">§ 06 · Claude.md</div>
+        </div>
+        <div class="v2-body">
+
+          <!-- Slide 1: Why Claude.md? -->
+          <h2 class="v2-headline">Why Need <span class="gradient-blue">Claude.md?</span></h2>
+
+          <div class="v2-cols-2" style="margin-top:32px;">
+            <div class="s6-card">
+              <h4 class="v2-sub-h">Without Claude.md</h4>
+              <ul class="s6-list">
+                <li>每次重新解釋專案背景</li>
+                <li>依賴 Prompt 品質</li>
+                <li>結果容易不一致</li>
+                <li>知識無法累積</li>
+              </ul>
+            </div>
+            <div class="s6-card">
+              <h4 class="v2-sub-h">With Claude.md</h4>
+              <ul class="s6-list">
+                <li>專案知識持續注入</li>
+                <li>理解團隊規範</li>
+                <li>產出一致結果</li>
+                <li>降低溝通成本</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Slide 2: What's Inside? -->
+          <h2 class="v2-headline" style="margin-top:80px;">Claude.md <span class="gradient-blue">Summary</span></h2>
+
+          <div class="v2-cols-2" style="margin-top:32px; align-items:stretch;">
+            <pre class="s6-tree">Claude.md
+├── Project Context
+├── Behavioral Rules
+├── Workflow
+├── Tool Usage
+└── Verification Strategy</pre>
+            <div style="display:flex;align-items:stretch;">
+              <img src="/reference/Claudemd.png" style="width:100%;height:100%;object-fit:cover;border-radius:16px;" alt="">
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+    </section>
+
+    <!-- 07 Lessons -->
     <section class="v2-sec" id="v2-s7">
       <div class="v2-inner">
         <div class="v2-sec-head">
-          <div class="v2-sec-id">§ 07 · Architecture</div>
-        </div>
-        <div class="v2-body">
-          <h2 class="v2-headline">Decisions and trade-offs.</h2>
-          <table class="v2-table">
-            <thead><tr><th>Topic</th><th>Decision</th><th>Alternative</th><th>Trade-off</th><th>Reason</th></tr></thead>
-            <tbody>
-              <tr><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-
-    <!-- 08 Performance -->
-    <section class="v2-sec bg-blue" id="v2-s8">
-      <div class="v2-inner">
-        <div class="v2-sec-head">
-          <div class="v2-sec-id">§ 08 · Performance / Reliability</div>
-        </div>
-        <div class="v2-body">
-          <h2 class="v2-headline">Numbers that <span class="gradient-blue">moved.</span></h2>
-          <div class="apple-metric">—<sup style="font-size:0.3em;letter-spacing:0;">ms</sup></div>
-          <div class="apple-metric-label">Headline metric — the single number this section argues for</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 09 Collaboration -->
-    <section class="v2-sec" id="v2-s9">
-      <div class="v2-inner">
-        <div class="v2-sec-head">
-          <div class="v2-sec-id">§ 09 · Collaboration</div>
-        </div>
-        <div class="v2-body">
-          <h2 class="v2-headline">How the team moved together.</h2>
-          <table class="v2-table">
-            <thead><tr><th>Team</th><th>Area</th><th>Outcome</th></tr></thead>
-            <tbody>
-              <tr><td>PM</td><td class="empty">—</td><td class="empty">—</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-
-    <!-- 10 Lessons -->
-    <section class="v2-sec" id="v2-s10">
-      <div class="v2-inner">
-        <div class="v2-sec-head">
-          <div class="v2-sec-id">§ 10 · Lessons Learned</div>
+          <div class="v2-sec-id">§ 07 · Skills</div>
         </div>
         <div class="v2-body">
           <h2 class="v2-headline">Take with us.</h2>
@@ -294,21 +270,6 @@
       </div>
     </section>
 
-    <!-- 11 Appendix -->
-    <section class="v2-sec" id="v2-s11">
-      <div class="v2-inner">
-        <div class="v2-sec-head">
-          <div class="v2-sec-id">§ 11 · Appendix</div>
-        </div>
-        <div class="v2-body">
-          <h2 class="v2-headline">Supporting materials.</h2>
-          <div class="v2-cols-2">
-            <div class="placeholder" style="height:120px"><span>architecture diagram</span></div>
-            <div class="placeholder" style="height:120px"><span>benchmark results</span></div>
-          </div>
-        </div>
-      </div>
-    </section>
   </div>
 </template>
 
@@ -349,16 +310,24 @@ const themes = [
 
 const activeThemeData = computed(() => themes.find(t => t.id === activeTheme.value)!)
 
-// Section 03: key progress project switcher
-const activeProject = ref('project-a')
+// Section 03: key progress
+const projects = [
+  { id: 'project-a', name: 'W3A Issue /\nRequirement Management' },
+  { id: 'project-b', name: 'SITR Workflow\nOptimization' },
+  { id: 'project-c', name: 'Workflow Optimization\nwith AI' },
+]
+
+const sections: { label: string; key: 'completed' | 'inProgress' | 'blockers'; cls: string }[] = [
+  { label: 'Completed',   key: 'completed',  cls: 'kp-status--completed'   },
+  { label: 'In Progress', key: 'inProgress', cls: 'kp-status--inprogress'  },
+  { label: 'Plan',        key: 'blockers',   cls: 'kp-status--plan'        },
+]
 
 const keyProgress: Record<string, { completed: string; inProgress: string; blockers: string }> = {
-  'project-a': { completed: '', inProgress: '', blockers: '' },
-  'project-b': { completed: '', inProgress: '', blockers: '' },
-  'project-c': { completed: '', inProgress: '', blockers: '' },
+  'project-a': { completed: '需求交集分析\n(StepC vs Function Requirement)', inProgress: '重新分配、規劃項目優先權', blockers: 'DGC、IMS、MOK\n整合需求交集' },
+  'project-b': { completed: '進度追蹤機制建立\n數據圖表化', inProgress: 'QM 上傳格式、機制研究', blockers: 'SITR 流程討論\n測試結果自動回填' },
+  'project-c': { completed: 'Issue/Requirement\nData Analysis Skill', inProgress: '周進度報告自動產出', blockers: 'VOC 回饋流程自動化' },
 }
-
-const activeProjectData = computed(() => keyProgress[activeProject.value])
 
 const scrollTo = (id: string) => {
   const el = document.querySelector(id)
