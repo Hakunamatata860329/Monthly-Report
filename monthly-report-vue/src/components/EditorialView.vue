@@ -42,53 +42,76 @@
         </div>
         <div class="v2-body">
           <h2 class="v2-headline">Executive summary.</h2>
-          <p class="v2-lede">The three outcomes that defined the month — and the impact each one created.</p>
 
-          <div class="v2-cols-2">
-            <div>
-              <h4 class="v2-sub-h">01 — Major Achievement</h4>
-              <div class="field"><span class="field-label">Happened</span><span class="field-input">—</span></div>
-              <div class="field"><span class="field-label">Why</span><span class="field-input">—</span></div>
-              <div class="field"><span class="field-label">Impact</span><span class="field-input">—</span></div>
+          <!-- Achievement cards -->
+          <div class="achievement-cards">
+            <div
+              class="achievement-card card-left"
+              :class="{ 'has-image': whatHappened.image }"
+              :style="whatHappened.image ? { backgroundImage: `url(${whatHappened.image})` } : {}"
+            >
+              <div class="achievement-card-main">
+                <div v-if="whatHappened.title" class="achievement-card-title">{{ whatHappened.title }}</div>
+                <div v-if="whatHappened.body" class="achievement-card-body">{{ whatHappened.body }}</div>
+              </div>
             </div>
-            <div>
-              <h4 class="v2-sub-h">02 — Major Achievement</h4>
-              <div class="field"><span class="field-label">Happened</span><span class="field-input">—</span></div>
-              <div class="field"><span class="field-label">Why</span><span class="field-input">—</span></div>
-              <div class="field"><span class="field-label">Impact</span><span class="field-input">—</span></div>
+            <div
+              class="achievement-card card-right"
+              :class="{ 'has-image': whyItMatters.image }"
+              :style="whyItMatters.image ? { backgroundImage: `url(${whyItMatters.image})` } : {}"
+            >
+              <div class="achievement-card-main">
+                <div v-if="whyItMatters.title" class="achievement-card-title">{{ whyItMatters.title }}</div>
+                <div v-if="whyItMatters.body" class="achievement-card-body">{{ whyItMatters.body }}</div>
+              </div>
             </div>
           </div>
-          <h4 class="v2-sub-h" style="margin-top:32px;">03 — Major Achievement</h4>
-          <div class="v2-cols-2">
-            <div class="field"><span class="field-label">Happened</span><span class="field-input">—</span></div>
-            <div class="field"><span class="field-label">Why</span><span class="field-input">—</span></div>
-          </div>
 
-          <blockquote class="v2-pullquote">"Impact, not <em>activity</em>" — the through-line of every entry below.</blockquote>
-
-          <h4 class="v2-sub-h">Engineering impact snapshot</h4>
-          <table class="v2-table">
-            <thead><tr><th>Area</th><th>Before</th><th>After</th><th>Impact</th></tr></thead>
-            <tbody>
-              <tr><td>Performance</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td></tr>
-              <tr><td>Stability</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td></tr>
-              <tr><td>Productivity</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td></tr>
-              <tr><td>Cost</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td></tr>
-              <tr><td>Delivery</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td></tr>
-            </tbody>
-          </table>
-
-          <div class="v2-callout">
-            <span class="k">Overall status</span>
-            <h4>Project health</h4>
-            <div style="display:flex; gap:8px; margin-bottom:10px;">
-              <span class="pill green"><span class="dot"></span>green</span>
-              <span class="pill yellow"><span class="dot"></span>yellow</span>
-              <span class="pill red"><span class="dot"></span>red</span>
+          <!-- Comparison section -->
+          <div class="comparison-section">
+            <!-- Header above card -->
+            <div class="comparison-header">
+              <h3 class="comparison-header-title">Before vs After</h3>
             </div>
-            <div class="field"><span class="field-label">Confidence</span><span class="field-input">—</span></div>
-            <div class="field"><span class="field-label">Major Risk</span><span class="field-input">—</span></div>
-            <div class="field"><span class="field-label">Attention Needed</span><span class="field-input">—</span></div>
+
+            <!-- Main card -->
+            <div class="comparison-card">
+              <div class="comparison-grid">
+                <!-- Left: Before (compact) -->
+                <div class="comparison-col">
+                  <div class="comparison-img-area compact">
+                    <img v-if="activeThemeData.before.image" :src="activeThemeData.before.image" class="comparison-img" alt="">
+                    <div v-else class="comparison-img-ph"></div>
+                  </div>
+                  <h3 class="comparison-col-title">{{ activeThemeData.before.title || '—' }}</h3>
+                  <div class="comparison-col-chip">Existing Methods</div>
+                  <p class="comparison-col-body">{{ activeThemeData.before.body || '—' }}</p>
+                </div>
+
+                <!-- Right: After (prominent) -->
+                <div class="comparison-col">
+                  <div class="comparison-img-area prominent">
+                    <img v-if="activeThemeData.after.image" :src="activeThemeData.after.image" class="comparison-img" alt="">
+                    <div v-else class="comparison-img-ph"></div>
+                  </div>
+                  <h3 class="comparison-col-title">{{ activeThemeData.after.title || '—' }}</h3>
+                  <div class="comparison-col-chip">Current Methods</div>
+                  <p class="comparison-col-body">{{ activeThemeData.after.body || '—' }}</p>
+                </div>
+              </div>
+
+            </div>
+
+          <!-- Theme tabs -->
+          <div class="theme-tabs">
+            <button
+              v-for="theme in themes"
+              :key="theme.id"
+              class="theme-tab"
+              :class="{ active: activeTheme === theme.id }"
+              @click="activeTheme = theme.id"
+            >{{ theme.label }}</button>
+          </div>
           </div>
         </div>
       </div>
@@ -102,15 +125,46 @@
           <div class="v2-sec-audience">Stakeholders</div>
         </div>
         <div class="v2-body">
-          <h2 class="v2-headline">Where every project stands.</h2>
+          <div class="comparison-header">
+            <h3 class="comparison-header-title">Project Summary</h3>
+          </div>
           <table class="v2-table">
-            <thead><tr><th>Project</th><th>Goal</th><th>Status</th><th>Progress</th><th>Risk</th><th>ETA</th></tr></thead>
+            <thead><tr><th>Project</th><th>Goal</th><th>Progress</th><th>Collaborator</th><th>Problem</th><th>ETA</th></tr></thead>
             <tbody>
-              <tr><td>Project A</td><td class="empty">—</td><td><span class="pill green"><span class="dot"></span>green</span></td><td class="empty">70%</td><td>Low</td><td class="empty">—</td></tr>
-              <tr><td>Project B</td><td class="empty">—</td><td><span class="pill yellow"><span class="dot"></span>yellow</span></td><td class="empty">45%</td><td>Medium</td><td class="empty">—</td></tr>
-              <tr><td>Project C</td><td class="empty">—</td><td><span class="pill red"><span class="dot"></span>red</span></td><td class="empty">20%</td><td>High</td><td class="empty">—</td></tr>
+              <tr><td>Project A</td><td class="empty">—</td><td><div class="battery-wrap"><div class="battery-body"><div class="battery-fill green" style="width:70%"></div></div><div class="battery-nub"></div><span class="battery-label">70%</span></div></td><td class="empty">—</td><td>Low</td><td class="empty">—</td></tr>
+              <tr><td>Project B</td><td class="empty">—</td><td><div class="battery-wrap"><div class="battery-body"><div class="battery-fill yellow" style="width:45%"></div></div><div class="battery-nub"></div><span class="battery-label">45%</span></div></td><td class="empty">—</td><td>Medium</td><td class="empty">—</td></tr>
+              <tr><td>Project C</td><td class="empty">—</td><td><div class="battery-wrap"><div class="battery-body"><div class="battery-fill red" style="width:20%"></div></div><div class="battery-nub"></div><span class="battery-label">20%</span></div></td><td class="empty">—</td><td>High</td><td class="empty">—</td></tr>
             </tbody>
           </table>
+
+          <!-- Key Progress -->
+          <div class="comparison-header" style="margin-top:48px;">
+            <h3 class="comparison-header-title">Key Progress</h3>
+          </div>
+          <div class="kp-selector-wrap">
+            <label class="kp-selector-label">選擇專案</label>
+            <div class="kp-selector-dropdown-wrap">
+              <select class="kp-selector-select" v-model="activeProject">
+                <option value="project-a">Project A</option>
+                <option value="project-b">Project B</option>
+                <option value="project-c">Project C</option>
+              </select>
+            </div>
+          </div>
+          <div class="kp-cards">
+            <div class="kp-feature-card">
+              <div class="kp-feature-label">Completed</div>
+              <div class="kp-feature-content">{{ activeProjectData.completed || '—' }}</div>
+            </div>
+            <div class="kp-feature-card">
+              <div class="kp-feature-label">In Progress</div>
+              <div class="kp-feature-content">{{ activeProjectData.inProgress || '—' }}</div>
+            </div>
+            <div class="kp-feature-card kp-feature-card--blocker">
+              <div class="kp-feature-label">Blockers</div>
+              <div class="kp-feature-content">{{ activeProjectData.blockers || '—' }}</div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -269,11 +323,52 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 
 const currentSectionLabel = ref('— Cover')
 const activeSectionIndex = ref(1)
 const sectionMeta = ref('A')
+
+// Section 02: achievement cards (independent of theme tabs)
+const whatHappened = { image: '/what-happened.png', title: '', body: '' }
+const whyItMatters = { image: '/why-it-matters.png', title: '', body: '' }
+
+// Section 02: theme switcher (controls Before/After only)
+const activeTheme = ref('data-analysis')
+
+const themes = [
+  {
+    id: 'data-analysis',
+    label: 'Data Analysis',
+    before: { image: '/Voc_Analysis_Before.png', title: '', body: '' },
+    after:  { image: '/Voc_Analysis_After.png',  title: '', body: '' }
+  },
+  {
+    id: 'ai',
+    label: 'AI',
+    before: { image: '', title: '', body: '' },
+    after:  { image: '', title: '', body: '' }
+  },
+  {
+    id: 'automation',
+    label: 'Automation',
+    before: { image: '', title: '', body: '' },
+    after:  { image: '', title: '', body: '' }
+  }
+]
+
+const activeThemeData = computed(() => themes.find(t => t.id === activeTheme.value)!)
+
+// Section 03: key progress project switcher
+const activeProject = ref('project-a')
+
+const keyProgress: Record<string, { completed: string; inProgress: string; blockers: string }> = {
+  'project-a': { completed: '', inProgress: '', blockers: '' },
+  'project-b': { completed: '', inProgress: '', blockers: '' },
+  'project-c': { completed: '', inProgress: '', blockers: '' },
+}
+
+const activeProjectData = computed(() => keyProgress[activeProject.value])
 
 const scrollTo = (id: string) => {
   const el = document.querySelector(id)

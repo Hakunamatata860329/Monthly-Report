@@ -249,6 +249,43 @@ body {
 .pill.yellow { color: var(--warn); }
 .pill.red { color: var(--accent); }
 
+/* Battery progress bar — iPhone battery style */
+.battery-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.battery-body {
+  width: 80px;
+  height: 18px;
+  border-radius: 4px;
+  border: 1.5px solid rgba(0,0,0,0.18);
+  padding: 2px;
+  background: transparent;
+}
+.battery-fill {
+  height: 100%;
+  border-radius: 2px;
+  transition: width 0.4s ease;
+}
+.battery-fill.green  { background: #34C759; }
+.battery-fill.yellow { background: #FF9500; }
+.battery-fill.red    { background: #FF3B30; }
+.battery-nub {
+  width: 3px;
+  height: 8px;
+  border-radius: 0 2px 2px 0;
+  background: rgba(0,0,0,0.18);
+  margin-left: -2px;
+}
+.battery-label {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  color: #1d1d1f;
+  letter-spacing: 0.02em;
+}
+
 /* Eyebrow */
 .eyebrow {
   font-family: var(--font-mono);
@@ -399,6 +436,7 @@ body {
   border-collapse: collapse;
   margin: 32px auto 0;
   font-family: var(--font-hand);
+  table-layout: fixed;
 }
 .v2-table th, .v2-table td {
   text-align: left;
@@ -458,6 +496,82 @@ body {
   color: var(--ink);
 }
 
+/* Key Progress — project selector */
+.kp-selector-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin-top: 20px;
+  margin-bottom: 28px;
+}
+.kp-selector-label {
+  font-family: var(--font-sans);
+  font-size: 15px;
+  color: var(--ink-2);
+}
+.kp-selector-dropdown-wrap {
+  position: relative;
+}
+.kp-selector-select {
+  appearance: none;
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--ink);
+  background: #fff;
+  border: 1.5px solid rgba(0,0,0,0.18);
+  border-radius: 999px;
+  padding: 10px 44px 10px 22px;
+  cursor: pointer;
+  outline: none;
+  min-width: 200px;
+  text-align: center;
+}
+.kp-selector-dropdown-wrap::after {
+  content: '';
+  pointer-events: none;
+  position: absolute;
+  right: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 10px;
+  height: 6px;
+  background: var(--ink);
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+}
+
+/* Key Progress — feature cards */
+.kp-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 12px;
+}
+.kp-feature-card {
+  border-radius: 20px;
+  padding: 32px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-height: 160px;
+}
+.kp-feature-card:nth-child(1) { background: #EDF5B0; }
+.kp-feature-card:nth-child(2) { background: #D8EDF8; }
+.kp-feature-card--blocker     { background: #fff2f2; }
+.kp-feature-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+}
+.kp-feature-content {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--ink-2);
+}
+
 .v2-callout {
   background: var(--paper);
   border: 1.5px solid var(--ink);
@@ -482,20 +596,279 @@ body {
   margin: 6px 0 12px;
 }
 
+/* ============ Achievement Cards (Section 02) ============ */
+.achievement-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin: 32px 0 28px;
+  text-align: left;
+}
+.achievement-card {
+  border-radius: 28px;
+  padding: 36px;
+  aspect-ratio: 1448 / 1086;
+  display: flex;
+  flex-direction: column;
+  border: none;
+  box-shadow:
+    0 2px 16px rgba(0,0,0,0.06),
+    0 1px 4px rgba(0,0,0,0.04);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  position: relative;
+}
+.achievement-card.card-left { background-color: #ede8df; }
+.achievement-card.card-right { background-color: #f5f0ea; }
+
+/* Image mode: gradient overlay at bottom for text legibility */
+.achievement-card.has-image::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 28px;
+  background: linear-gradient(
+    to top,
+    rgba(0,0,0,0.72) 0%,
+    rgba(0,0,0,0.2) 45%,
+    transparent 70%
+  );
+  pointer-events: none;
+}
+.achievement-card.has-image .achievement-card-main {
+  position: relative;
+  z-index: 1;
+}
+.achievement-card.has-image .achievement-card-title { color: #ffffff; }
+.achievement-card.has-image .achievement-card-body  { color: rgba(255,255,255,0.75); }
+
+.achievement-card-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+}
+/* When image present, push text to bottom */
+.achievement-card.has-image .achievement-card-main {
+  justify-content: flex-end;
+}
+.achievement-card-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(28px, 3.2vw, 48px);
+  line-height: 1.08;
+  letter-spacing: -0.035em;
+  color: #1d1d1f;
+  text-align: center;
+}
+.achievement-card-body {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.55;
+  letter-spacing: -0.005em;
+  color: rgba(29,29,31,0.55);
+  text-align: center;
+  max-width: 380px;
+}
+
+/* ============ Comparison Section (Apple Mac compare style) ============ */
+.comparison-section { margin-top: 20px; }
+
+/* Header above card */
+.comparison-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  padding: 0 4px;
+}
+.comparison-header-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(24px, 2.8vw, 40px);
+  letter-spacing: -0.03em;
+  color: #1d1d1f;
+  margin: 0;
+}
+.comparison-header-link {
+  font-family: var(--font-sans);
+  font-size: 15px;
+  color: #2997ff;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.comparison-header-link:hover { text-decoration: underline; }
+
+/* Main card */
+.comparison-card {
+  background: #f5f5f7;
+  border-radius: 28px;
+  padding: 52px 0 44px;
+}
+.comparison-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  align-items: end;
+  text-align: center;
+}
+
+/* Each column */
+.comparison-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  padding: 0;
+}
+
+/* Image — same width and aspect-ratio as achievement cards */
+.comparison-img-area {
+  width: 100%;
+}
+.comparison-img-ph {
+  width: 100%;
+  aspect-ratio: 1448 / 1086;
+  background: #e0ddd8;
+  border-radius: 28px;
+}
+.comparison-img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  border-radius: 28px;
+  display: block;
+}
+
+/* Indicator dots */
+.comparison-col-indicator {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  margin: 20px 0 16px;
+  padding: 0 16px;
+}
+.indicator-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: #86868b;
+  display: inline-block;
+}
+.indicator-dot.blue   { background: #5e8ff8; }
+.indicator-dot.red    { background: #e8676b; }
+.indicator-dot.yellow { background: #e6a93a; }
+.indicator-dot.green  { background: #5cba6b; }
+
+/* Text content */
+.comparison-col-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(20px, 2.2vw, 32px);
+  letter-spacing: -0.025em;
+  color: #1d1d1f;
+  margin: 0 0 8px;
+  padding: 0 16px;
+}
+.comparison-col-chip {
+  display: inline-block;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 600;
+  color: #1d1d1f;
+  margin-bottom: 10px;
+  padding: 0 16px;
+}
+.comparison-col-body {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.6;
+  color: rgba(29,29,31,0.55);
+  max-width: 280px;
+  margin: 0;
+  padding: 0 16px;
+}
+
+/* CTA */
+.comparison-cta {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
+.comparison-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  padding: 12px 20px 12px 28px;
+  border-radius: 999px;
+  border: none;
+  background: #1d1d1f;
+  color: #ffffff;
+  cursor: pointer;
+  transition: opacity 0.18s ease;
+}
+.comparison-cta-btn:hover { opacity: 0.82; }
+.comparison-cta-icon {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: #2997ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* Theme tab switcher — same segmented-control style as topbar .month-selector */
+.theme-tabs {
+  display: inline-flex;
+  gap: 4px;
+  justify-content: center;
+  margin-top: 8px;
+  background: color-mix(in oklab, var(--ink) 4%, transparent);
+  padding: 3px;
+  border-radius: 999px;
+  border: 1px solid var(--line-soft);
+}
+.theme-tab {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  padding: 5px 18px;
+  border-radius: 999px;
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.theme-tab:hover { color: var(--ink); }
+.theme-tab.active {
+  background: var(--ink);
+  color: var(--bg);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+}
+
 /* Hero cover */
 .cover-meta {
   display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 0 24px;
-  max-width: 600px;
+  grid-template-columns: max-content max-content;
+  gap: 0 48px;
   margin: 40px auto 0;
   text-align: left;
 }
 .cover-meta dt {
   font-family: var(--font-mono);
-  font-size: 15px;
+  font-size: 11px;
   letter-spacing: 0.12em;
-  color: #86868b;
+  color: var(--muted);
   text-transform: uppercase;
   padding: 12px 0;
   border-bottom: 1.5px dashed var(--line-soft);
@@ -503,10 +876,11 @@ body {
 .cover-meta dd {
   margin: 0;
   padding: 12px 0;
-  color: #86868b;
+  color: var(--ink);
   border-bottom: 1.5px dashed var(--line-soft);
   font-family: var(--font-sans);
   font-size: 15px;
+  letter-spacing: -0.01em;
 }
 
 /* Scroll-anchor offset (sticky top bar) */
@@ -570,8 +944,23 @@ body {
   font-weight: 700 !important;
 }
 .apple-hero {
-  padding-top: 140px;
-  padding-bottom: 140px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: 80px;
+  padding-bottom: 80px;
+}
+.apple-hero .v2-inner {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.apple-hero .v2-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 /* Apple tagline — thin display weight */
