@@ -1,0 +1,990 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Monthly Report — Wireframes</title>
+<!-- Apple system fonts: SF Pro (Latin/digits) + PingFang TC (CJK) loaded by OS -->
+<link rel="stylesheet" href="wireframe.css">
+</head>
+<body data-theme="light">
+
+<!-- ========================= TOP BAR ========================= -->
+<header class="topbar">
+  <div class="brand">monthly_report · <b>wireframes</b> · v0.1</div>
+  <nav class="tabs">
+    <button class="tab active" data-tab="v2"><span class="num">01</span> Editorial</button>
+    <button class="tab" data-tab="v3"><span class="num">02</span> Data Grid</button>
+  </nav>
+  <div class="actions">
+    <button class="theme-toggle" id="themeToggle"><span class="dot"></span><span id="themeLbl">light</span></button>
+  </div>
+</header>
+
+<!-- =================================================================
+     V2 — EDITORIAL (Magazine column)
+     Top progress bar + left meta rail + right body column
+     ================================================================== -->
+<main class="variation active v2" id="v2">
+
+  <div class="v2-progress">
+    <div class="v2-progress-current">— Executive Summary</div>
+    <div class="v2-progress-dots">
+      <a href="#v2-s1"></a>
+      <a href="#v2-s2" class="is-active"></a>
+      <a href="#v2-s3"></a>
+      <a href="#v2-s4"></a>
+      <a href="#v2-s5"></a>
+      <a href="#v2-s6"></a>
+      <a href="#v2-s7"></a>
+      <a href="#v2-s8"></a>
+      <a href="#v2-s9"></a>
+      <a href="#v2-s10"></a>
+      <a href="#v2-s11"></a>
+    </div>
+    <div class="v2-progress-meta">02 / 11 · Section A</div>
+  </div>
+
+  <!-- 01 Cover -->
+  <section class="v2-sec bg-dark apple-hero" id="v2-s1">
+    <div class="v2-inner">
+      <aside class="v2-sec-meta">
+        <div class="num">No. 01</div>
+        <div class="rule"></div>
+        <div class="kicker">Cover</div>
+        <div class="audience">cover page</div>
+      </aside>
+      <div class="v2-body">
+        <h2 class="v2-headline">Engineering<br>monthly <span class="gradient-blue">report.</span></h2>
+        <p class="apple-tagline">One month. One document. The progress that actually moved engineering forward — told for managers and engineers alike.</p>
+        <dl class="cover-meta">
+          <dt>Team / Project</dt><dd>—</dd>
+          <dt>Engineer</dt><dd>—</dd>
+          <dt>Role</dt><dd>—</dd>
+          <dt>Reporting Period</dt><dd>—</dd>
+          <dt>Department</dt><dd>—</dd>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 Executive Summary -->
+  <section class="v2-sec" id="v2-s2">
+    <div class="v2-inner">
+      <aside class="v2-sec-meta">
+        <div class="num">No. 02</div>
+        <div class="rule"></div>
+        <div class="kicker">Section A · Delivery</div>
+        <div class="audience">Manager / PM / Director</div>
+      </aside>
+      <div class="v2-body">
+        <h2 class="v2-headline">Executive summary.</h2>
+        <p class="v2-lede">The three outcomes that defined the month — and the impact each one created.</p>
+
+        <div class="v2-cols-2">
+          <div>
+            <h4 class="v2-sub-h">01 — Major Achievement</h4>
+            <div class="field"><span class="field-label">Happened</span><span class="field-input">—</span></div>
+            <div class="field"><span class="field-label">Why</span><span class="field-input">—</span></div>
+            <div class="field"><span class="field-label">Impact</span><span class="field-input">—</span></div>
+          </div>
+          <div>
+            <h4 class="v2-sub-h">02 — Major Achievement</h4>
+            <div class="field"><span class="field-label">Happened</span><span class="field-input">—</span></div>
+            <div class="field"><span class="field-label">Why</span><span class="field-input">—</span></div>
+            <div class="field"><span class="field-label">Impact</span><span class="field-input">—</span></div>
+          </div>
+        </div>
+        <h4 class="v2-sub-h" style="margin-top:32px;">03 — Major Achievement</h4>
+        <div class="v2-cols-2">
+          <div class="field"><span class="field-label">Happened</span><span class="field-input">—</span></div>
+          <div class="field"><span class="field-label">Why</span><span class="field-input">—</span></div>
+        </div>
+
+        <blockquote class="v2-pullquote">"Impact, not <em>activity</em>" — the through-line of every entry below.</blockquote>
+
+        <h4 class="v2-sub-h">Engineering impact snapshot</h4>
+        <table class="v2-table">
+          <thead><tr><th>Area</th><th>Before</th><th>After</th><th>Impact</th></tr></thead>
+          <tbody>
+            <tr><td>Performance</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td></tr>
+            <tr><td>Stability</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td></tr>
+            <tr><td>Productivity</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td></tr>
+            <tr><td>Cost</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td></tr>
+            <tr><td>Delivery</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td></tr>
+          </tbody>
+        </table>
+
+        <div class="v2-callout">
+          <span class="k">Overall status</span>
+          <h4>Project health</h4>
+          <div style="display:flex; gap:8px; margin-bottom:10px;">
+            <span class="pill green"><span class="dot"></span>green</span>
+            <span class="pill yellow"><span class="dot"></span>yellow</span>
+            <span class="pill red"><span class="dot"></span>red</span>
+          </div>
+          <div class="field"><span class="field-label">Confidence</span><span class="field-input">—</span></div>
+          <div class="field"><span class="field-label">Major Risk</span><span class="field-input">—</span></div>
+          <div class="field"><span class="field-label">Attention Needed</span><span class="field-input">—</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 Project Status -->
+  <section class="v2-sec" id="v2-s3">
+    <div class="v2-inner">
+      <aside class="v2-sec-meta">
+        <div class="num">No. 03</div>
+        <div class="rule"></div>
+        <div class="kicker">Project Status</div>
+        <div class="audience">Stakeholders</div>
+      </aside>
+      <div class="v2-body">
+        <h2 class="v2-headline">Where every project stands.</h2>
+        <table class="v2-table">
+          <thead><tr><th>Project</th><th>Goal</th><th>Status</th><th>Progress</th><th>Risk</th><th>ETA</th></tr></thead>
+          <tbody>
+            <tr><td>Project A</td><td class="empty">—</td><td><span class="pill green"><span class="dot"></span>green</span></td><td class="empty">70%</td><td>Low</td><td class="empty">—</td></tr>
+            <tr><td>Project B</td><td class="empty">—</td><td><span class="pill yellow"><span class="dot"></span>yellow</span></td><td class="empty">45%</td><td>Medium</td><td class="empty">—</td></tr>
+            <tr><td>Project C</td><td class="empty">—</td><td><span class="pill red"><span class="dot"></span>red</span></td><td class="empty">20%</td><td>High</td><td class="empty">—</td></tr>
+          </tbody>
+        </table>
+
+        <div class="v2-cols-2" style="margin-top:32px;">
+          <div>
+            <h4 class="v2-sub-h">Project A</h4>
+            <div class="field"><span class="field-label">Completed</span><span class="field-input">—</span></div>
+            <div class="field"><span class="field-label">In Progress</span><span class="field-input">—</span></div>
+            <div class="field"><span class="field-label">Blockers</span><span class="field-input">—</span></div>
+          </div>
+          <div>
+            <h4 class="v2-sub-h">Project B</h4>
+            <div class="field"><span class="field-label">Completed</span><span class="field-input">—</span></div>
+            <div class="field"><span class="field-label">In Progress</span><span class="field-input">—</span></div>
+            <div class="field"><span class="field-label">Blockers</span><span class="field-input">—</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 Risks -->
+  <section class="v2-sec" id="v2-s4">
+    <div class="v2-inner">
+      <aside class="v2-sec-meta">
+        <div class="num">No. 04</div>
+        <div class="rule"></div>
+        <div class="kicker" style="color:var(--accent);">Risks & Escalations</div>
+        <div class="audience">Leadership attention</div>
+      </aside>
+      <div class="v2-body">
+        <h2 class="v2-headline">What we'd like <em style="color:var(--accent);font-style:italic;">flagged</em>.</h2>
+        <table class="v2-table">
+          <thead><tr><th>Risk</th><th>Impact</th><th>Mitigation</th><th>Owner</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td><td><span class="pill yellow"><span class="dot"></span>open</span></td></tr>
+            <tr><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td><td><span class="pill red"><span class="dot"></span>blocked</span></td></tr>
+          </tbody>
+        </table>
+
+        <div class="v2-callout" style="border-color:var(--accent);">
+          <span class="k">Decision needed</span>
+          <h4>—</h4>
+          <div class="field"><span class="field-label">Why it matters</span><span class="field-input">—</span></div>
+          <div class="field"><span class="field-label">Deadline</span><span class="field-input">—</span></div>
+        </div>
+        <div class="v2-callout">
+          <span class="k">Resource needed</span>
+          <h4>—</h4>
+          <div class="field"><span class="field-label">Dependency</span><span class="field-input">—</span></div>
+          <div class="field"><span class="field-label">If unresolved</span><span class="field-input">—</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 Next Month -->
+  <section class="v2-sec" id="v2-s5">
+    <div class="v2-inner">
+      <aside class="v2-sec-meta">
+        <div class="num">No. 05</div>
+        <div class="rule"></div>
+        <div class="kicker">Next Month Plan</div>
+        <div class="audience">Forward look</div>
+      </aside>
+      <div class="v2-body">
+        <h2 class="v2-headline">The next thirty days.</h2>
+        <h4 class="v2-sub-h">Planned milestones</h4>
+        <table class="v2-table">
+          <thead><tr><th>Milestone</th><th>Deliverable</th><th>Owner</th><th>ETA</th><th>Success criteria</th></tr></thead>
+          <tbody>
+            <tr><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td></tr>
+            <tr><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td></tr>
+          </tbody>
+        </table>
+        <h4 class="v2-sub-h">Expected outcomes</h4>
+        <div class="v2-cols-2">
+          <div class="field"><span class="field-label">KPI target</span><span class="field-input">—</span></div>
+          <div class="field"><span class="field-label">Release target</span><span class="field-input">—</span></div>
+          <div class="field"><span class="field-label">System improvement</span><span class="field-input">—</span></div>
+          <div class="field"><span class="field-label">Team productivity</span><span class="field-input">—</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 Tech Wins -->
+  <section class="v2-sec bg-dark" id="v2-s6">
+    <div class="v2-inner">
+      <aside class="v2-sec-meta">
+        <div class="num">No. 06</div>
+        <div class="rule"></div>
+        <div class="kicker">Section B · Deep Dive</div>
+        <div class="audience">Engineers / Tech Leads</div>
+      </aside>
+      <div class="v2-body">
+        <h2 class="v2-headline">Key technical achievements.</h2>
+        <p class="v2-lede">Each highlight: Problem → Root Cause → Solution → Result.</p>
+
+        <h4 class="v2-sub-h">Highlight #1 — —</h4>
+        <div class="v2-cols-2">
+          <div>
+            <div class="field"><span class="field-label">Problem</span><span class="field-input">—</span></div>
+            <div class="field"><span class="field-label">Why important</span><span class="field-input">—</span></div>
+            <div class="field"><span class="field-label">Root Cause</span><span class="field-input">—</span></div>
+            <div class="field"><span class="field-label">Constraints</span><span class="field-input">—</span></div>
+          </div>
+          <div>
+            <div class="field"><span class="field-label">Design</span><span class="field-input">—</span></div>
+            <div class="field"><span class="field-label">Implementation</span><span class="field-input">—</span></div>
+            <div class="field"><span class="field-label">Metrics</span><span class="field-input">—</span></div>
+            <div class="field"><span class="field-label">Lessons</span><span class="field-input">—</span></div>
+          </div>
+        </div>
+
+        <blockquote class="v2-pullquote"><em>Highlight #2</em> · same structure repeats below.</blockquote>
+
+        <h4 class="v2-sub-h">Highlight #2 — —</h4>
+        <div class="v2-cols-2">
+          <div>
+            <div class="field"><span class="field-label">Problem</span><span class="field-input">—</span></div>
+            <div class="field"><span class="field-label">Root Cause</span><span class="field-input">—</span></div>
+          </div>
+          <div>
+            <div class="field"><span class="field-label">Solution</span><span class="field-input">—</span></div>
+            <div class="field"><span class="field-label">Result</span><span class="field-input">—</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 07 Architecture -->
+  <section class="v2-sec" id="v2-s7">
+    <div class="v2-inner">
+      <aside class="v2-sec-meta">
+        <div class="num">No. 07</div>
+        <div class="rule"></div>
+        <div class="kicker">Architecture</div>
+        <div class="audience">Tech Leads / Architects</div>
+      </aside>
+      <div class="v2-body">
+        <h2 class="v2-headline">Decisions and trade-offs.</h2>
+        <table class="v2-table">
+          <thead><tr><th>Topic</th><th>Decision</th><th>Alternative</th><th>Trade-off</th><th>Reason</th></tr></thead>
+          <tbody>
+            <tr><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td></tr>
+            <tr><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td></tr>
+          </tbody>
+        </table>
+        <h4 class="v2-sub-h">Important learnings</h4>
+        <div class="v2-cols-2">
+          <div class="field"><span class="field-label">Unexpected behavior</span><span class="field-input">—</span></div>
+          <div class="field"><span class="field-label">System limitation</span><span class="field-input">—</span></div>
+          <div class="field"><span class="field-label">Scalability concern</span><span class="field-input">—</span></div>
+          <div class="field"><span class="field-label">Operational</span><span class="field-input">—</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 08 Performance -->
+  <section class="v2-sec bg-blue" id="v2-s8">
+    <div class="v2-inner">
+      <aside class="v2-sec-meta">
+        <div class="num">No. 08</div>
+        <div class="rule"></div>
+        <div class="kicker">Performance / Reliability</div>
+        <div class="audience">Engineers</div>
+      </aside>
+      <div class="v2-body">
+        <h2 class="v2-headline">Numbers that <span class="gradient-blue">moved.</span></h2>
+        <div class="apple-metric">—<sup style="font-size:0.3em;letter-spacing:0;">ms</sup></div>
+        <div class="apple-metric-label">Headline metric — the single number this section argues for</div>
+
+        <table class="v2-table">
+          <thead><tr><th>Metric</th><th>Before</th><th>After</th><th>Improvement</th></tr></thead>
+          <tbody>
+            <tr><td>API Latency</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td></tr>
+            <tr><td>Build Time</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td></tr>
+            <tr><td>Memory Usage</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td></tr>
+            <tr><td>Crash Rate</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td></tr>
+            <tr><td>Test Coverage</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td></tr>
+          </tbody>
+        </table>
+
+        <div class="placeholder" style="height:180px; margin-top:20px;"><span>benchmark chart placeholder</span></div>
+
+        <div class="v2-cols-2" style="margin-top:24px;">
+          <div>
+            <h4 class="v2-sub-h">Observations</h4>
+            <div class="field"><span class="field-label">Key findings</span><span class="field-input">—</span></div>
+            <div class="field"><span class="field-label">Bottlenecks</span><span class="field-input">—</span></div>
+            <div class="field"><span class="field-label">Trend</span><span class="field-input">—</span></div>
+          </div>
+          <div>
+            <h4 class="v2-sub-h">Validation</h4>
+            <div class="field"><span class="field-label">Load</span><span class="field-input">—</span></div>
+            <div class="field"><span class="field-label">Stress</span><span class="field-input">—</span></div>
+            <div class="field"><span class="field-label">Prod</span><span class="field-input">—</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 09 Collaboration -->
+  <section class="v2-sec" id="v2-s9">
+    <div class="v2-inner">
+      <aside class="v2-sec-meta">
+        <div class="num">No. 09</div>
+        <div class="rule"></div>
+        <div class="kicker">Collaboration</div>
+        <div class="audience">Team / Cross-team</div>
+      </aside>
+      <div class="v2-body">
+        <h2 class="v2-headline">How the team moved together.</h2>
+        <table class="v2-table">
+          <thead><tr><th>Team</th><th>Area</th><th>Outcome</th></tr></thead>
+          <tbody>
+            <tr><td>PM</td><td class="empty">—</td><td class="empty">—</td></tr>
+            <tr><td>QA</td><td class="empty">—</td><td class="empty">—</td></tr>
+            <tr><td>Infra</td><td class="empty">—</td><td class="empty">—</td></tr>
+            <tr><td>Backend</td><td class="empty">—</td><td class="empty">—</td></tr>
+            <tr><td>Frontend</td><td class="empty">—</td><td class="empty">—</td></tr>
+          </tbody>
+        </table>
+        <h4 class="v2-sub-h">Team contribution</h4>
+        <div class="v2-cols-2">
+          <div class="field"><span class="field-label">Mentoring</span><span class="field-input">—</span></div>
+          <div class="field"><span class="field-label">Documentation</span><span class="field-input">—</span></div>
+          <div class="field"><span class="field-label">Process</span><span class="field-input">—</span></div>
+          <div class="field"><span class="field-label">Knowledge sharing</span><span class="field-input">—</span></div>
+          <div class="field"><span class="field-label">Incident support</span><span class="field-input">—</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10 Lessons -->
+  <section class="v2-sec" id="v2-s10">
+    <div class="v2-inner">
+      <aside class="v2-sec-meta">
+        <div class="num">No. 10</div>
+        <div class="rule"></div>
+        <div class="kicker">Lessons Learned</div>
+        <div class="audience">Closing reflection</div>
+      </aside>
+      <div class="v2-body">
+        <h2 class="v2-headline">Take with us.</h2>
+        <h4 class="v2-sub-h">Technical</h4>
+        <div class="v2-cols-2">
+          <div class="field"><span class="field-label">Worked well</span><span class="field-input">—</span></div>
+          <div class="field"><span class="field-label">Failed</span><span class="field-input">—</span></div>
+        </div>
+        <div class="field"><span class="field-label">To improve</span><span class="field-input">—</span></div>
+
+        <h4 class="v2-sub-h">Process</h4>
+        <div class="v2-cols-2">
+          <div class="field"><span class="field-label">Planning</span><span class="field-input">—</span></div>
+          <div class="field"><span class="field-label">Communication</span><span class="field-input">—</span></div>
+        </div>
+        <div class="field"><span class="field-label">Release</span><span class="field-input">—</span></div>
+
+        <h4 class="v2-sub-h">Strategic</h4>
+        <div class="field"><span class="field-label">Long-term debt</span><span class="field-input">—</span></div>
+        <div class="field"><span class="field-label">Architecture concern</span><span class="field-input">—</span></div>
+        <div class="field"><span class="field-label">Future investment</span><span class="field-input">—</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 11 Appendix -->
+  <section class="v2-sec" id="v2-s11">
+    <div class="v2-inner">
+      <aside class="v2-sec-meta">
+        <div class="num">No. 11</div>
+        <div class="rule"></div>
+        <div class="kicker">Appendix</div>
+        <div class="audience">Optional supporting</div>
+      </aside>
+      <div class="v2-body">
+        <h2 class="v2-headline">Supporting materials.</h2>
+        <div class="v2-cols-2">
+          <div class="placeholder" style="height:120px"><span>architecture diagram</span></div>
+          <div class="placeholder" style="height:120px"><span>benchmark results</span></div>
+          <div class="placeholder" style="height:120px"><span>debug logs</span></div>
+          <div class="placeholder" style="height:120px"><span>tracing screenshot</span></div>
+          <div class="placeholder" style="height:120px"><span>incident timeline</span></div>
+          <div class="placeholder" style="height:120px"><span>deployment flow</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- =================================================================
+     V3 — DATA GRID (asymmetric 12-col, density forward)
+     ================================================================== -->
+<main class="variation v3" id="v3">
+
+  <aside class="v3-rail" aria-label="Table of contents">
+    <a href="#v3-s1" class="is-active"><span class="lbl">01 · Cover</span></a>
+    <a href="#v3-s2"><span class="lbl">02 · Exec Summary</span></a>
+    <a href="#v3-s3"><span class="lbl">03 · Projects</span></a>
+    <a href="#v3-s4"><span class="lbl">04 · Risks</span></a>
+    <a href="#v3-s5"><span class="lbl">05 · Next Month</span></a>
+    <a href="#v3-s6"><span class="lbl">06 · Tech Wins</span></a>
+    <a href="#v3-s7"><span class="lbl">07 · Architecture</span></a>
+    <a href="#v3-s8"><span class="lbl">08 · Performance</span></a>
+    <a href="#v3-s9"><span class="lbl">09 · Collaboration</span></a>
+    <a href="#v3-s10"><span class="lbl">10 · Lessons</span></a>
+    <a href="#v3-s11"><span class="lbl">11 · Appendix</span></a>
+  </aside>
+
+  <!-- 01 Cover -->
+  <section class="v3-sec bg-dark apple-hero" id="v3-s1">
+    <div class="v3-sec-head">
+      <div>
+        <div class="id">§ 01 · Cover</div>
+        <h2>Engineering monthly report.</h2>
+      </div>
+      <div class="right"><span>FY ——/——</span><span>·</span><span>v 0.1</span></div>
+    </div>
+    <div class="v3-grid">
+      <div class="v3-cell v3-span-7 dark">
+        <span class="v3-label">Report period</span>
+        <div class="v3-big">— — —</div>
+        <div class="v3-cap">team / project / engineer</div>
+      </div>
+      <div class="v3-cell v3-span-5">
+        <span class="v3-label">Meta</span>
+        <div class="field"><span class="field-label">Engineer</span><span class="field-input">—</span></div>
+        <div class="field"><span class="field-label">Role</span><span class="field-input">—</span></div>
+        <div class="field"><span class="field-label">Department</span><span class="field-input">—</span></div>
+        <div class="field" style="border:0"><span class="field-label">Period</span><span class="field-input">—</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 Executive Summary -->
+  <section class="v3-sec" id="v3-s2">
+    <div class="v3-sec-head">
+      <div>
+        <div class="id">§ 02 · Section A · Executive Summary</div>
+        <h2>Outcomes &amp; impact.</h2>
+      </div>
+      <div class="right"><span>Audience</span><span>·</span><span>Manager / PM / Director</span></div>
+    </div>
+    <div class="v3-grid">
+      <div class="v3-cell v3-span-4">
+        <span class="v3-label">Outcome 01</span>
+        <div class="v3-mid">Major achievement</div>
+        <div class="v3-cap">happened — / why — / impact —</div>
+      </div>
+      <div class="v3-cell v3-span-4">
+        <span class="v3-label">Outcome 02</span>
+        <div class="v3-mid">Major achievement</div>
+        <div class="v3-cap">happened — / why — / impact —</div>
+      </div>
+      <div class="v3-cell v3-span-4">
+        <span class="v3-label">Outcome 03</span>
+        <div class="v3-mid">Major achievement</div>
+        <div class="v3-cap">happened — / why — / impact —</div>
+      </div>
+
+      <div class="v3-cell v3-span-8">
+        <span class="v3-label">Engineering impact snapshot</span>
+        <table class="v3-table">
+          <thead><tr><th>Area</th><th>Before</th><th>After</th><th>Impact</th></tr></thead>
+          <tbody>
+            <tr><td>Performance</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td></tr>
+            <tr><td>Stability</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td></tr>
+            <tr><td>Productivity</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td></tr>
+            <tr><td>Cost</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td></tr>
+            <tr><td>Delivery</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="v3-cell v3-span-4">
+        <span class="v3-label">Overall status</span>
+        <div style="display:flex; gap:6px; flex-wrap:wrap;">
+          <span class="pill green"><span class="dot"></span>green</span>
+          <span class="pill yellow"><span class="dot"></span>yellow</span>
+          <span class="pill red"><span class="dot"></span>red</span>
+        </div>
+        <div class="field"><span class="field-label">Confidence</span><span class="field-input">—</span></div>
+        <div class="field"><span class="field-label">Major risk</span><span class="field-input">—</span></div>
+        <div class="field" style="border:0"><span class="field-label">Attention</span><span class="field-input">—</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 Project Status -->
+  <section class="v3-sec" id="v3-s3">
+    <div class="v3-sec-head">
+      <div>
+        <div class="id">§ 03 · Project Status Overview</div>
+        <h2>Portfolio at a glance.</h2>
+      </div>
+      <div class="right"><span>3 projects</span><span>·</span><span>—%, —%, —%</span></div>
+    </div>
+    <div class="v3-grid">
+      <div class="v3-cell v3-span-4">
+        <span class="v3-label">Project A</span>
+        <div class="v3-big">70<span style="font-size:0.4em;color:var(--muted)">%</span></div>
+        <div class="v3-bar green"><i style="width:70%"></i></div>
+        <div class="v3-cap"><span class="pill green"><span class="dot"></span>green</span> &nbsp; Low risk · ETA —</div>
+      </div>
+      <div class="v3-cell v3-span-4">
+        <span class="v3-label">Project B</span>
+        <div class="v3-big">45<span style="font-size:0.4em;color:var(--muted)">%</span></div>
+        <div class="v3-bar yellow"><i style="width:45%"></i></div>
+        <div class="v3-cap"><span class="pill yellow"><span class="dot"></span>yellow</span> &nbsp; Medium risk · ETA —</div>
+      </div>
+      <div class="v3-cell v3-span-4">
+        <span class="v3-label">Project C</span>
+        <div class="v3-big">20<span style="font-size:0.4em;color:var(--muted)">%</span></div>
+        <div class="v3-bar red"><i style="width:20%"></i></div>
+        <div class="v3-cap"><span class="pill red"><span class="dot"></span>red</span> &nbsp; High risk · ETA —</div>
+      </div>
+
+      <div class="v3-cell v3-span-6">
+        <span class="v3-label">Project A · key progress</span>
+        <div class="field"><span class="field-label">Completed</span><span class="field-input">—</span></div>
+        <div class="field"><span class="field-label">In Progress</span><span class="field-input">—</span></div>
+        <div class="field" style="border:0"><span class="field-label">Blockers</span><span class="field-input">—</span></div>
+      </div>
+      <div class="v3-cell v3-span-6">
+        <span class="v3-label">Project B · key progress</span>
+        <div class="field"><span class="field-label">Completed</span><span class="field-input">—</span></div>
+        <div class="field"><span class="field-label">In Progress</span><span class="field-input">—</span></div>
+        <div class="field" style="border:0"><span class="field-label">Blockers</span><span class="field-input">—</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 Risks -->
+  <section class="v3-sec" id="v3-s4">
+    <div class="v3-sec-head">
+      <div>
+        <div class="id">§ 04 · Risks &amp; Escalations</div>
+        <h2 style="color:var(--accent)">Things to flag.</h2>
+      </div>
+      <div class="right"><span>Owner-required</span></div>
+    </div>
+    <div class="v3-grid">
+      <div class="v3-cell v3-span-12">
+        <span class="v3-label">Current risks</span>
+        <table class="v3-table">
+          <thead><tr><th>Risk</th><th>Impact</th><th>Mitigation</th><th>Owner</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td><td><span class="pill yellow"><span class="dot"></span>open</span></td></tr>
+            <tr><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td><td><span class="pill red"><span class="dot"></span>blocked</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="v3-cell v3-span-6" style="border-color:var(--accent);">
+        <span class="v3-label" style="color:var(--accent)">Decision needed</span>
+        <div class="v3-mid">—</div>
+        <div class="field"><span class="field-label">Why</span><span class="field-input">—</span></div>
+        <div class="field" style="border:0"><span class="field-label">Deadline</span><span class="field-input">—</span></div>
+      </div>
+      <div class="v3-cell v3-span-6">
+        <span class="v3-label">Resource needed</span>
+        <div class="v3-mid">—</div>
+        <div class="field"><span class="field-label">Dependency</span><span class="field-input">—</span></div>
+        <div class="field" style="border:0"><span class="field-label">If unresolved</span><span class="field-input">—</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 Next Month -->
+  <section class="v3-sec" id="v3-s5">
+    <div class="v3-sec-head">
+      <div>
+        <div class="id">§ 05 · Next Month Plan</div>
+        <h2>The 30-day plan.</h2>
+      </div>
+      <div class="right"><span>Forward look</span></div>
+    </div>
+    <div class="v3-grid">
+      <div class="v3-cell v3-span-8">
+        <span class="v3-label">Planned milestones</span>
+        <table class="v3-table">
+          <thead><tr><th>Milestone</th><th>Deliverable</th><th>Owner</th><th>ETA</th><th>Success</th></tr></thead>
+          <tbody>
+            <tr><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td></tr>
+            <tr><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td></tr>
+            <tr><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="v3-cell v3-span-4">
+        <span class="v3-label">Expected outcomes</span>
+        <div class="field"><span class="field-label">KPI</span><span class="field-input">—</span></div>
+        <div class="field"><span class="field-label">Release</span><span class="field-input">—</span></div>
+        <div class="field"><span class="field-label">System</span><span class="field-input">—</span></div>
+        <div class="field" style="border:0"><span class="field-label">Productivity</span><span class="field-input">—</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 Tech Wins -->
+  <section class="v3-sec bg-dark" id="v3-s6">
+    <div class="v3-sec-head">
+      <div>
+        <div class="id">§ 06 · Section B · Engineering Deep Dive</div>
+        <h2>Key technical achievements.</h2>
+      </div>
+      <div class="right"><span>Engineers / Tech Leads</span></div>
+    </div>
+    <div class="v3-grid">
+      <div class="v3-cell v3-span-6">
+        <span class="v3-label">Highlight #1</span>
+        <div class="v3-mid">—</div>
+        <div class="field"><span class="field-label">Problem</span><span class="field-input">—</span></div>
+        <div class="field"><span class="field-label">Root cause</span><span class="field-input">—</span></div>
+        <div class="field"><span class="field-label">Solution</span><span class="field-input">—</span></div>
+        <div class="field" style="border:0"><span class="field-label">Result</span><span class="field-input">—</span></div>
+      </div>
+      <div class="v3-cell v3-span-6">
+        <span class="v3-label">Highlight #2</span>
+        <div class="v3-mid">—</div>
+        <div class="field"><span class="field-label">Problem</span><span class="field-input">—</span></div>
+        <div class="field"><span class="field-label">Root cause</span><span class="field-input">—</span></div>
+        <div class="field"><span class="field-label">Solution</span><span class="field-input">—</span></div>
+        <div class="field" style="border:0"><span class="field-label">Result</span><span class="field-input">—</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 07 Architecture -->
+  <section class="v3-sec" id="v3-s7">
+    <div class="v3-sec-head">
+      <div>
+        <div class="id">§ 07 · Architecture &amp; Technical Decisions</div>
+        <h2>Decisions table.</h2>
+      </div>
+      <div class="right"><span>Tech Leads</span></div>
+    </div>
+    <div class="v3-grid">
+      <div class="v3-cell v3-span-12">
+        <span class="v3-label">Design decisions</span>
+        <table class="v3-table">
+          <thead><tr><th>Topic</th><th>Decision</th><th>Alternative</th><th>Trade-off</th><th>Reason</th></tr></thead>
+          <tbody>
+            <tr><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td></tr>
+            <tr><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td><td class="empty">—</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="v3-cell v3-span-12">
+        <span class="v3-label">Important technical learnings</span>
+        <div class="v3-grid" style="margin-top:8px;">
+          <div class="v3-cell v3-span-6" style="border:0; padding:0; background:transparent; min-height:auto;">
+            <div class="field"><span class="field-label">Unexpected behavior</span><span class="field-input">—</span></div>
+            <div class="field" style="border:0"><span class="field-label">System limitation</span><span class="field-input">—</span></div>
+          </div>
+          <div class="v3-cell v3-span-6" style="border:0; padding:0; background:transparent; min-height:auto;">
+            <div class="field"><span class="field-label">Scalability concern</span><span class="field-input">—</span></div>
+            <div class="field" style="border:0"><span class="field-label">Operational</span><span class="field-input">—</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 08 Performance -->
+  <section class="v3-sec bg-blue" id="v3-s8">
+    <div class="v3-sec-head">
+      <div>
+        <div class="id">§ 08 · Performance / Reliability</div>
+        <h2>Numbers that moved.</h2>
+      </div>
+      <div class="right"><span>5 metrics tracked</span></div>
+    </div>
+    <div class="v3-grid">
+      <div class="v3-cell v3-span-4 dark">
+        <span class="v3-label">Headline metric</span>
+        <div class="apple-metric" style="font-size:clamp(72px,9vw,128px);margin:0;">—</div>
+        <div class="v3-cap" style="color:rgba(255,255,255,0.7)">single number — that argues the section</div>
+      </div>
+      <div class="v3-cell v3-span-4">
+        <span class="v3-label">API Latency</span>
+        <div class="v3-mid">— → —</div>
+        <svg class="sk-chart" viewBox="0 0 200 60" preserveAspectRatio="none">
+          <line class="grid" x1="0" y1="30" x2="200" y2="30"/>
+          <polyline class="line" points="0,40 25,38 50,30 75,32 100,24 125,18 150,12 175,10 200,8"/>
+        </svg>
+      </div>
+      <div class="v3-cell v3-span-4">
+        <span class="v3-label">Build Time</span>
+        <div class="v3-mid">— → —</div>
+        <div class="sk-bars">
+          <i style="height:55%"></i><i style="height:48%"></i><i style="height:60%"></i><i style="height:42%"></i><i style="height:30%"></i><i class="hi" style="height:22%"></i><i class="hi" style="height:18%"></i>
+        </div>
+      </div>
+
+      <div class="v3-cell v3-span-4">
+        <span class="v3-label">Memory Usage</span>
+        <div class="v3-mid">— → —</div>
+        <svg class="sk-chart" viewBox="0 0 200 60" preserveAspectRatio="none">
+          <line class="grid" x1="0" y1="30" x2="200" y2="30"/>
+          <polyline class="line accent" points="0,12 25,15 50,20 75,25 100,30 125,35 150,38 175,40 200,42"/>
+        </svg>
+      </div>
+      <div class="v3-cell v3-span-4">
+        <span class="v3-label">Crash Rate</span>
+        <div class="v3-mid">— → —</div>
+        <div class="sk-bars">
+          <i class="accent" style="height:65%"></i><i class="accent" style="height:50%"></i><i style="height:40%"></i><i style="height:28%"></i><i style="height:22%"></i><i style="height:14%"></i><i style="height:10%"></i>
+        </div>
+      </div>
+      <div class="v3-cell v3-span-4">
+        <span class="v3-label">Test Coverage</span>
+        <div class="v3-mid">— → —</div>
+        <div class="v3-bar green"><i style="width:78%"></i></div>
+        <div class="v3-cap">target: —%</div>
+      </div>
+
+      <div class="v3-cell v3-span-6">
+        <span class="v3-label">Observations</span>
+        <div class="field"><span class="field-label">Key findings</span><span class="field-input">—</span></div>
+        <div class="field"><span class="field-label">Bottlenecks</span><span class="field-input">—</span></div>
+        <div class="field" style="border:0"><span class="field-label">Trend</span><span class="field-input">—</span></div>
+      </div>
+      <div class="v3-cell v3-span-6">
+        <span class="v3-label">Validation</span>
+        <div class="field"><span class="field-label">Load</span><span class="field-input">—</span></div>
+        <div class="field"><span class="field-label">Stress</span><span class="field-input">—</span></div>
+        <div class="field" style="border:0"><span class="field-label">Prod verification</span><span class="field-input">—</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 09 Collaboration -->
+  <section class="v3-sec" id="v3-s9">
+    <div class="v3-sec-head">
+      <div>
+        <div class="id">§ 09 · Collaboration &amp; Leadership</div>
+        <h2>Team movement.</h2>
+      </div>
+      <div class="right"><span>5 cross-team</span></div>
+    </div>
+    <div class="v3-grid">
+      <div class="v3-cell v3-span-7">
+        <span class="v3-label">Cross-team collaboration</span>
+        <table class="v3-table">
+          <thead><tr><th>Team</th><th>Area</th><th>Outcome</th></tr></thead>
+          <tbody>
+            <tr><td>PM</td><td class="empty">—</td><td class="empty">—</td></tr>
+            <tr><td>QA</td><td class="empty">—</td><td class="empty">—</td></tr>
+            <tr><td>Infra</td><td class="empty">—</td><td class="empty">—</td></tr>
+            <tr><td>Backend</td><td class="empty">—</td><td class="empty">—</td></tr>
+            <tr><td>Frontend</td><td class="empty">—</td><td class="empty">—</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="v3-cell v3-span-5">
+        <span class="v3-label">Team contribution</span>
+        <div class="field"><span class="field-label">Mentoring</span><span class="field-input">—</span></div>
+        <div class="field"><span class="field-label">Documentation</span><span class="field-input">—</span></div>
+        <div class="field"><span class="field-label">Process</span><span class="field-input">—</span></div>
+        <div class="field"><span class="field-label">Knowledge sharing</span><span class="field-input">—</span></div>
+        <div class="field" style="border:0"><span class="field-label">Incident support</span><span class="field-input">—</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10 Lessons -->
+  <section class="v3-sec" id="v3-s10">
+    <div class="v3-sec-head">
+      <div>
+        <div class="id">§ 10 · Lessons Learned</div>
+        <h2>Carryforward.</h2>
+      </div>
+      <div class="right"><span>Tech / Process / Strategic</span></div>
+    </div>
+    <div class="v3-grid">
+      <div class="v3-cell v3-span-4">
+        <span class="v3-label">Technical</span>
+        <div class="field"><span class="field-label">Worked</span><span class="field-input">—</span></div>
+        <div class="field"><span class="field-label">Failed</span><span class="field-input">—</span></div>
+        <div class="field" style="border:0"><span class="field-label">Improve</span><span class="field-input">—</span></div>
+      </div>
+      <div class="v3-cell v3-span-4">
+        <span class="v3-label">Process</span>
+        <div class="field"><span class="field-label">Planning</span><span class="field-input">—</span></div>
+        <div class="field"><span class="field-label">Communication</span><span class="field-input">—</span></div>
+        <div class="field" style="border:0"><span class="field-label">Release</span><span class="field-input">—</span></div>
+      </div>
+      <div class="v3-cell v3-span-4">
+        <span class="v3-label">Strategic</span>
+        <div class="field"><span class="field-label">Long-term debt</span><span class="field-input">—</span></div>
+        <div class="field"><span class="field-label">Architecture</span><span class="field-input">—</span></div>
+        <div class="field" style="border:0"><span class="field-label">Future invest</span><span class="field-input">—</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 11 Appendix -->
+  <section class="v3-sec" id="v3-s11">
+    <div class="v3-sec-head">
+      <div>
+        <div class="id">§ 11 · Appendix (Optional)</div>
+        <h2>Supporting materials.</h2>
+      </div>
+      <div class="right"><span>8 attachments</span></div>
+    </div>
+    <div class="v3-grid">
+      <div class="v3-cell v3-span-4 placeholder" style="min-height:120px;padding:0"><span>architecture diagram</span></div>
+      <div class="v3-cell v3-span-4 placeholder" style="min-height:120px;padding:0"><span>benchmark results</span></div>
+      <div class="v3-cell v3-span-4 placeholder" style="min-height:120px;padding:0"><span>debug logs</span></div>
+      <div class="v3-cell v3-span-4 placeholder" style="min-height:120px;padding:0"><span>tracing screenshots</span></div>
+      <div class="v3-cell v3-span-4 placeholder" style="min-height:120px;padding:0"><span>incident timeline</span></div>
+      <div class="v3-cell v3-span-4 placeholder" style="min-height:120px;padding:0"><span>deployment flow</span></div>
+    </div>
+  </section>
+</main>
+
+<script>
+  // ---- Tab switching ----
+  const tabs = document.querySelectorAll('.tab');
+  const variations = document.querySelectorAll('.variation');
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const target = tab.dataset.tab;
+      tabs.forEach(t => t.classList.toggle('active', t === tab));
+      variations.forEach(v => v.classList.toggle('active', v.id === target));
+      window.scrollTo({ top: 0, behavior: 'instant' });
+      try { localStorage.setItem('mr-tab', target); } catch(e) {}
+      // Re-check what's visible after the tab swap
+      requestAnimationFrame(() => markVisibleNow());
+    });
+  });
+  // Restore last tab (skip stale v1)
+  try {
+    const last = localStorage.getItem('mr-tab');
+    if (last && last !== 'v1') {
+      const t = document.querySelector('.tab[data-tab="' + last + '"]');
+      if (t) t.click();
+    }
+  } catch(e) {}
+
+  // ---- Theme toggle ----
+  const themeBtn = document.getElementById('themeToggle');
+  const themeLbl = document.getElementById('themeLbl');
+  function setTheme(mode) {
+    document.body.dataset.theme = mode;
+    themeLbl.textContent = mode;
+    try { localStorage.setItem('mr-theme', mode); } catch(e) {}
+  }
+  themeBtn.addEventListener('click', () => {
+    const next = document.body.dataset.theme === 'light' ? 'dark' : 'light';
+    setTheme(next);
+  });
+  try {
+    const t = localStorage.getItem('mr-theme');
+    if (t) setTheme(t);
+  } catch(e) {}
+
+  // ---- TOC active highlighting (v1 + v3 + v2 progress) ----
+  const observers = [];
+  function watchToc(variationId, linksSelector, labelEl, counterEl) {
+    const root = document.getElementById(variationId);
+    if (!root) return;
+    const links = document.querySelectorAll(linksSelector);
+    const sections = root.querySelectorAll('section[id]');
+    const map = new Map();
+    links.forEach(a => {
+      const id = a.getAttribute('href').slice(1);
+      map.set(id, a);
+    });
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          links.forEach(a => a.classList.remove('is-active'));
+          const a = map.get(e.target.id);
+          if (a) a.classList.add('is-active');
+          if (labelEl) {
+            const txt = a ? a.querySelector('.lbl, span:last-child')?.textContent : '';
+            const head = e.target.querySelector('.v2-sec-meta .kicker');
+            labelEl.textContent = head ? '— ' + head.textContent : (txt || '');
+          }
+          if (counterEl) {
+            const idx = [...sections].indexOf(e.target) + 1;
+            counterEl.textContent = String(idx).padStart(2,'0') + ' / ' + sections.length;
+          }
+        }
+      });
+    }, { rootMargin: '-40% 0px -50% 0px', threshold: 0 });
+    sections.forEach(s => io.observe(s));
+    observers.push(io);
+  }
+  watchToc('v1', '.v1-rail a');
+  watchToc('v3', '.v3-rail a');
+  // v2 progress bar
+  const v2Label = document.querySelector('.v2-progress-current');
+  const v2Counter = document.querySelector('.v2-progress-meta');
+  watchToc('v2', '.v2-progress-dots a', v2Label, v2Counter);
+
+  // ---- Apple-style reveal-on-scroll (with robust fallbacks) ----
+  function markVisibleNow() {
+    document.querySelectorAll('.variation.active .v2-sec, .variation.active .v3-sec').forEach((s) => {
+      const r = s.getBoundingClientRect();
+      if (r.top < window.innerHeight + 100 && r.bottom > -100) {
+        s.classList.add('is-loaded', 'is-visible');
+      }
+    });
+  }
+
+  // 1) IO for progressive reveal as you scroll
+  const sectionReveal = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) e.target.classList.add('is-visible');
+    });
+  }, { rootMargin: '0px 0px -8% 0px', threshold: 0.06 });
+  document.querySelectorAll('.v2-sec, .v3-sec').forEach(s => sectionReveal.observe(s));
+
+  // 2) Synchronous initial pass — so cover shows instantly
+  markVisibleNow();
+
+  // 3) Re-check on scroll (rAF-throttled) — a belt-and-braces backup if IO misbehaves
+  let scrollTick = false;
+  window.addEventListener('scroll', () => {
+    if (scrollTick) return;
+    scrollTick = true;
+    requestAnimationFrame(() => { markVisibleNow(); scrollTick = false; });
+  }, { passive: true });
+
+  // 4) Hard safety net — reveal everything after 2s so nothing stays invisible
+  setTimeout(() => {
+    document.querySelectorAll('.v2-sec, .v3-sec').forEach(s => s.classList.add('is-visible'));
+  }, 2000);
+</script>
+
+</body>
+</html>

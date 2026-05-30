@@ -62,25 +62,3 @@ For multi-step tasks, state a brief plan:
 Strong success criteria let you loop independently. Weak criteria ("make it work") require constant clarification.
 
 These guidelines are working if: fewer unnecessary changes in diffs, fewer rewrites due to overcomplication, and clarifying questions come before implementation rather than after mistakes.
-
----
-
-## 文件索引
-
-| 問題類型 | 參考文件 |
-|---------|---------|
-| 顏色、風格、排版、CSS、元件、版面、Design System | [FRONTEND.md](FRONTEND.md) |
-| 資料結構、JSON schema、TypeScript 型別、資料流 | [DATA.md](DATA.md) |
-
-## 同步規則
-
-修改以下檔案後，**必須在同一次對話中更新對應文件**：
-
-| 修改的檔案 | 需同步的文件與章節 |
-|-----------|------------------|
-| `src/types/report.ts` | DATA.md → 資料結構 |
-| `src/data/report.json`（schema 變動時） | DATA.md → 資料結構、資料流 |
-| `src/App.vue` | FRONTEND.md → App.vue 核心邏輯、目前頁面區塊、Design System |
-| `src/components/*.vue` | FRONTEND.md → 元件 Props、目前頁面區塊 |
-
-完成所有程式碼變更後再一次性更新，避免來回修改。
