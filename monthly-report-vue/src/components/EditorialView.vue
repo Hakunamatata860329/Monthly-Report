@@ -18,15 +18,15 @@
     <section class="v2-sec bg-dark apple-hero" id="v2-s1">
       <div class="v2-inner">
         <div class="v2-sec-head">
-          <div class="v2-sec-id">§ 01 · Cover</div>
+          <div class="v2-sec-id">{{ sectionLabels[0] }}</div>
         </div>
         <div class="v2-body">
-          <h2 class="v2-headline">2026-05<br>Monthly <span class="gradient-blue">Report.</span></h2>
+          <h2 class="v2-headline">{{ report.monthHeadline }}<br>Monthly <span class="gradient-blue">Report.</span></h2>
           <p class="apple-tagline">Optimized Efficiency. Compromiseless Quality.<br><span style="font-size:0.6em;opacity:1;">優化效益。絕不妥協的品質。</span></p>
           <dl class="cover-meta">
-            <dt>NAME</dt><dd>JASON.JY.LIN</dd>
-            <dt>DEPARTMENT</dt><dd>軟體測試課</dd>
-            <dt>DATE</dt><dd>06/03/2026</dd>
+            <dt>NAME</dt><dd>{{ author.name }}</dd>
+            <dt>DEPARTMENT</dt><dd>{{ author.department }}</dd>
+            <dt>DATE</dt><dd>{{ author.date }}</dd>
           </dl>
         </div>
       </div>
@@ -36,7 +36,7 @@
     <section class="v2-sec v2-sec--scroll-tabs" id="v2-s2">
       <div class="v2-inner">
         <div class="v2-sec-head">
-          <div class="v2-sec-id">§ 02 · Executive Summary</div>
+          <div class="v2-sec-id">{{ sectionLabels[1] }}</div>
         </div>
         <div class="v2-body">
           <div class="comparison-header">
@@ -47,8 +47,9 @@
           <div class="achievement-cards">
             <div
               class="achievement-card card-left"
-              :class="{ 'has-image': whatHappened.image }"
+              :class="{ 'has-image': whatHappened.image, 'lb-trigger': whatHappened.image }"
               :style="whatHappened.image ? { backgroundImage: `url(${whatHappened.image})` } : {}"
+              @click="whatHappened.image && openLightbox(whatHappened.image)"
             >
               <div class="achievement-card-main">
                 <div v-if="whatHappened.title" class="achievement-card-title">{{ whatHappened.title }}</div>
@@ -57,8 +58,9 @@
             </div>
             <div
               class="achievement-card card-right"
-              :class="{ 'has-image': whyItMatters.image }"
+              :class="{ 'has-image': whyItMatters.image, 'lb-trigger': whyItMatters.image }"
               :style="whyItMatters.image ? { backgroundImage: `url(${whyItMatters.image})` } : {}"
+              @click="whyItMatters.image && openLightbox(whyItMatters.image)"
             >
               <div class="achievement-card-main">
                 <div v-if="whyItMatters.title" class="achievement-card-title">{{ whyItMatters.title }}</div>
@@ -88,14 +90,14 @@
             <div class="comparison-card">
               <!-- Merged full-width image (used when before/after share one image) -->
               <div v-if="activeThemeData.mergedImage" class="comparison-merged">
-                <img :src="activeThemeData.mergedImage" class="comparison-img-merged" alt="">
+                <img :src="activeThemeData.mergedImage" class="comparison-img-merged lb-trigger" alt="" @click="openLightbox(activeThemeData.mergedImage!)">
               </div>
               <!-- Normal 2-col Before / After -->
               <div v-else class="comparison-grid">
                 <!-- Left: Before -->
                 <div class="comparison-col">
                   <div class="comparison-img-area">
-                    <img v-if="activeThemeData.before.image" :src="activeThemeData.before.image" class="comparison-img" alt="">
+                    <img v-if="activeThemeData.before.image" :src="activeThemeData.before.image" class="comparison-img lb-trigger" alt="" @click="openLightbox(activeThemeData.before.image)">
                     <div v-else class="comparison-img-ph"></div>
                   </div>
                 </div>
@@ -103,7 +105,7 @@
                 <!-- Right: After -->
                 <div class="comparison-col">
                   <div class="comparison-img-area">
-                    <img v-if="activeThemeData.after.image" :src="activeThemeData.after.image" class="comparison-img" alt="">
+                    <img v-if="activeThemeData.after.image" :src="activeThemeData.after.image" class="comparison-img lb-trigger" alt="" @click="openLightbox(activeThemeData.after.image)">
                     <div v-else class="comparison-img-ph"></div>
                   </div>
                 </div>
@@ -120,7 +122,7 @@
     <section class="v2-sec" id="v2-s3">
       <div class="v2-inner">
         <div class="v2-sec-head">
-          <div class="v2-sec-id">§ 03 · Project Status</div>
+          <div class="v2-sec-id">{{ sectionLabels[2] }}</div>
         </div>
         <div class="v2-body">
           <div class="comparison-header">
@@ -129,9 +131,25 @@
           <table class="v2-table">
             <thead><tr><th>Project</th><th>Goal</th><th>Progress</th><th>Collaborator</th><th>Problem</th><th>ETA</th></tr></thead>
             <tbody>
-              <tr><td>W3A Issue/Requirement Management</td><td>跨團隊需求交集與市場價值分析</td><td><div class="battery-wrap"><div class="battery-body"><div class="battery-fill green" style="width:100%"></div></div><div class="battery-nub"></div><span class="battery-label">100%</span></div></td><td>Triage Team</td><td class="empty">—</td><td>2026-06-30</td></tr>
-              <tr><td>SITR Workflow Optimization</td><td>減少人工填寫成本，落實資料數位化</td><td><div class="battery-wrap"><div class="battery-body"><div class="battery-fill yellow" style="width:50%"></div></div><div class="battery-nub"></div><span class="battery-label">50%</span></div></td><td>Daisy</td><td><span class="pill red"><span class="dot"></span>Blocked</span></td><td>2026-07-31</td></tr>
-              <tr><td>Workflow Optimization with AI</td><td>應用 AI 優化日常工作流程</td><td><div class="battery-wrap"><div class="battery-body"><div class="battery-fill green" style="width:100%"></div></div><div class="battery-nub"></div><span class="battery-label">100%</span></div></td><td class="empty">—</td><td class="empty">—</td><td>2026-09-30</td></tr>
+              <tr v-for="p in projects" :key="p.id">
+                <td>{{ p.name }}</td>
+                <td>{{ p.goal }}</td>
+                <td>
+                  <div class="battery-wrap">
+                    <div class="battery-body">
+                      <div class="battery-fill" :class="batteryColor(p.progress)" :style="{ width: p.progress + '%' }"></div>
+                    </div>
+                    <div class="battery-nub"></div>
+                    <span class="battery-label">{{ p.progress }}%</span>
+                  </div>
+                </td>
+                <td :class="{ empty: !p.collaborator }">{{ p.collaborator || '—' }}</td>
+                <td :class="{ empty: !p.problem }">
+                  <span v-if="p.problem" class="pill red"><span class="dot"></span>{{ p.problem }}</span>
+                  <template v-else>—</template>
+                </td>
+                <td>{{ p.eta }}</td>
+              </tr>
             </tbody>
           </table>
 
@@ -143,7 +161,7 @@
             <!-- Project name headers -->
             <div class="kp-apple-header-row">
               <div v-for="p in projects" :key="p.id" class="kp-apple-header-cell">
-                {{ p.name }}
+                {{ p.nameKP }}
               </div>
             </div>
             <!-- Feature rows -->
@@ -166,19 +184,19 @@
     <section class="v2-sec" id="v2-s4">
       <div class="v2-inner">
         <div class="v2-sec-head">
-          <div class="v2-sec-id" style="color:var(--accent);">§ 04 · Risks &amp; Problems</div>
+          <div class="v2-sec-id" style="color:var(--accent);">{{ sectionLabels[3] }}</div>
         </div>
         <div class="v2-body">
           <h2 class="comparison-header-title" style="text-align:left;margin-bottom:32px;">Discussion of Problem</h2>
           <div class="v2-callout" style="border-color:var(--accent);">
             <span class="k">Decision needed</span>
-            <div class="field"><span class="field-label">Q1</span><span class="field-input">—</span></div>
-            <div class="field"><span class="field-label">Q2</span><span class="field-input">—</span></div>
+            <div class="field"><span class="field-label">Q1</span><span class="field-input">{{ risks.decision.q1 }}</span></div>
+            <div class="field"><span class="field-label">Q2</span><span class="field-input">{{ risks.decision.q2 }}</span></div>
           </div>
           <div class="v2-callout">
             <span class="k">Resource needed</span>
-            <div class="field"><span class="field-label">Q1</span><span class="field-input">—</span></div>
-            <div class="field"><span class="field-label">Q2</span><span class="field-input">—</span></div>
+            <div class="field"><span class="field-label">Q1</span><span class="field-input">{{ risks.resource.q1 }}</span></div>
+            <div class="field"><span class="field-label">Q2</span><span class="field-input">{{ risks.resource.q2 }}</span></div>
           </div>
         </div>
       </div>
@@ -188,15 +206,15 @@
     <section class="v2-sec bg-dark apple-hero" id="v2-s5">
       <div class="v2-inner">
         <div class="v2-sec-head">
-          <div class="v2-sec-id">§ 05 · Technical Details</div>
+          <div class="v2-sec-id">{{ sectionLabels[4] }}</div>
         </div>
         <div class="v2-body">
           <h2 class="v2-headline">Key Technical <span class="gradient-blue">Achievements.</span></h2>
           <p class="apple-tagline">What problem existed? Why was it important?<br>Design approach. Key implementation details.</p>
           <dl class="cover-meta">
-            <dt>NAME</dt><dd>JASON.JY.LIN</dd>
-            <dt>DEPARTMENT</dt><dd>軟體測試課</dd>
-            <dt>DATE</dt><dd>06/03/2026</dd>
+            <dt>NAME</dt><dd>{{ author.name }}</dd>
+            <dt>DEPARTMENT</dt><dd>{{ author.department }}</dd>
+            <dt>DATE</dt><dd>{{ author.date }}</dd>
           </dl>
         </div>
       </div>
@@ -206,7 +224,7 @@
     <section class="v2-sec" id="v2-s6">
       <div class="v2-inner">
         <div class="v2-sec-head">
-          <div class="v2-sec-id">§ 06 · Claude.md</div>
+          <div class="v2-sec-id">{{ sectionLabels[5] }}</div>
         </div>
         <div class="v2-body">
 
@@ -244,8 +262,40 @@
 ├── Workflow
 ├── Tool Usage
 └── Verification Strategy</pre>
-            <div style="display:flex;align-items:stretch;">
-              <img src="/reference/Claudemd.png" style="width:100%;height:100%;object-fit:cover;border-radius:16px;" alt="">
+            <div class="s7-code-window">
+              <div class="s7-code-titlebar">
+                <span class="s7-dot s7-dot--red"></span>
+                <span class="s7-dot s7-dot--yellow"></span>
+                <span class="s7-dot s7-dot--green"></span>
+                <span class="s7-code-filename">CLAUDE.md</span>
+              </div>
+              <pre class="s7-code-body"><span class="c-h2">## Pre-Response Checklist</span>
+
+<span class="c-plain">Before every response:</span>
+
+<span class="c-plain">1. </span><span class="c-key">**Assumptions**</span><span class="c-plain"> — List any assumptions.</span>
+<span class="c-comment">   If uncertain, stop and ask.</span>
+
+<span class="c-plain">2. </span><span class="c-key">**Scope**</span><span class="c-plain"> — Is everything I'm about</span>
+<span class="c-plain">   to produce explicitly requested?</span>
+
+<span class="c-plain">3. </span><span class="c-key">**Clarity**</span><span class="c-plain"> — Anything I don't</span>
+<span class="c-plain">   fully understand? Name it and ask.</span>
+
+<span class="c-sep">---</span>
+
+<span class="c-h2">## Think Before Coding</span>
+<span class="c-comment">Don't assume. Surface tradeoffs.</span>
+
+<span class="c-h2">## Simplicity First</span>
+<span class="c-comment">Minimum code. Nothing speculative.</span>
+
+<span class="c-h2">## Surgical Changes</span>
+<span class="c-comment">Touch only what you must.</span>
+
+<span class="c-h2">## Goal-Driven Execution</span>
+<span class="c-comment">Define success criteria.</span>
+<span class="c-comment">Loop until verified.</span></pre>
             </div>
           </div>
 
@@ -254,30 +304,116 @@
       </div>
     </section>
 
-    <!-- 07 Lessons -->
+    <!-- 07 Skills -->
     <section class="v2-sec" id="v2-s7">
       <div class="v2-inner">
         <div class="v2-sec-head">
-          <div class="v2-sec-id">§ 07 · Skills</div>
+          <div class="v2-sec-id">{{ sectionLabels[6] }}</div>
         </div>
         <div class="v2-body">
-          <h2 class="v2-headline">Take with us.</h2>
-          <div class="v2-cols-2">
-            <div class="field"><span class="field-label">Worked well</span><span class="field-input">—</span></div>
-            <div class="field"><span class="field-label">Failed</span><span class="field-input">—</span></div>
+
+          <!-- Slide 1: Why Skills? -->
+          <h2 class="v2-headline">Why Need <span class="gradient-blue">Skills?</span></h2>
+
+          <div class="v2-cols-2" style="margin-top:32px;">
+            <div class="s6-card">
+              <h4 class="v2-sub-h">Without Skills</h4>
+              <ul class="s6-list">
+                <li>重複輸入相同 Prompt</li>
+                <li>Token 消耗高、效率低</li>
+                <li>輸出結果不穩定</li>
+                <li>知識無法沉澱複用</li>
+              </ul>
+            </div>
+            <div class="s6-card">
+              <h4 class="v2-sub-h">With Skills</h4>
+              <ul class="s6-list">
+                <li>一行指令觸發完整工作流</li>
+                <li>Token 效率大幅提升</li>
+                <li>標準化、可預期的輸出</li>
+                <li>可分享給團隊持續累積</li>
+              </ul>
+            </div>
           </div>
+
+          <!-- Slide 2: Skill Summary -->
+          <h2 class="v2-headline" style="margin-top:80px;">Skill <span class="gradient-blue">Summary</span></h2>
+
+          <div class="v2-cols-2" style="margin-top:32px; align-items:stretch;">
+            <pre class="s6-tree">data-analysis
+├── Trigger
+│   └── /data-analysis
+├── Input
+│   ├── Excel Issue List
+│   └── Feature Requirements
+├── Process
+│   ├── Demand Intersection
+│   └── Market Priority Rank
+└── Output
+    ├── Analysis Report
+    └── Priority Matrix</pre>
+            <div class="s7-code-window">
+              <div class="s7-code-titlebar">
+                <span class="s7-dot s7-dot--red"></span>
+                <span class="s7-dot s7-dot--yellow"></span>
+                <span class="s7-dot s7-dot--green"></span>
+                <span class="s7-code-filename">gen-priority / SKILL.md</span>
+              </div>
+              <pre class="s7-code-body"><span class="c-sep">---</span>
+<span class="c-key">name</span><span class="c-punc">:</span> <span class="c-str">gen-priority</span>
+<span class="c-key">allowed-tools</span><span class="c-punc">:</span> <span class="c-str">Bash, Read, PowerShell</span>
+<span class="c-sep">---</span>
+
+<span class="c-h1"># Gen Priority</span>
+
+<span class="c-h2">## 步驟</span>
+
+<span class="c-h3">### 1.</span> <span class="c-plain">前置檢查</span>
+<span class="c-comment">  確認資料檔存在，缺少則中止</span>
+
+<span class="c-h3">### 2.</span> <span class="c-plain">清洗 StepControl</span>
+<span class="c-bash">  $ python clean_stepcontrol.py</span>
+
+<span class="c-h3">### 3.</span> <span class="c-plain">執行 Dashboard Pipeline</span>
+<span class="c-bash">  $ python pipeline.py</span>
+
+<span class="c-h3">### 4.</span> <span class="c-plain">確認輸出並回報</span>
+<span class="c-ps">  Get-ChildItem "weekly_report" |</span>
+<span class="c-ps">    Sort-Object Name -Descending |</span>
+<span class="c-ps">    Select-Object -First 1</span>
+
+<span class="c-h2">## 成功標準</span>
+<span class="c-plain">weekly_report/YYYY-Wxx/priority.html</span>
+<span class="c-comment">存在，且修改時間為本次執行後</span></pre>
+            </div>
+          </div>
+
         </div>
       </div>
     </section>
+
+    <!-- Lightbox -->
+    <Transition name="lb">
+      <div v-if="lightboxSrc" class="lightbox-overlay" @click="closeLightbox">
+        <img :src="lightboxSrc" class="lightbox-img" alt="" @click.stop>
+      </div>
+    </Transition>
 
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { author, report, projects, keyProgress, risks, sectionLabels } from '../data/report'
 
 const currentSectionLabel = ref('— Cover')
 const activeSectionIndex = ref(1)
+
+// Lightbox
+const lightboxSrc = ref('')
+const openLightbox = (src: string) => { if (src) lightboxSrc.value = src }
+const closeLightbox = () => { lightboxSrc.value = '' }
+const onKeyDown = (e: KeyboardEvent) => { if (e.key === 'Escape') closeLightbox() }
 
 // Section 02: achievement cards (independent of theme tabs)
 const whatHappened = { image: '/reference/what-happened.png', title: '', body: '' }
@@ -310,23 +446,16 @@ const themes = [
 
 const activeThemeData = computed(() => themes.find(t => t.id === activeTheme.value)!)
 
-// Section 03: key progress
-const projects = [
-  { id: 'project-a', name: 'W3A Issue /\nRequirement Management' },
-  { id: 'project-b', name: 'SITR Workflow\nOptimization' },
-  { id: 'project-c', name: 'Workflow Optimization\nwith AI' },
-]
-
 const sections: { label: string; key: 'completed' | 'inProgress' | 'blockers'; cls: string }[] = [
   { label: 'Completed',   key: 'completed',  cls: 'kp-status--completed'   },
   { label: 'In Progress', key: 'inProgress', cls: 'kp-status--inprogress'  },
   { label: 'Plan',        key: 'blockers',   cls: 'kp-status--plan'        },
 ]
 
-const keyProgress: Record<string, { completed: string; inProgress: string; blockers: string }> = {
-  'project-a': { completed: '需求交集分析\n(StepC vs Function Requirement)', inProgress: '重新分配、規劃項目優先權', blockers: 'DGC、IMS、MOK\n整合需求交集' },
-  'project-b': { completed: '進度追蹤機制建立\n數據圖表化', inProgress: 'QM 上傳格式、機制研究', blockers: 'SITR 流程討論\n測試結果自動回填' },
-  'project-c': { completed: 'Issue/Requirement\nData Analysis Skill', inProgress: '周進度報告自動產出', blockers: 'VOC 回饋流程自動化' },
+function batteryColor(progress: number): string {
+  if (progress >= 80) return 'green'
+  if (progress >= 40) return 'yellow'
+  return 'red'
 }
 
 const scrollTo = (id: string) => {
@@ -373,10 +502,113 @@ onMounted(() => {
 
   sections.forEach(s => observer?.observe(s))
   window.addEventListener('scroll', handleS2Scroll, { passive: true })
+  window.addEventListener('keydown', onKeyDown)
 })
 
 onUnmounted(() => {
   observer?.disconnect()
   window.removeEventListener('scroll', handleS2Scroll)
+  window.removeEventListener('keydown', onKeyDown)
 })
 </script>
+
+<style scoped>
+/* §07 Apple-style code window */
+.s7-code-window {
+  background: #1e1e2e;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+.s7-code-titlebar {
+  background: #2a2a3c;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  flex-shrink: 0;
+}
+
+.s7-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.s7-dot--red    { background: #ff5f57; }
+.s7-dot--yellow { background: #febc2e; }
+.s7-dot--green  { background: #28c840; }
+
+.s7-code-filename {
+  margin-left: 6px;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 12px;
+  font-family: 'SF Mono', 'Fira Code', Consolas, monospace;
+  letter-spacing: 0.02em;
+}
+
+.s7-code-body {
+  margin: 0;
+  padding: 20px 22px;
+  font-family: 'SF Mono', 'Fira Code', Consolas, monospace;
+  font-size: 12.5px;
+  line-height: 1.75;
+  color: #cdd6f4;
+  overflow: auto;
+  flex: 1;
+  white-space: pre;
+}
+
+/* Syntax token colours */
+.c-sep     { color: #6c7086; }
+.c-key     { color: #cba6f7; }
+.c-str     { color: #a6e3a1; }
+.c-punc    { color: #89dceb; }
+.c-h1      { color: #89b4fa; font-weight: 700; }
+.c-h2      { color: #89b4fa; }
+.c-h3      { color: #74c7ec; }
+.c-plain   { color: #cdd6f4; }
+.c-comment { color: #585b70; font-style: italic; }
+.c-bash    { color: #f38ba8; }
+.c-ps      { color: #fab387; }
+
+.lb-trigger {
+  cursor: zoom-in;
+}
+
+.lightbox-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0, 0, 0, 0.88);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: zoom-out;
+}
+
+.lightbox-img {
+  max-width: 92vw;
+  max-height: 92vh;
+  object-fit: contain;
+  border-radius: 10px;
+  box-shadow: 0 32px 100px rgba(0, 0, 0, 0.7);
+  cursor: default;
+}
+
+.lb-enter-active,
+.lb-leave-active {
+  transition: opacity 0.2s ease;
+}
+
+.lb-enter-from,
+.lb-leave-to {
+  opacity: 0;
+}
+</style>

@@ -2,11 +2,11 @@
   <div :data-theme="theme" class="app-container">
     <!-- ========================= TOP BAR ========================= -->
     <header class="topbar">
-      <div class="brand">monthly_report · <b>JASON.JY.LIN</b></div>
-      
+      <div class="brand">Monthly Report · <b>{{ author.name }}</b></div>
+
       <nav class="month-selector">
-        <button 
-          v-for="m in ['2026.05']" 
+        <button
+          v-for="m in [report.month]"
           :key="m"
           class="month-btn"
           :class="{ active: currentMonth === m }"
@@ -33,9 +33,10 @@
 <script setup lang="ts">
 import { ref, onMounted, watch } from 'vue'
 import EditorialView from './components/EditorialView.vue'
+import { author, report } from './data/report'
 
 const theme = ref(localStorage.getItem('mr-theme') || 'light')
-const currentMonth = ref('2026.05')
+const currentMonth = ref(report.month)
 
 const toggleTheme = () => {
   theme.value = theme.value === 'light' ? 'dark' : 'light'
