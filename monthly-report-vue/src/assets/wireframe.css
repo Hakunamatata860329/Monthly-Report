@@ -1004,6 +1004,44 @@ body {
   .v2-body { max-width: 100%; }
 }
 
+@media (max-width: 600px) {
+  /* Section padding */
+  .v2-sec { padding: 36px 16px; }
+
+  /* Hero headline */
+  .apple-hero .v2-headline,
+  .apple-hero h2 { font-size: clamp(36px, 9vw, 56px) !important; }
+  .apple-tagline { font-size: clamp(15px, 4vw, 20px); }
+
+  /* Achievement cards: stack vertically */
+  .achievement-cards { grid-template-columns: 1fr; }
+  .achievement-card { aspect-ratio: 16 / 9; }
+
+  /* Comparison grid: stack vertically */
+  .comparison-grid { grid-template-columns: 1fr; }
+  .comparison-card { padding: 24px 8px 28px; }
+  .comparison-col-body {
+    font-size: 16px;
+    white-space: pre-line;
+  }
+  .comparison-header-title { font-size: clamp(18px, 5vw, 28px); }
+
+  /* KP apple: horizontal scroll to preserve 3-col layout */
+  .kp-apple-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .kp-apple-header-row,
+  .kp-apple-section-row { min-width: 560px; }
+  .kp-apple-header-cell { font-size: 18px; padding: 20px 16px 14px; }
+  .kp-apple-feat-label { font-size: 16px; }
+  .kp-apple-section-col { padding: 28px 16px; }
+
+  /* Table: horizontal scroll */
+  .v2-table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; white-space: nowrap; }
+
+  /* Theme tabs */
+  .theme-tabs { gap: 6px; }
+  .theme-tab { font-size: 12px; padding: 6px 14px; }
+}
+
 /* --- Section background variants --- */
 .v2-sec.bg-dark {
   background: #000;
