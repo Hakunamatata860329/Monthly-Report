@@ -6,14 +6,12 @@
 
       <nav class="month-selector">
         <button
-          v-for="m in [report.month]"
-          :key="m"
+          v-for="m in MONTHS"
+          :key="m.key"
           class="month-btn"
-          :class="{ active: currentMonth === m }"
-          @click="currentMonth = m"
-        >
-          {{ m }}
-        </button>
+          :class="{ active: currentMonth === m.key }"
+          @click="currentMonth = m.key"
+        >{{ m.label }}</button>
       </nav>
 
       <div class="actions">
@@ -25,7 +23,7 @@
     </header>
 
     <main class="variation active v2">
-      <EditorialView @section-change="updateEditorialProgress" />
+      <EditorialView :active-month="currentMonth" @section-change="updateEditorialProgress" />
     </main>
   </div>
 </template>
@@ -33,17 +31,25 @@
 <script setup lang="ts">
 import { ref, onMounted, watch } from 'vue'
 import EditorialView from './components/EditorialView.vue'
-import { author, report } from './data/report'
+import { author } from './data/report'
+
+type MonthKey = '2026-04' | '2026-05'
+const MONTHS: { key: MonthKey; label: string }[] = [
+  { key: '2026-05', label: '2026.05' },
+  { key: '2026-04', label: '2026.04' },
+]
 
 const theme = ref(localStorage.getItem('mr-theme') || 'light')
-const currentMonth = ref(report.month)
+const currentMonth = ref<MonthKey>('2026-05')
+
+watch(currentMonth, () => { window.scrollTo({ top: 0, behavior: 'smooth' }) })
 
 const toggleTheme = () => {
   theme.value = theme.value === 'light' ? 'dark' : 'light'
   localStorage.setItem('mr-theme', theme.value)
 }
 
-const updateEditorialProgress = (data: { label: string, index: number, total: number }) => {
+const updateEditorialProgress = (_data: { label: string, index: number, total: number }) => {
   // This could be used for a global progress bar if needed, 
   // but it's handled inside EditorialView for now to match wireframe.
 }

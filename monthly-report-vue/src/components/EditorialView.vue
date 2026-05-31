@@ -4,14 +4,14 @@
       <div class="v2-progress-current">{{ currentSectionLabel }}</div>
       <div class="v2-progress-dots">
         <a
-          v-for="i in 7"
+          v-for="i in sectionLabels.length"
           :key="i"
           :href="'#v2-s' + i"
           :class="{ 'is-active': activeSectionIndex === i }"
           @click.prevent="scrollTo('#v2-s' + i)"
         ></a>
       </div>
-      <div class="v2-progress-meta">{{ String(activeSectionIndex).padStart(2, '0') }} / 07</div>
+      <div class="v2-progress-meta">{{ String(activeSectionIndex).padStart(2, '0') }} / {{ String(sectionLabels.length).padStart(2, '0') }}</div>
     </div>
 
     <!-- 01 Cover -->
@@ -220,7 +220,7 @@
       </div>
     </section>
 
-    <!-- 06 Collaboration -->
+    <!-- 06 -->
     <section class="v2-sec" id="v2-s6">
       <div class="v2-inner">
         <div class="v2-sec-head">
@@ -228,48 +228,103 @@
         </div>
         <div class="v2-body">
 
-          <!-- Slide 1: Why Claude.md? -->
-          <h2 class="v2-headline">Why Need <span class="gradient-blue">Claude.md?</span></h2>
-
-          <div class="v2-cols-2" style="margin-top:32px;">
-            <div class="s6-card">
-              <h4 class="v2-sub-h">Without Claude.md</h4>
-              <ul class="s6-list">
-                <li>每次重新解釋專案背景</li>
-                <li>依賴 Prompt 品質</li>
-                <li>結果容易不一致</li>
-                <li>知識無法累積</li>
-              </ul>
+          <!-- April: Vibe Coding -->
+          <template v-if="report.month === '2026.04'">
+            <h2 class="v2-headline">What is <span class="gradient-blue">Vibe Coding?</span></h2>
+            <div class="v2-cols-2" style="margin-top:32px;">
+              <div class="s6-card">
+                <h4 class="v2-sub-h">Traditional Coding</h4>
+                <ul class="s6-list">
+                  <li>逐行撰寫程式碼</li>
+                  <li>需記憶 API 語法</li>
+                  <li>難以快速原型迭代</li>
+                  <li>開發者需全程專注實作</li>
+                </ul>
+              </div>
+              <div class="s6-card">
+                <h4 class="v2-sub-h">Vibe Coding</h4>
+                <ul class="s6-list">
+                  <li>以自然語言描述意圖</li>
+                  <li>AI 生成並驗證程式碼</li>
+                  <li>快速迭代，專注設計</li>
+                  <li>知識與 Prompt 持續累積</li>
+                </ul>
+              </div>
             </div>
-            <div class="s6-card">
-              <h4 class="v2-sub-h">With Claude.md</h4>
-              <ul class="s6-list">
-                <li>專案知識持續注入</li>
-                <li>理解團隊規範</li>
-                <li>產出一致結果</li>
-                <li>降低溝通成本</li>
-              </ul>
+
+            <h2 class="v2-headline" style="margin-top:80px;">Vibe Coding <span class="gradient-blue">in Practice</span></h2>
+            <div class="v2-cols-2" style="margin-top:32px; align-items:stretch;">
+              <pre class="s6-tree">Monthly Report
+├── Wireframe Design
+├── Component Architecture
+├── Data Layer
+├── Animations
+└── Dark / Light Theme</pre>
+              <div class="s7-code-window">
+                <div class="s7-code-titlebar">
+                  <span class="s7-dot s7-dot--red"></span>
+                  <span class="s7-dot s7-dot--yellow"></span>
+                  <span class="s7-dot s7-dot--green"></span>
+                  <span class="s7-code-filename">Claude Code Session</span>
+                </div>
+                <pre class="s7-code-body"><span class="c-plain">我想建立一個月報網站，要有：</span>
+<span class="c-comment">  Apple 風格設計、深色背景</span>
+<span class="c-comment">  Section 滾動式導覽</span>
+<span class="c-comment">  Battery 進度條元件</span>
+<span class="c-comment">  Before / After 圖片對比</span>
+<span class="c-sep">──────────────────────────</span>
+<span class="c-h2">Claude Code →</span>
+<span class="c-bash">  vue create monthly-report-vue</span>
+<span class="c-bash">  # 建立元件架構...</span>
+<span class="c-bash">  # 撰寫 wireframe.css...</span>
+<span class="c-bash">  # 實作 EditorialView.vue...</span>
+<span class="c-sep">──────────────────────────</span>
+<span class="c-h3">Result:</span>
+<span class="c-plain">  本月報由 Vibe Coding 完成</span></pre>
+              </div>
             </div>
-          </div>
+          </template>
 
-          <!-- Slide 2: What's Inside? -->
-          <h2 class="v2-headline" style="margin-top:80px;">Claude.md <span class="gradient-blue">Summary</span></h2>
+          <!-- May+: Claude.md -->
+          <template v-else>
+            <h2 class="v2-headline">Why Need <span class="gradient-blue">Claude.md?</span></h2>
+            <div class="v2-cols-2" style="margin-top:32px;">
+              <div class="s6-card">
+                <h4 class="v2-sub-h">Without Claude.md</h4>
+                <ul class="s6-list">
+                  <li>每次重新解釋專案背景</li>
+                  <li>依賴 Prompt 品質</li>
+                  <li>結果容易不一致</li>
+                  <li>知識無法累積</li>
+                </ul>
+              </div>
+              <div class="s6-card">
+                <h4 class="v2-sub-h">With Claude.md</h4>
+                <ul class="s6-list">
+                  <li>專案知識持續注入</li>
+                  <li>理解團隊規範</li>
+                  <li>產出一致結果</li>
+                  <li>降低溝通成本</li>
+                </ul>
+              </div>
+            </div>
 
-          <div class="v2-cols-2" style="margin-top:32px; align-items:stretch;">
-            <pre class="s6-tree">Claude.md
+            <h2 class="v2-headline" style="margin-top:80px;">Claude.md <span class="gradient-blue">Summary</span></h2>
+            <div class="v2-cols-2" style="margin-top:32px; align-items:stretch;">
+              <pre class="s6-tree">Claude.md
 ├── Project Context
 ├── Behavioral Rules
 ├── Workflow
 ├── Tool Usage
 └── Verification Strategy</pre>
-            <div class="s7-code-window">
-              <div class="s7-code-titlebar">
-                <span class="s7-dot s7-dot--red"></span>
-                <span class="s7-dot s7-dot--yellow"></span>
-                <span class="s7-dot s7-dot--green"></span>
-                <span class="s7-code-filename">CLAUDE.md</span>
-              </div>
-              <pre class="s7-code-body"><span class="c-h2">## Pre-Response Checklist</span>
+              <div class="s7-code-window">
+                <div class="s7-code-titlebar">
+                  <span class="s7-dot s7-dot--red"></span>
+                  <span class="s7-dot s7-dot--yellow"></span>
+                  <span class="s7-dot s7-dot--green"></span>
+                  <span class="s7-code-filename">CLAUDE.md</span>
+                </div>
+                <pre class="s7-code-body"><span class="c-h2">## Pre-Response Checklist</span>
 
 <span class="c-plain">Before every response:</span>
 
@@ -296,16 +351,16 @@
 <span class="c-h2">## Goal-Driven Execution</span>
 <span class="c-comment">Define success criteria.</span>
 <span class="c-comment">Loop until verified.</span></pre>
+              </div>
             </div>
-          </div>
-
+          </template>
 
         </div>
       </div>
     </section>
 
     <!-- 07 Skills -->
-    <section class="v2-sec" id="v2-s7">
+    <section v-show="report.month !== '2026.04'" class="v2-sec" id="v2-s7">
       <div class="v2-inner">
         <div class="v2-sec-head">
           <div class="v2-sec-id">{{ sectionLabels[6] }}</div>
@@ -403,8 +458,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, onUnmounted } from 'vue'
-import { author, report, projects, keyProgress, risks, sectionLabels } from '../data/report'
+import { ref, computed, watch, onMounted, onUnmounted } from 'vue'
+import * as april from '../data/months/2026-04'
+import * as may   from '../data/months/2026-05'
 
 const currentSectionLabel = ref('— Cover')
 const activeSectionIndex = ref(1)
@@ -415,36 +471,26 @@ const openLightbox = (src: string) => { if (src) lightboxSrc.value = src }
 const closeLightbox = () => { lightboxSrc.value = '' }
 const onKeyDown = (e: KeyboardEvent) => { if (e.key === 'Escape') closeLightbox() }
 
-// Section 02: achievement cards (independent of theme tabs)
-const whatHappened = { image: '/reference/what-happened.png', title: '', body: '' }
-const whyItMatters = { image: '/reference/why-it-matters.png', title: '', body: '' }
+type MonthKey = '2026-04' | '2026-05'
+const MONTHS = { '2026-04': april, '2026-05': may } as const
 
-// Section 02: theme switcher (controls Before/After only)
-const activeTheme = ref('data-analysis')
+const props = defineProps<{ activeMonth: MonthKey }>()
+const md = computed(() => MONTHS[props.activeMonth])
 
-const themes = [
-  {
-    id: 'data-analysis',
-    label: 'Data Analysis',
-    before: { image: '/reference/Voc_Analysis_Before.png', title: '', body: 'Isolated Analysis\nFeature-Focused\nScattered Goals' },
-    after:  { image: '/reference/Voc_Analysis_After.png',  title: '', body: 'Unified Demands\nMarket-Focused\nAligned Goals' }
-  },
-  {
-    id: 'ai',
-    label: 'AI',
-    before: { image: '/reference/Not Use Skill.png', title: '', body: 'Token wastage\nRedundant prompting\nUnreusable outputs' },
-    after:  { image: '/reference/Use Skill.png',     title: '', body: 'Token savings\nAccelerated task execution\nTeam leverage' }
-  },
-  {
-    id: 'automation',
-    label: 'Automation',
-    mergedImage: '/reference/Query.png',
-    before: { image: '', title: '', body: '' },
-    after:  { image: '', title: '', body: '' }
-  }
-]
+const author      = computed(() => md.value.author)
+const report      = computed(() => md.value.report)
+const projects    = computed(() => md.value.projects)
+const keyProgress = computed(() => md.value.keyProgress)
+const risks       = computed(() => md.value.risks)
+const sectionLabels = computed(() => md.value.sectionLabels)
+const themes      = computed(() => md.value.themes)
+const whatHappened  = computed(() => md.value.whatHappened)
+const whyItMatters  = computed(() => md.value.whyItMatters)
 
-const activeThemeData = computed(() => themes.find(t => t.id === activeTheme.value)!)
+const activeTheme = ref(md.value.themes[0].id)
+watch(() => props.activeMonth, () => { activeTheme.value = md.value.themes[0].id })
+
+const activeThemeData = computed(() => themes.value.find(t => t.id === activeTheme.value)!)
 
 const sections: { label: string; key: 'completed' | 'inProgress' | 'blockers'; cls: string }[] = [
   { label: 'Completed',   key: 'completed',  cls: 'kp-status--completed'   },
@@ -476,8 +522,8 @@ const handleS2Scroll = () => {
   if (spacerScrolled < 0) return  // spacer not yet in view
 
   const progress = spacerScrolled / spacer.offsetHeight  // 0 → 1 across 300vh
-  const idx = Math.min(themes.length - 1, Math.floor(progress * themes.length))
-  activeTheme.value = themes[idx].id
+  const idx = Math.min(themes.value.length - 1, Math.floor(progress * themes.value.length))
+  activeTheme.value = themes.value[idx].id
 }
 
 let observer: IntersectionObserver | null = null

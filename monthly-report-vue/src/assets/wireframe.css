@@ -306,7 +306,7 @@ body {
 /* ============ V2 — EDITORIAL ============ */
 .v2-progress {
   position: sticky;
-  top: 64px;
+  top: 57px;
   z-index: 50;
   background: color-mix(in oklab, var(--bg) 92%, transparent);
   backdrop-filter: blur(14px);
