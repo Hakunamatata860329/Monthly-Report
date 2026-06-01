@@ -497,6 +497,7 @@ body {
 }
 
 /* §06 Claude.md */
+.s6-card .v2-sub-h { margin-top: 0; }
 .s6-card {
   background: #fff;
   border-radius: 20px;
@@ -783,8 +784,6 @@ body {
   height: auto;
   display: block;
   border-radius: 20px;
-  image-rendering: -webkit-optimize-contrast;
-  image-rendering: crisp-edges;
 }
 .comparison-grid {
   display: grid;

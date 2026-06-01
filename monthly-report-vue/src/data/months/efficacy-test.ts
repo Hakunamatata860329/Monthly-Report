@@ -3,17 +3,15 @@ import type { Project, Theme, AchievementCard } from '../types'
 export const sectionLabels = [
   '§ 01 · Cover',
   '§ 02 · Executive Summary',
-  '§ 03 · Project Status',
-  '§ 04 · Risks & Problems',
-  '§ 05 · Technical Details',
-  '§ 06 · Claude.md',
-  '§ 07 · Skills',
+  '§ 03 · Technical Details',
+  '§ 04 · Config-Driven',
+  '§ 05 · Grafana',
 ]
 
 export const author = {
   name: 'JASON.JY.LIN',
   department: '軟體測試課',
-  date: '06/03/2026',
+  date: '06/02/2026',
 }
 
 export const report = {
@@ -77,6 +75,18 @@ export const risks = {
   resource:  { q1: '—', q2: '—' },
 }
 
+export const timeline: string[] = [
+  'Manual Testing & Excel Report',
+  'Test Case Automation',
+  'Database-Driven Test Data Management',
+  'Grafana Visualization',
+  'Version Test Result Consolidation',
+  'Config-Driven Architecture',
+  'Standardized Release Test Reporting',
+  'Automation Workflow Optimization',
+  'Grafana Dashboard Enhancement',
+]
+
 export const whatHappened: AchievementCard = {
   image: '/reference/shared/what-happened.png',
   title: '',
@@ -91,21 +101,23 @@ export const whyItMatters: AchievementCard = {
 
 export const themes: Theme[] = [
   {
-    id: 'data-analysis',
-    label: 'Data Analysis',
-    before: { image: '/reference/2026-05/Voc_Analysis_Before.png', title: '', body: 'Isolated Analysis\nFeature-Focused\nScattered Goals' },
-    after:  { image: '/reference/2026-05/Voc_Analysis_After.png',  title: '', body: 'Unified Demands\nMarket-Focused\nAligned Goals' },
+    id: 'workflow',
+    label: 'Workflow',
+    mergedImage: '/reference/efficacy-test/workflow.png',
+    before: { image: '', title: '', body: '' },
+    after:  { image: '', title: '', body: '' },
   },
   {
-    id: 'ai',
-    label: 'AI',
-    before: { image: '/reference/2026-05/Not Use Skill.png', title: '', body: 'Token wastage\nRedundant prompting\nUnreusable outputs' },
-    after:  { image: '/reference/2026-05/Use Skill.png',     title: '', body: 'Token savings\nAccelerated task execution\nTeam leverage' },
+    id: 'config-driven',
+    label: 'Config-Driven',
+    mergedImage: '/reference/efficacy-test/config-driven.png',
+    before: { image: '', title: '', body: '' },
+    after:  { image: '', title: '', body: '' },
   },
   {
-    id: 'automation',
-    label: 'Automation',
-    mergedImage: '/reference/2026-05/Query.png',
+    id: 'grafana',
+    label: 'Grafana',
+    mergedImage: '/reference/efficacy-test/grafana.png',
     before: { image: '', title: '', body: '' },
     after:  { image: '', title: '', body: '' },
   },

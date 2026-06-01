@@ -37,7 +37,7 @@ type MonthKey = '2026-04' | '2026-05' | 'efficacy-test'
 const MONTHS: { key: MonthKey; label: string }[] = [
   { key: '2026-05', label: '2026.05' },
   { key: '2026-04', label: '2026.04' },
-  { key: 'efficacy-test', label: 'Efficacy Test' },
+  { key: 'efficacy-test', label: 'Evolutionary History of Efficacy Test' },
 ]
 
 const theme = ref(localStorage.getItem('mr-theme') || 'light')

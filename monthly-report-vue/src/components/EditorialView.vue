@@ -21,7 +21,12 @@
           <div class="v2-sec-id">{{ sectionLabels[0] }}</div>
         </div>
         <div class="v2-body">
-          <h2 class="v2-headline">{{ report.monthHeadline }}<br>Monthly <span class="gradient-blue">Report.</span></h2>
+          <template v-if="props.activeMonth === 'efficacy-test'">
+            <h2 class="v2-headline">Evolutionary History of<br><span class="gradient-blue">Efficacy Testing</span></h2>
+          </template>
+          <template v-else>
+            <h2 class="v2-headline">{{ report.monthHeadline }}<br>Monthly <span class="gradient-blue">Report.</span></h2>
+          </template>
           <p class="apple-tagline">Optimized Efficiency. Compromiseless Quality.<br><span style="font-size:0.6em;opacity:1;">效率優化。絕不妥協的品質。</span></p>
           <dl class="cover-meta">
             <dt>NAME</dt><dd>{{ author.name }}</dd>
@@ -40,11 +45,19 @@
         </div>
         <div class="v2-body">
           <div class="comparison-header">
-            <h3 class="comparison-header-title">What happened and why it matters today.</h3>
+            <h3 class="comparison-header-title">
+              <template v-if="props.activeMonth === 'efficacy-test'">Executive Summary</template>
+              <template v-else>What happened and why it matters today.</template>
+            </h3>
           </div>
 
-          <!-- Achievement cards -->
-          <div class="achievement-cards">
+          <!-- Milestones image (efficacy-test only) -->
+          <div v-if="props.activeMonth === 'efficacy-test'" class="milestones-img-wrap lb-trigger" @click="openLightbox('/reference/efficacy-test/milestones.png')">
+            <img src="/reference/efficacy-test/milestones.png" alt="Efficacy Test Milestones" class="milestones-img">
+          </div>
+
+          <!-- Achievement cards (other months) -->
+          <div v-else class="achievement-cards">
             <div
               class="achievement-card card-left"
               :class="{ 'has-image': whatHappened.image, 'lb-trigger': whatHappened.image }"
@@ -89,8 +102,9 @@
             </div>
             <div class="comparison-card">
               <!-- Merged full-width image (used when before/after share one image) -->
-              <div v-if="activeThemeData.mergedImage" class="comparison-merged">
-                <img :src="activeThemeData.mergedImage" class="comparison-img-merged lb-trigger" alt="" @click="openLightbox(activeThemeData.mergedImage!)">
+              <div v-if="activeThemeData.mergedImage !== undefined" class="comparison-merged">
+                <img v-if="activeThemeData.mergedImage" :src="activeThemeData.mergedImage" class="comparison-img-merged lb-trigger" alt="" @click="openLightbox(activeThemeData.mergedImage!)">
+                <div v-else class="comparison-img-ph"></div>
               </div>
               <!-- Normal 2-col Before / After -->
               <div v-else class="comparison-grid">
@@ -119,7 +133,7 @@
     </section>
 
     <!-- 03 Project Status -->
-    <section class="v2-sec" id="v2-s3">
+    <section v-show="props.activeMonth !== 'efficacy-test'" :id="props.activeMonth === 'efficacy-test' ? 'v2-s3-hidden' : 'v2-s3'" class="v2-sec">
       <div class="v2-inner">
         <div class="v2-sec-head">
           <div class="v2-sec-id">{{ sectionLabels[2] }}</div>
@@ -181,7 +195,7 @@
     </section>
 
     <!-- 04 Risks -->
-    <section class="v2-sec" id="v2-s4">
+    <section v-show="props.activeMonth !== 'efficacy-test'" :id="props.activeMonth === 'efficacy-test' ? 'v2-s4-hidden' : 'v2-s4'" class="v2-sec">
       <div class="v2-inner">
         <div class="v2-sec-head">
           <div class="v2-sec-id" style="color:var(--accent);">{{ sectionLabels[3] }}</div>
@@ -203,10 +217,10 @@
     </section>
 
     <!-- 05 Technical Details -->
-    <section class="v2-sec bg-dark apple-hero" id="v2-s5">
+    <section class="v2-sec bg-dark apple-hero" :id="props.activeMonth === 'efficacy-test' ? 'v2-s3' : 'v2-s5'">
       <div class="v2-inner">
         <div class="v2-sec-head">
-          <div class="v2-sec-id">{{ sectionLabels[4] }}</div>
+          <div class="v2-sec-id">{{ props.activeMonth === 'efficacy-test' ? sectionLabels[2] : sectionLabels[4] }}</div>
         </div>
         <div class="v2-body">
           <h2 class="v2-headline">Key Technical <span class="gradient-blue">Achievements.</span></h2>
@@ -221,15 +235,82 @@
     </section>
 
     <!-- 06 -->
-    <section class="v2-sec" id="v2-s6">
+    <section class="v2-sec" :id="props.activeMonth === 'efficacy-test' ? 'v2-s4' : 'v2-s6'">
       <div class="v2-inner">
         <div class="v2-sec-head">
-          <div class="v2-sec-id">{{ sectionLabels[5] }}</div>
+          <div class="v2-sec-id">{{ props.activeMonth === 'efficacy-test' ? sectionLabels[3] : sectionLabels[5] }}</div>
         </div>
         <div class="v2-body">
 
+          <!-- Efficacy Test: Config-Driven -->
+          <template v-if="props.activeMonth === 'efficacy-test'">
+            <h2 class="v2-headline">Why Need <span class="gradient-blue">Config-Driven?</span></h2>
+            <div class="v2-cols-2" style="margin-top:32px;">
+              <div class="s6-card">
+                <h4 class="v2-sub-h">Without Config-Driven</h4>
+                <ul class="s6-list">
+                  <li>改需求要改程式、測試</li>
+                  <li>新功能常需修改核心邏輯</li>
+                  <li>類似的程式碼重複產出</li>
+                  <li>程式碼耦合性高維護不易</li>
+                </ul>
+              </div>
+              <div class="s6-card">
+                <h4 class="v2-sub-h">With Config-Driven</h4>
+                <ul class="s6-list">
+                  <li>多數需求只需改設定</li>
+                  <li>新功能多半透過新增設定</li>
+                  <li>同一套程式可支援多種測例情境</li>
+                  <li>程式架構清晰易維護</li>
+                </ul>
+              </div>
+            </div>
+
+            <h2 class="v2-headline" style="margin-top:80px;">Config-Driven <span class="gradient-blue">Architecture</span></h2>
+            <div class="v2-cols-2" style="margin-top:32px; align-items:stretch;">
+              <pre class="s6-tree">config.xml
+└── Test Case ID
+    ├── Validation 01
+    │   ├── Name
+    │   ├── Step
+    │   ├── Communication
+    │   └── Related Issue
+    └── Validation 02
+        ├── Name
+        ├── Step
+        ├── Communication
+        └── Related Issue</pre>
+              <div class="s7-code-window">
+                <div class="s7-code-titlebar">
+                  <span class="s7-dot s7-dot--red"></span>
+                  <span class="s7-dot s7-dot--yellow"></span>
+                  <span class="s7-dot s7-dot--green"></span>
+                  <span class="s7-code-filename">config.xml</span>
+                </div>
+                <pre class="s7-code-body"><span class="c-punc">&lt;</span><span class="c-h2">config</span><span class="c-punc">&gt;</span>
+  <span class="c-punc">&lt;</span><span class="c-h2">TestCaseID</span><span class="c-punc">&gt;</span>
+    <span class="c-punc">&lt;</span><span class="c-h2">Validation</span> <span class="c-key">id</span><span class="c-punc">=</span><span class="c-str">"01"</span><span class="c-punc">&gt;</span>
+      <span class="c-punc">&lt;</span><span class="c-h3">Name</span><span class="c-punc">&gt;</span><span class="c-str">AS 機種編譯時間</span><span class="c-punc">&lt;/</span><span class="c-h3">Name</span><span class="c-punc">&gt;</span>
+      <span class="c-punc">&lt;</span><span class="c-h3">Step</span><span class="c-punc">&gt;</span><span class="c-str">1. [ACT] 開啟 AS 測試專案</span>
+             <span class="c-str">2. [VP] 計時編譯開始到結束花費時間</span><span class="c-punc">&lt;/</span><span class="c-h3">Step</span><span class="c-punc">&gt;</span>
+      <span class="c-punc">&lt;</span><span class="c-h3">Communication</span><span class="c-punc">&gt;</span><span class="c-str">N.A.</span><span class="c-punc">&lt;/</span><span class="c-h3">Communication</span><span class="c-punc">&gt;</span>
+      <span class="c-punc">&lt;</span><span class="c-h3">RelatedIssue</span><span class="c-punc">&gt;</span><span class="c-str">Issue-xxxxx</span><span class="c-punc">&lt;/</span><span class="c-h3">RelatedIssue</span><span class="c-punc">&gt;</span>
+    <span class="c-punc">&lt;/</span><span class="c-h2">Validation</span><span class="c-punc">&gt;</span>
+    <span class="c-punc">&lt;</span><span class="c-h2">Validation</span> <span class="c-key">id</span><span class="c-punc">=</span><span class="c-str">"02"</span><span class="c-punc">&gt;</span>
+      <span class="c-punc">&lt;</span><span class="c-h3">Name</span><span class="c-punc">&gt;</span><span class="c-str">W3A 機種編譯時間</span><span class="c-punc">&lt;/</span><span class="c-h3">Name</span><span class="c-punc">&gt;</span>
+      <span class="c-punc">&lt;</span><span class="c-h3">Step</span><span class="c-punc">&gt;</span><span class="c-str">1. [ACT] 開啟 W3A 測試專案</span>
+             <span class="c-str">2. [VP] 計時編譯開始到結束花費時間</span><span class="c-punc">&lt;/</span><span class="c-h3">Step</span><span class="c-punc">&gt;</span>
+      <span class="c-punc">&lt;</span><span class="c-h3">Communication</span><span class="c-punc">&gt;</span><span class="c-str">SIMULATOR</span><span class="c-punc">&lt;/</span><span class="c-h3">Communication</span><span class="c-punc">&gt;</span>
+      <span class="c-punc">&lt;</span><span class="c-h3">RelatedIssue</span><span class="c-punc">&gt;</span><span class="c-str">Issue-xxxxx</span><span class="c-punc">&lt;/</span><span class="c-h3">RelatedIssue</span><span class="c-punc">&gt;</span>
+    <span class="c-punc">&lt;/</span><span class="c-h2">Validation</span><span class="c-punc">&gt;</span>
+  <span class="c-punc">&lt;/</span><span class="c-h2">TestCaseID</span><span class="c-punc">&gt;</span>
+<span class="c-punc">&lt;/</span><span class="c-h2">config</span><span class="c-punc">&gt;</span></pre>
+              </div>
+            </div>
+          </template>
+
           <!-- April: Vibe Coding -->
-          <template v-if="report.month === '2026.04'">
+          <template v-else-if="report.month === '2026.04'">
             <h2 class="v2-headline">What is <span class="gradient-blue">Vibe Coding?</span></h2>
             <div class="v2-cols-2" style="margin-top:32px;">
               <div class="s6-card">
@@ -360,12 +441,60 @@
     </section>
 
     <!-- 07 Skills -->
-    <section v-show="report.month !== '2026.04'" class="v2-sec" id="v2-s7">
+    <section v-show="report.month !== '2026.04'" class="v2-sec" :id="props.activeMonth === 'efficacy-test' ? 'v2-s5' : 'v2-s7'">
       <div class="v2-inner">
         <div class="v2-sec-head">
-          <div class="v2-sec-id">{{ sectionLabels[6] }}</div>
+          <div class="v2-sec-id">{{ props.activeMonth === 'efficacy-test' ? sectionLabels[4] : sectionLabels[6] }}</div>
         </div>
         <div class="v2-body">
+
+          <!-- Efficacy Test: Grafana -->
+          <template v-if="props.activeMonth === 'efficacy-test'">
+            <h2 class="v2-headline">Why Need <span class="gradient-blue">Grafana?</span></h2>
+
+            <div class="v2-cols-2" style="margin-top:32px;">
+              <div class="s6-card">
+                <h4 class="v2-sub-h">Without Grafana</h4>
+                <ul class="s6-list">
+                  <li>以 Excel 手動記錄測試數據</li>
+                  <li>只能閱讀冷冰冰的數字</li>
+                  <li>歷史數據難以回溯比較</li>
+                  <li>趨勢變化不易察覺</li>
+                </ul>
+              </div>
+              <div class="s6-card">
+                <h4 class="v2-sub-h">With Grafana</h4>
+                <ul class="s6-list">
+                  <li>歷史數據集中統一管理</li>
+                  <li>數據圖形化直觀呈現</li>
+                  <li>趨勢變化一目瞭然</li>
+                  <li>跨時間點比對輕鬆實現</li>
+                </ul>
+              </div>
+            </div>
+
+            <h2 class="v2-headline" style="margin-top:80px;">Grafana <span class="gradient-blue">Dashboard</span></h2>
+
+            <div class="v2-cols-2" style="margin-top:32px; align-items:stretch;">
+              <pre class="s6-tree">Data Pipeline
+├── Test Result
+│   ├── Compile Time
+│   ├── Download Time
+│   └── Open Project
+├── Time-Series DB
+│   └── MySQL Data Base
+└── Grafana Dashboard
+    ├── Line Chart
+    ├── Bar Chart
+    └── Alert</pre>
+              <div class="grafana-img-wrap lb-trigger" @click="openLightbox('https://grafana.com/api/dashboards/1860/images/7994/image')">
+                <img src="https://grafana.com/api/dashboards/1860/images/7994/image" alt="Grafana Dashboard" class="grafana-img">
+              </div>
+            </div>
+          </template>
+
+          <!-- Skills (other months) -->
+          <template v-else>
 
           <!-- Slide 1: Why Skills? -->
           <h2 class="v2-headline">Why Need <span class="gradient-blue">Skills?</span></h2>
@@ -442,6 +571,8 @@
 <span class="c-comment">存在，且修改時間為本次執行後</span></pre>
             </div>
           </div>
+
+          </template>
 
         </div>
       </div>
@@ -560,6 +691,24 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
+/* Grafana dashboard image */
+.grafana-img-wrap {
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.25);
+  cursor: zoom-in;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+.grafana-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
 /* §07 Apple-style code window */
 .s7-code-window {
   background: #1e1e2e;
@@ -623,6 +772,89 @@ onUnmounted(() => {
 .c-comment { color: #585b70; font-style: italic; }
 .c-bash    { color: #f38ba8; }
 .c-ps      { color: #fab387; }
+
+/* Milestones image */
+.milestones-img-wrap {
+  margin-top: 32px;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.18);
+}
+
+.milestones-img {
+  width: 100%;
+  display: block;
+}
+
+/* Timeline */
+.timeline-wrap {
+  position: relative;
+  margin-top: 32px;
+  padding-left: 2px;
+}
+
+.timeline-wrap::before {
+  content: '';
+  position: absolute;
+  left: 17px;
+  top: 26px;
+  bottom: 26px;
+  width: 1px;
+  background: linear-gradient(to bottom, color-mix(in oklab, var(--accent-blue) 60%, transparent), color-mix(in oklab, var(--accent-blue) 5%, transparent));
+}
+
+.timeline-item {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 10px 0;
+  position: relative;
+}
+
+.timeline-node {
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1.5px solid color-mix(in oklab, var(--accent-blue) 35%, transparent);
+  background: color-mix(in oklab, var(--accent-blue) 8%, transparent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+.timeline-node--last {
+  border-color: var(--accent-blue);
+  background: color-mix(in oklab, var(--accent-blue) 18%, transparent);
+  box-shadow: 0 0 16px color-mix(in oklab, var(--accent-blue) 25%, transparent);
+}
+
+.timeline-num {
+  font-size: 11px;
+  font-family: var(--font-mono);
+  color: var(--accent-blue);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  opacity: 0.8;
+}
+
+.timeline-node--last .timeline-num {
+  opacity: 1;
+}
+
+.timeline-content {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--ink-2);
+  letter-spacing: 0.01em;
+  line-height: 1.4;
+}
+
+.timeline-content--last {
+  color: var(--ink);
+  font-weight: 600;
+}
 
 .lb-trigger {
   cursor: zoom-in;
