@@ -22,7 +22,7 @@
         </div>
         <div class="v2-body">
           <h2 class="v2-headline">{{ report.monthHeadline }}<br>Monthly <span class="gradient-blue">Report.</span></h2>
-          <p class="apple-tagline">Optimized Efficiency. Compromiseless Quality.<br><span style="font-size:0.6em;opacity:1;">優化效益。絕不妥協的品質。</span></p>
+          <p class="apple-tagline">Optimized Efficiency. Compromiseless Quality.<br><span style="font-size:0.6em;opacity:1;">效率優化。絕不妥協的品質。</span></p>
           <dl class="cover-meta">
             <dt>NAME</dt><dd>{{ author.name }}</dd>
             <dt>DEPARTMENT</dt><dd>{{ author.department }}</dd>
