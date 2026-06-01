@@ -459,8 +459,9 @@
 
 <script setup lang="ts">
 import { ref, computed, watch, onMounted, onUnmounted } from 'vue'
-import * as april from '../data/months/2026-04'
-import * as may   from '../data/months/2026-05'
+import * as april        from '../data/months/2026-04'
+import * as may          from '../data/months/2026-05'
+import * as efficacyTest from '../data/months/efficacy-test'
 
 const currentSectionLabel = ref('— Cover')
 const activeSectionIndex = ref(1)
@@ -471,8 +472,8 @@ const openLightbox = (src: string) => { if (src) lightboxSrc.value = src }
 const closeLightbox = () => { lightboxSrc.value = '' }
 const onKeyDown = (e: KeyboardEvent) => { if (e.key === 'Escape') closeLightbox() }
 
-type MonthKey = '2026-04' | '2026-05'
-const MONTHS = { '2026-04': april, '2026-05': may } as const
+type MonthKey = '2026-04' | '2026-05' | 'efficacy-test'
+const MONTHS = { '2026-04': april, '2026-05': may, 'efficacy-test': efficacyTest } as const
 
 const props = defineProps<{ activeMonth: MonthKey }>()
 const md = computed(() => MONTHS[props.activeMonth])
