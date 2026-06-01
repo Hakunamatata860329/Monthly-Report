@@ -1,0 +1,5 @@
+{
+  "installCommand": "cd monthly-report-vue && npm install",
+  "buildCommand": "cd monthly-report-vue && npm run build",
+  "outputDirectory": "monthly-report-vue/dist"
+}
