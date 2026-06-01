@@ -75,18 +75,6 @@ export const risks = {
   resource:  { q1: '—', q2: '—' },
 }
 
-export const timeline: string[] = [
-  'Manual Testing & Excel Report',
-  'Test Case Automation',
-  'Database-Driven Test Data Management',
-  'Grafana Visualization',
-  'Version Test Result Consolidation',
-  'Config-Driven Architecture',
-  'Standardized Release Test Reporting',
-  'Automation Workflow Optimization',
-  'Grafana Dashboard Enhancement',
-]
-
 export const whatHappened: AchievementCard = {
   image: '/reference/shared/what-happened.png',
   title: '',

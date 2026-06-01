@@ -23,7 +23,7 @@
     </header>
 
     <main class="variation active v2">
-      <EditorialView :active-month="currentMonth" @section-change="updateEditorialProgress" />
+      <EditorialView :active-month="currentMonth" />
     </main>
   </div>
 </template>
@@ -48,11 +48,6 @@ watch(currentMonth, () => { window.scrollTo({ top: 0, behavior: 'smooth' }) })
 const toggleTheme = () => {
   theme.value = theme.value === 'light' ? 'dark' : 'light'
   localStorage.setItem('mr-theme', theme.value)
-}
-
-const updateEditorialProgress = (_data: { label: string, index: number, total: number }) => {
-  // This could be used for a global progress bar if needed, 
-  // but it's handled inside EditorialView for now to match wireframe.
 }
 
 const markVisibleNow = () => {
