@@ -392,6 +392,8 @@ body {
   margin: 0;
   box-shadow: 0 4px 16px rgba(0,0,0,0.06);
   white-space: pre;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
   height: 100%;
   box-sizing: border-box;
 }
@@ -744,6 +746,45 @@ body {
   .v2-body { max-width: 100%; }
 }
 
+/* Topbar: month selector becomes scrollable row below brand */
+@media (max-width: 768px) {
+  .topbar {
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 10px 16px;
+  }
+  .brand { order: 1; }
+  .actions { order: 2; margin-left: auto; }
+  .month-selector {
+    order: 3;
+    position: static;
+    transform: none;
+    width: 100%;
+    justify-content: flex-start;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .month-selector::-webkit-scrollbar { display: none; }
+
+  /* Progress bar: hide section label on small screens, save space */
+  .v2-progress {
+    grid-template-columns: auto 1fr;
+    gap: 12px;
+    padding: 10px 16px;
+  }
+  .v2-progress-current { display: none; }
+  .v2-progress-dots { justify-content: flex-start; }
+  .v2-progress-meta { text-align: right; }
+
+  /* Hero section-head absolute positioning: tighten margins */
+  .apple-hero .v2-sec-head {
+    left: 16px;
+    right: 16px;
+    top: 48px;
+  }
+}
+
 @media (max-width: 600px) {
   /* Section padding */
   .v2-sec { padding: 36px 16px; }
@@ -776,6 +817,24 @@ body {
   /* Theme tabs */
   .theme-tabs { gap: 6px; }
   .theme-tab { font-size: 12px; padding: 6px 14px; }
+
+  /* Two-column grid: collapse to single column */
+  .v2-cols-2 {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  /* Comparison sticky wrap: remove overflow bleed */
+  .v2-comparison-sticky-wrap {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  /* Cover meta: reduce gap to prevent overflow */
+  .cover-meta { gap: 0 24px; }
+
+  /* s6-tree: reduce font size for readability */
+  .s6-tree { font-size: 13px; padding: 20px 16px; }
 }
 
 /* --- Section background variants --- */
