@@ -578,6 +578,73 @@
       </div>
     </section>
 
+    <!-- 08 Data Analysis (2026-05 only) -->
+    <section v-show="props.activeMonth === '2026-05'" id="v2-s8" class="v2-sec">
+      <div class="v2-inner">
+        <div class="v2-sec-head">
+          <div class="v2-sec-id">{{ sectionLabels[7] }}</div>
+        </div>
+        <div class="v2-body">
+          <div class="comparison-header">
+            <h3 class="comparison-header-title">Execution Summary</h3>
+          </div>
+          <div class="milestones-img-wrap lb-trigger" @click="openLightbox('/reference/2026-05/voc-milestones.png')">
+            <img :src="'/reference/2026-05/voc-milestones.png'" alt="Data Analysis Execution Summary" class="milestones-img">
+          </div>
+
+          <!-- Upcoming Analyses -->
+          <div class="comparison-header" style="margin-top:56px;">
+            <h3 class="comparison-header-title">Upcoming Analyses</h3>
+          </div>
+          <div class="ap-grid">
+
+            <!-- 01 Customer Value -->
+            <div class="ap-card">
+              <div>
+                <div class="ap-num">01</div>
+                <h4 class="ap-title">客戶價值</h4>
+                <div class="ap-en">Customer Value</div>
+              </div>
+              <ul class="ap-questions">
+                <li>艾森豪矩陣評估</li>
+                <li>應用方案評估</li>
+                <li>市場價值評估</li>
+              </ul>
+            </div>
+
+            <!-- 02 Product Gap -->
+            <div class="ap-card">
+              <div>
+                <div class="ap-num">02</div>
+                <h4 class="ap-title">產品缺口分析</h4>
+                <div class="ap-en">Product Gap</div>
+              </div>
+              <ul class="ap-questions">
+                <li>哪些功能需求被客戶反覆提及</li>
+                <li>哪些功能出錯率較高</li>
+                <li>Roadmap 是否與市場需求脫節</li>
+              </ul>
+            </div>
+
+            <!-- 03 ROI -->
+            <div class="ap-card">
+              <div>
+                <div class="ap-num">03</div>
+                <h4 class="ap-title">投資報酬率</h4>
+                <div class="ap-en">Requirement ROI</div>
+              </div>
+              <ul class="ap-questions">
+                <li>最多共識的項目資訊</li>
+                <li>版本項目是否打擊到用戶痛點</li>
+                <li>開發功能項目的平均成本</li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Lightbox -->
     <Transition name="lb">
       <div v-if="lightboxSrc" class="lightbox-overlay" @click="closeLightbox">
@@ -890,4 +957,80 @@ onUnmounted(() => {
 .lb-leave-to {
   opacity: 0;
 }
+
+/* Analysis Pipeline */
+.ap-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 32px;
+  text-align: left;
+}
+
+@media (max-width: 900px) {
+  .ap-grid { grid-template-columns: 1fr; }
+}
+
+.ap-card {
+  background: var(--paper);
+  border-radius: 20px;
+  padding: 28px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.ap-num {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent-blue);
+  margin-bottom: 6px;
+}
+
+.ap-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 22px;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin: 0 0 4px;
+  line-height: 1.2;
+}
+
+.ap-en {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.ap-questions {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.ap-questions li {
+  font-size: 14px;
+  color: var(--ink-2);
+  line-height: 1.5;
+  padding: 9px 0;
+  border-bottom: 1.5px dashed var(--line-soft);
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.ap-questions li::before {
+  content: '—';
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--accent-blue);
+  flex-shrink: 0;
+}
+
 </style>

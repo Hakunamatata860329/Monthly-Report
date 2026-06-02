@@ -163,7 +163,7 @@ body {
 }
 .field-input {
   flex: 1;
-  color: var(--line-soft);
+  color: var(--ink);
   font-family: var(--font-sans);
   font-size: 15px;
   letter-spacing: -0.005em;
