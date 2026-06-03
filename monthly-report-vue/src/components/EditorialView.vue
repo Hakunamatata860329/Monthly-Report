@@ -586,7 +586,7 @@
         </div>
         <div class="v2-body">
           <div class="comparison-header">
-            <h3 class="comparison-header-title">Execution Summary</h3>
+            <h3 class="comparison-header-title">History</h3>
           </div>
           <div class="milestones-img-wrap lb-trigger" @click="openLightbox('/reference/2026-05/voc-milestones.png')">
             <img :src="'/reference/2026-05/voc-milestones.png'" alt="Data Analysis Execution Summary" class="milestones-img">
@@ -640,6 +640,9 @@
               </ul>
             </div>
 
+          </div>
+          <div style="margin-top:24px;">
+            <a href="https://deltao365-my.sharepoint.com/:f:/r/personal/jason_jy_lin_deltaww_com/Documents/Excel-Dashboard?csf=1&web=1&e=1wD8Ps" target="_blank" rel="noopener" class="ap-example-link">Example</a>
           </div>
         </div>
       </div>
@@ -1031,6 +1034,23 @@ onUnmounted(() => {
   font-size: 10px;
   color: var(--accent-blue);
   flex-shrink: 0;
+}
+
+.ap-example-link {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent-blue);
+  text-decoration: none;
+  border-bottom: 1.5px solid var(--accent-blue);
+  padding-bottom: 2px;
+  transition: opacity 0.15s;
+}
+
+.ap-example-link:hover {
+  opacity: 0.65;
 }
 
 </style>
