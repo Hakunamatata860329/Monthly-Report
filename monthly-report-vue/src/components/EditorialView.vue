@@ -641,8 +641,10 @@
             </div>
 
           </div>
-          <div style="margin-top:24px;">
-            <a href="https://deltao365-my.sharepoint.com/:f:/r/personal/jason_jy_lin_deltaww_com/Documents/Excel-Dashboard?csf=1&web=1&e=1wD8Ps" target="_blank" rel="noopener" class="ap-example-link">Example</a>
+          <div class="comparison-header" style="margin-top:56px;">
+            <h3 class="comparison-header-title">
+              <a href="https://deltao365-my.sharepoint.com/:f:/r/personal/jason_jy_lin_deltaww_com/Documents/Excel-Dashboard?csf=1&web=1&e=1wD8Ps" target="_blank" rel="noopener" class="ap-example-link">Example</a>
+            </h3>
           </div>
         </div>
       </div>
@@ -1037,14 +1039,9 @@ onUnmounted(() => {
 }
 
 .ap-example-link {
-  display: inline-block;
-  font-family: var(--font-mono);
-  font-size: 12px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
   color: var(--accent-blue);
   text-decoration: none;
-  border-bottom: 1.5px solid var(--accent-blue);
+  border-bottom: 2px solid var(--accent-blue);
   padding-bottom: 2px;
   transition: opacity 0.15s;
 }
