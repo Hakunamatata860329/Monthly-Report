@@ -75,7 +75,7 @@ export const keyProgress: Record<string, { completed: string; inProgress: string
 
 export const risks = {
   decision: { q1: 'SITR 工作流程要拍版確認', q2: '自動化項目的優先權討論' },
-  resource:  { q1: '測試計劃導入的 POC 資源', q2: '—' },
+  resource:  { q1: '測試計劃導入的 POC 資源', q2: 'VOC 須回歸各功能負責人追蹤' },
 }
 
 export const whatHappened: AchievementCard = {
